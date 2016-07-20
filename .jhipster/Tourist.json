@@ -1,0 +1,121 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "booking",
+      "otherEntityName": "booking",
+      "otherEntityRelationshipName": "tourist"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "one-to-many",
+      "relationshipName": "instanceReview",
+      "otherEntityName": "instanceReview",
+      "otherEntityRelationshipName": "tourist"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "one-to-many",
+      "relationshipName": "guestTourist",
+      "otherEntityName": "guestTourist",
+      "otherEntityRelationshipName": "tourist"
+    },
+    {
+      "relationshipId": 4,
+      "relationshipType": "one-to-one",
+      "relationshipName": "user",
+      "otherEntityName": "user",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "tourist"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "firstName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "lastName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "phoneNumber",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "countryResidence",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 6,
+      "fieldName": "countryBooking",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "language",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "currency",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 9,
+      "fieldName": "photoPrincipal",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldId": 10,
+      "fieldName": "createDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 11,
+      "fieldName": "editDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "changelogDate": "20160705045717",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "tourist"
+}

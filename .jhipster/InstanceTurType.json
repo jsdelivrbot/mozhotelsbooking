@@ -1,0 +1,31 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "instanceTur",
+      "otherEntityName": "instanceTur",
+      "otherEntityRelationshipName": "instanceTurType"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "instanceTurTypeName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160705045705",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "instance_tur_type"
+}

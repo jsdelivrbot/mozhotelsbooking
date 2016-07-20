@@ -8,7 +8,8 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('app', {
+        $stateProvider
+        .state('app', {
             abstract: true,
             views: {
                 'navbar@': {
@@ -27,6 +28,24 @@
                     $translatePartialLoader.addPart('global');
                 }]
             }
-        });
+        })
+        // .state('app', {
+        //     abstract: true,
+        //     views: {
+        //         'index-bo@': {
+        //             templateUrl: '/index-bo.html',
+        //
+        //         }
+        //     }
+        // })
+        // .state('index-fo', {
+        //     abstract: true,
+        //     views: {
+        //         'index-fo@': {
+        //             templateUrl: '/index-fo.html',
+        //
+        //         }
+        //     }
+        // });
     }
 })();

@@ -1,0 +1,51 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "localTur",
+      "otherEntityName": "localTur",
+      "otherEntityRelationshipName": "province"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "one-to-many",
+      "relationshipName": "picture",
+      "otherEntityName": "picture",
+      "otherEntityRelationshipName": "province"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "many-to-one",
+      "relationshipName": "region",
+      "otherEntityName": "region",
+      "otherEntityField": "regionName"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "provinceName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "photoPrincipal",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "changelogDate": "20160705045703",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "province"
+}

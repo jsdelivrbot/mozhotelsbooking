@@ -1,0 +1,101 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "picture",
+      "otherEntityName": "picture",
+      "otherEntityRelationshipName": "instanceRoomType"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-many",
+      "relationshipName": "instanceRoomFacility",
+      "otherEntityName": "instanceFacility",
+      "otherEntityField": "instanceRoomFacilityName",
+      "ownerSide": true
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "many-to-one",
+      "relationshipName": "instanceTur",
+      "otherEntityName": "instanceTur",
+      "otherEntityField": "instanceTurName"
+    },
+    {
+      "relationshipId": 4,
+      "relationshipType": "many-to-many",
+      "relationshipName": "booking",
+      "otherEntityName": "booking",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "instanceRoomType"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "instanceRoomTypeName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "quantity",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "capacityAdults",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "capacityChildren",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldId": 6,
+      "fieldName": "onlinePrice",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "branchPrice",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "taxInclude",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 9,
+      "fieldName": "tax",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldId": 10,
+      "fieldName": "photoPrincipal",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "changelogDate": "20160705045713",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "instance_room_type"
+}

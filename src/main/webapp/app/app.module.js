@@ -3,9 +3,9 @@
 
     angular
         .module('mozhotelsbookingApp', [
-            'ngStorage', 
+            'ngStorage',
             'tmh.dynamicLocale',
-            'pascalprecht.translate', 
+            'pascalprecht.translate',
             'ngResource',
             'ngCookies',
             'ngAria',
@@ -17,6 +17,9 @@
             'infinite-scroll',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar'
+            // ,'slickCarousel'
+            // ,'ngMaterial'
+            
         ])
         .run(run);
 

@@ -1,0 +1,51 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "instanceTur",
+      "otherEntityName": "instanceTur",
+      "otherEntityRelationshipName": "localTur"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "one-to-many",
+      "relationshipName": "picture",
+      "otherEntityName": "picture",
+      "otherEntityRelationshipName": "localTur"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "many-to-one",
+      "relationshipName": "province",
+      "otherEntityName": "province",
+      "otherEntityField": "provinceName"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "localTurName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "photoPrincipal",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "changelogDate": "20160705045704",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "local_tur"
+}

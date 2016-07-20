@@ -1,0 +1,50 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "instanceFacility",
+      "otherEntityName": "instanceFacility",
+      "otherEntityRelationshipName": "instanceFacilityType"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "facilityType",
+      "fieldType": "FacilityType",
+      "fieldValues": "SERVICE,RESOURCE",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "instanceFacilityTypeName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "instanceFacility",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "instanceRoomFacility",
+      "fieldType": "Boolean"
+    }
+  ],
+  "changelogDate": "20160705045706",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "instance_facility_type"
+}

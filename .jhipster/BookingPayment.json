@@ -1,0 +1,111 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-one",
+      "relationshipName": "booking",
+      "otherEntityName": "booking",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "bookingPayment"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "type",
+      "fieldType": "PaymentType",
+      "fieldValues": "CREDIT_CARD,DEBIT_CARD,PAYPAL",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "currency",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "amount",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "createDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "editDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 6,
+      "fieldName": "state",
+      "fieldType": "PaymentState",
+      "fieldValues": "SUBMITED,IN_PROGRESS,PAID,CANCELED,FAILED",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "cardHolder",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "cardType",
+      "fieldType": "CardType",
+      "fieldValues": "VISA,MASTERCARD,MOZHOTELS,OTHER",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 9,
+      "fieldName": "cardNumber",
+      "fieldType": "Integer",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 10,
+      "fieldName": "cardExpiry",
+      "fieldType": "Integer",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 11,
+      "fieldName": "cardCcv",
+      "fieldType": "Integer",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "changelogDate": "20160705045720",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "booking_payment"
+}

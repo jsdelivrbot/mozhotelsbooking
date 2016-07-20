@@ -1,0 +1,54 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "booking",
+      "otherEntityName": "booking",
+      "otherEntityRelationshipName": "guestTourist"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-one",
+      "relationshipName": "tourist",
+      "otherEntityName": "tourist",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "firstName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "lastName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "countryResidence",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160705045718",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "guest_tourist"
+}

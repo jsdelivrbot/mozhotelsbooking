@@ -1,0 +1,47 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-one",
+      "relationshipName": "instanceInfoType",
+      "otherEntityName": "instanceInfoType",
+      "otherEntityField": "instanceInfoTypeName"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-one",
+      "relationshipName": "instanceTur",
+      "otherEntityName": "instanceTur",
+      "otherEntityField": "instanceTurName"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "instanceInfo",
+      "fieldType": "InfoType",
+      "fieldValues": "POLICY,USEFUL,STAFF",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "instanceInfoName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160705045714",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "instance_info"
+}

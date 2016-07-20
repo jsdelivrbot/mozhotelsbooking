@@ -1,0 +1,91 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-one",
+      "relationshipName": "instanceTur",
+      "otherEntityName": "instanceTur",
+      "otherEntityField": "instanceTurName"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-one",
+      "relationshipName": "tourist",
+      "otherEntityName": "tourist",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "cleanliness",
+      "fieldType": "Float"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "roomConfort",
+      "fieldType": "Float"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "location",
+      "fieldType": "Float"
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "serviceStaff",
+      "fieldType": "Float"
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "sleepQuality",
+      "fieldType": "Float"
+    },
+    {
+      "fieldId": 6,
+      "fieldName": "valuePrice",
+      "fieldType": "Float"
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "evaluation",
+      "fieldType": "Evaluation",
+      "fieldValues": "WONDERFULL,NICE,NEUTRAL,DONT_RECOMEND"
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 9,
+      "fieldName": "comment",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 10,
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 11,
+      "fieldName": "approval",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 12,
+      "fieldName": "createDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 13,
+      "fieldName": "editDate",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "changelogDate": "20160705045715",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "instance_review"
+}

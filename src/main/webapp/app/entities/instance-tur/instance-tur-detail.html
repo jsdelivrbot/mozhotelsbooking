@@ -1,0 +1,87 @@
+
+<div>
+    <h2><span translate="mozhotelsbookingApp.instanceTur.detail.title">Instance Tur</span> {{vm.instanceTur.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="mozhotelsbookingApp.instanceTur.instanceTurName">Instance Tur Name</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.instanceTurName}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.description">Description</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.description}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.address">Address</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.address}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.website">Website</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.website}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.email">Email</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.email}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.latitude">Latitude</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.latitude}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.longitude">Longitude</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.longitude}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.rooms">Rooms</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.rooms}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.beds">Beds</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.beds}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.floors">Floors</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.floors}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.rating">Rating</span></dt>
+        <dd>
+            <span translate="{{'mozhotelsbookingApp.InstanceRating.' + vm.instanceTur.rating}}">{{vm.instanceTur.rating}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.currency">Currency</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.currency}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.contactNumberPrincipal">Contact Number Principal</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.contactNumberPrincipal}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.zipCode">Zip Code</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.zipCode}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.photoPrincipal">Photo Principal</span></dt>
+        <dd>
+            <div ng-if="vm.instanceTur.photoPrincipal">
+                <a ng-click="vm.openFile(vm.instanceTur.photoPrincipalContentType, vm.instanceTur.photoPrincipal)">
+                    <img data-ng-src="{{'data:' + vm.instanceTur.photoPrincipalContentType + ';base64,' + vm.instanceTur.photoPrincipal}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.instanceTur.photoPrincipalContentType}}, {{vm.byteSize(vm.instanceTur.photoPrincipal)}}
+            </div>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.localTur">Local Tur</span></dt>
+        <dd>
+            <a ui-sref="local-tur-detail({id:vm.instanceTur.localTur.id})">{{vm.instanceTur.localTur.localTurName}}</a>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.instanceTurType">Instance Tur Type</span></dt>
+        <dd>
+            <a ui-sref="instance-tur-type-detail({id:vm.instanceTur.instanceTurType.id})">{{vm.instanceTur.instanceTurType.instanceTurTypeName}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>
