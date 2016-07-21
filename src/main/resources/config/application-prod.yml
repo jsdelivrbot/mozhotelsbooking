@@ -18,10 +18,10 @@ spring:
         livereload:
             enabled: false
     datasource:
-        url: jdbc:postgresql://localhost:5432/mozhotelsbooking
-        name:
-        username: mozhotelsbooking
-        password:
+        url: postgres://uttpmboaotupht:K39monTIn52K1vCH-bFpsKTywa@ec2-54-83-31-65.compute-1.amazonaws.com:5432/d7bcguim1lbvcu
+        name: d7bcguim1lbvcu
+        username: uttpmboaotupht
+        password: K39monTIn52K1vCH-bFpsKTywa
     jpa:
         database-platform: mozhotels.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
