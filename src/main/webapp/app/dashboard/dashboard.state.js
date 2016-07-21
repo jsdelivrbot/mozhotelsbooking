@@ -9,7 +9,7 @@
 
     function stateConfig($stateProvider) {
         $stateProvider.state('dashboard', {
-            parent: 'app',
+            parent: '',
             url: '/dashboard',
             data: {
                 authorities: []

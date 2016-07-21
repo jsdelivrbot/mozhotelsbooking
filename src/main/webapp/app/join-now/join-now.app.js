@@ -8,26 +8,25 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('payment', {
-            parent: 'app-frontOffice',
-            url: '/payment',
+        $stateProvider.state('join-now', {
+            parent: '',
+            url: '/join-now',
             data: {
                 authorities: []
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/payment/payment.html',
-                    controller: 'PaymentController',
+                    templateUrl: 'app/join-now/join-now.html',
+                    controller: 'JoinNowController',
                     controllerAs: 'vm'
                 }
             },
             // resolve: {
             //     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
-            //         $translatePartialLoader.addPart('payment');
+            //         $translatePartialLoader.addPart('join-now');
             //         return $translate.refresh();
             //     }]
             // }
-
         });
     }
 })();

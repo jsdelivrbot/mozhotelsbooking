@@ -1,37 +1,14 @@
 <!doctype html>
 <html class="no-js">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>mozhotelsbooking</title>
-    <meta name="description" content="">
-    <meta name="google" value="notranslate">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css content/css/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
-    <!-- endinject -->
-    <!-- endbuild -->
-    build:css content/css/main.css
-    <link rel="stylesheet" href="content/css/main.css">
-    <!-- endbuild -->
-
-    <!-- Template Html - Begin -->
-          <!-- <link href="examples/carousel/carousel.css" rel="stylesheet"> -->
-              <!-- Fonts -->
-        	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-        	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>
-
-    <!-- Template Html - End -->
-
-      <!-- MyCss - Start -->
-         <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css"/>
-         <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.css"/>
-         <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick.css"/>
-         <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick-theme.css"/>
-      <!-- MyCss - End -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>mozhotelsbooking</title>
+  <meta name="description" content="">
+  <meta name="google" value="notranslate">
+  <meta name="viewport" content="width=device-width">
+<!-- <div ng-include="'index-fo.html'"></div>
+<div ng-include="'content/orange/menu.html'" ng-cloak=""></div> -->
 
 </head>
 <body ng-app="mozhotelsbookingApp" ng-strict-di="">
@@ -39,19 +16,12 @@
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
+    <!-- <div ui-view="index-bo" ng-cloak=""></div> -->
 
-    <page-ribbon></page-ribbon>
     <div ui-view="navbar" ng-cloak=""></div>
-    <div>
-        <div  ui-view="content">
-            <!-- Angular views -->
-        </div>
+    <div ui-view="frontOffice" ng-cloak=""></div>
 
-        <div class="footer" ng-cloak="">
-            <!-- <p translate="footer">This is your footer</p> -->
-
-            </div>
-    </div>
+    <div ui-view="content"></div>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
     <script>
@@ -86,6 +56,7 @@
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    <script src="bower_components/alasql/dist/alasql.min.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -111,6 +82,8 @@
     <script src="app/payment/payment.controller.js"></script>
     <script src="app/member-benefit/member-benefit.state.js"></script>
     <script src="app/member-benefit/member-benefit.js"></script>
+    <script src="app/main/main.state.js"></script>
+    <script src="app/main/main.controller.js"></script>
     <script src="app/loading/loading.state.js"></script>
     <script src="app/loading/loading.controller.js"></script>
     <script src="app/list/list.state.js"></script>
@@ -317,6 +290,7 @@
     <script src="app/blocks/config/http.config.js"></script>
     <script src="app/blocks/config/compile.config.js"></script>
     <script src="app/blocks/config/alert.config.js"></script>
+    <script src="app/app-frontOffice.js"></script>
     <script src="app/app.state.js"></script>
     <script src="app/app.constants.js"></script>
     <script src="app/admin/user-management/user-management-dialog.controller.js"></script>
@@ -376,9 +350,9 @@
         <!-- <script src="/bower_components/angular-animate/angular-animate.js"></script> -->
     <!-- My Scripts - End -->
 
-    <script>
+    <!-- <script>
       $.material.init()
-    </script>
+    </script> -->
 
 </body>
 </html>

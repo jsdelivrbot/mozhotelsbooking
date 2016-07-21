@@ -9,7 +9,7 @@
 
     function stateConfig($stateProvider) {
         $stateProvider.state('list', {
-            parent: 'app',
+            parent: 'app-frontOffice',
             url: '/list',
             data: {
                 authorities: []

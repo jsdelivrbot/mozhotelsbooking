@@ -9,7 +9,7 @@
 
     function stateConfig($stateProvider) {
         $stateProvider.state('detail', {
-            parent: 'app',
+            parent: 'app-frontOffice',
             url: '/detail',
             data: {
                 authorities: []

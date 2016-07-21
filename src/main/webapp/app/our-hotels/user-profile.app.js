@@ -8,26 +8,25 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('payment', {
+        $stateProvider.state('our-hotels', {
             parent: 'app-frontOffice',
-            url: '/payment',
+            url: '/our-hotels',
             data: {
                 authorities: []
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/payment/payment.html',
-                    controller: 'PaymentController',
+                    templateUrl: 'app/our-hotels/our-hotels.html',
+                    controller: 'OurHotelsController',
                     controllerAs: 'vm'
                 }
             },
             // resolve: {
             //     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
-            //         $translatePartialLoader.addPart('payment');
+            //         $translatePartialLoader.addPart('our-hotels');
             //         return $translate.refresh();
             //     }]
             // }
-
         });
     }
 })();
