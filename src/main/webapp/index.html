@@ -7,10 +7,16 @@
   <meta name="description" content="">
   <meta name="google" value="notranslate">
   <meta name="viewport" content="width=device-width">
+  <base href="/src/main/webapp/" />
 <!-- <div ng-include="'index-fo.html'"></div>
 <div ng-include="'content/orange/menu.html'" ng-cloak=""></div> -->
 <div ui-view="navbar" ng-cloak=""></div>
 <div ui-view="frontOffice" ng-cloak=""></div>
+
+<!-- After application modification, repackage it with
+	./gradlew bootRepackage -x test -Pprod
+And then re-deploy it with
+	cf push -f ./deploy/cloudfoundry/manifest.yml -p build/libs/*.war -->
 
 </head>
 <body ng-app="mozhotelsbookingApp" ng-strict-di="">
