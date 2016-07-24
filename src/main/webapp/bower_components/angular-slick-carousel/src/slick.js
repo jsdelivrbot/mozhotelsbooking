@@ -11,7 +11,7 @@ angular
     '$timeout', 'slickCarouselConfig', function ($timeout, slickCarouselConfig) {
       var slickMethodList, slickEventList;
       slickMethodList = ['slickGoTo', 'slickNext', 'slickPrev', 'slickPause', 'slickPlay', 'slickAdd', 'slickRemove', 'slickFilter', 'slickUnfilter', 'unslick'];
-      slickEventList = ['afterChange', 'beforeChange', 'breakpoint', 'destroy', 'edge', 'init', 'reInit', 'setPosition', 'swipe'];
+      slickEventList = ['afterChange', 'beforeChange', 'breakpoint', 'destroy', 'edge', 'init', 'reInit', 'setPosition', 'swipe', 'lazyLoaded', 'lazyLoadError'];
 
       return {
         scope: {
@@ -172,12 +172,12 @@ angular
             });
 
             // Event
-            slickness.on('afterChange', function (event, slick, currentSlide, nextSlide) {
+            slickness.on('afterChange', function (event, slick, currentSlide) {
               currentIndex = currentSlide;
               if (typeof options.event.afterChange !== 'undefined') {
                 $timeout(function () {
                   scope.$apply(function () {
-                    options.event.afterChange(event, slick, currentSlide, nextSlide);
+                    options.event.afterChange(event, slick, currentSlide);
                   });
                 });
               }
@@ -251,6 +251,24 @@ angular
                 });
               });
             }
+            if (typeof options.event.lazyLoaded !== 'undefined') {
+              slickness.on('lazyLoaded', function (event, slick, image, imageSource) {
+                $timeout(function () {
+                  scope.$apply(function () {
+                    options.event.lazyLoaded(event, slick, image, imageSource);
+                  });
+                });
+              });
+            }
+            if (typeof options.event.lazyLoadError !== 'undefined') {
+              slickness.on('lazyLoadError', function (event, slick, image, imageSource) {
+                $timeout(function () {
+                  scope.$apply(function () {
+                    options.event.lazyLoadError(event, slick, image, imageSource);
+                  });
+                });
+              });
+            }
           };
 
           destroyAndInit = function () {
@@ -263,7 +281,7 @@ angular
           });
 
           return scope.$watch('settings', function (newVal, oldVal) {
-            if (newVal !== null) {
+            if (typeof newVal !== 'undefined' && newVal !== null) {
               return destroyAndInit();
             }
           }, true);

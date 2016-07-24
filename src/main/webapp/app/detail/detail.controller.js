@@ -10,5 +10,12 @@
     function DetailController ($scope) {
         var vm = this;
 
+        vm.dates = {
+       startDate: moment().subtract(1, "days"),
+       endDate: moment()
+      };
+
+      vm.minDate =  moment().subtract(1, "days");
+
     }
 })();

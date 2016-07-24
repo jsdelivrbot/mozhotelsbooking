@@ -9,7 +9,7 @@
 
     function stateConfig($stateProvider) {
         $stateProvider.state('loading', {
-            parent: 'app-frontOffice',
+            parent: '',
             url: '/loading',
             data: {
                 authorities: []

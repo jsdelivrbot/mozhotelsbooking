@@ -9,16 +9,17 @@
   <meta name="viewport" content="width=device-width">
 <!-- <div ng-include="'index-fo.html'"></div>
 <div ng-include="'content/orange/menu.html'" ng-cloak=""></div> -->
-<div ui-view="navbar" ng-cloak=""></div>
-<div ui-view="frontOffice" ng-cloak=""></div>
+<div ui-view="navbar" ng-cloak></div>
+  <div ui-view="frontOffice" ng-cloak></div>
 
 <!-- After application modification, repackage it with
 	./gradlew bootRepackage -x test -Pprod
 And then re-deploy it with
 	cf push -f ./deploy/cloudfoundry/manifest.yml -p build/libs/*.war -->
 
+
 </head>
-<body ng-app="mozhotelsbookingApp" ng-strict-di="">
+<body ng-app="mozhotelsbookingApp" ng-strict-di="" id="top" class="thebg" ng-cloak>
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -27,7 +28,7 @@ And then re-deploy it with
 
 
 
-    <div ui-view="content"></div>
+    <div ui-view="content" ng-cloak></div>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
     <script>
@@ -44,6 +45,9 @@ And then re-deploy it with
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/messageformat/messageformat.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/js-xls/dist/xls.js"></script>
+    <script src="bower_components/js-xlsx/dist/xlsx.js"></script>
+    <script src="bower_components/es6-promise/promise.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -359,14 +363,17 @@ And then re-deploy it with
     <!-- My Scripts - Begin -->
         <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
         <script src="bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
-        <script src="bower_components/slick-carousel/slick/slick.js"></script>
-        <script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
+
         <!-- <script src="/bower_components/angular-animate/angular-animate.js"></script> -->
     <!-- My Scripts - End -->
 
-    <!-- <script>
+    <script>
       $.material.init()
-    </script> -->
+    </script>
+    <!-- Javascript
+
+
+
 
 </body>
 </html>

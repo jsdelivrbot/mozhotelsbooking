@@ -15,7 +15,7 @@
                 authorities: []
             },
             views: {
-                'content@': {
+                'dashboard@': {
                     templateUrl: 'app/dashboard/dashboard.html',
                     controller: 'DashboardController',
                     controllerAs: 'vm'

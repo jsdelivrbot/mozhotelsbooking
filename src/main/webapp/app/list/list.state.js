@@ -11,6 +11,7 @@
         $stateProvider.state('list', {
             parent: 'app-frontOffice',
             url: '/list',
+  
             data: {
                 authorities: []
             },

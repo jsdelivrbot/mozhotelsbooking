@@ -13,20 +13,22 @@
             abstract: true,
             views: {
                 'frontOffice@': {
-                    templateUrl: 'headerFrontOffice.html',
+                    templateUrl: '/headerFrontOffice.html',
+                    controller: 'HeaderFrontOfficeController',
+                    controllerAs: 'vm'
 
                 }
+            },
+            resolve: {
+                authorize: ['Auth',
+                    function (Auth) {
+                        return Auth.authorize();
+                    }
+                ],
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('global');
+                }]
             }
-            // resolve: {
-            //     authorize: ['Auth',
-            //         function (Auth) {
-            //             return Auth.authorize();
-            //         }
-            //     ],
-            //     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-            //         $translatePartialLoader.addPart('global');
-            //     }]
-            // }
         })
         // .state('app', {
         //     abstract: true,

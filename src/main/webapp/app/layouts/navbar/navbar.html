@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand logo" ui-sref="home" ng-click="vm.collapseNavbar()">
-                <img class="logo-img" src="content/images/logo-jhipster.png"/>
+                <img class="logo-img" src="content/images/logo.png"/>
                 <span translate="global.title">Mozhotelsbooking</span> <span class="navbar-version">v{{VERSION}}</span>
             </a>
         </div>
@@ -30,25 +30,25 @@
                   </a>
                   <ul class="dropdown-menu" uib-dropdown-menu>
                       <li ui-sref-active="active" ng-switch-when="true">
-                          <a ui-sref="main" ng-click="vm.collapseNavbar()">
+                          <a ui-sref="main" target="_blank" ng-click="vm.collapseNavbar()">
                               <span class="glyphicon glyphicon-cloud"></span>&nbsp;
                               <span>Booking</span>
                           </a>
                       </li>
                       <li ui-sref-active="active" ng-switch-when="true">
-                          <a ui-sref="main" ng-click="vm.collapseNavbar()">
+                          <a href="https://www.beds24.com" target="_blank" ng-click="vm.collapseNavbar()">
                               <span class="glyphicon glyphicon-cloud"></span>&nbsp;
                               <span>Hotels</span>
                           </a>
                       </li>
                       <li ui-sref-active="active" ng-switch-when="true">
-                          <a ui-sref="" ng-click="vm.collapseNavbar()">
+                          <a href="https://www.odoo.com" target="_blank" ng-click="vm.collapseNavbar()">
                               <span class="glyphicon glyphicon-cloud"></span>&nbsp;
                               <span>Management</span>
                           </a>
                       </li>
                       <li ui-sref-active="active" ng-switch-when="true">
-                          <a ui-sref="" ng-click="vm.collapseNavbar()">
+                          <a href="https://www.spagobi.org" target="_blank" ng-click="vm.collapseNavbar()">
                               <span class="glyphicon glyphicon-cloud"></span>&nbsp;
                               <span>Analytics</span>
                           </a>

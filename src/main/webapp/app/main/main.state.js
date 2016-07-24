@@ -5,7 +5,7 @@
         .module('mozhotelsbookingApp')
         .config(stateConfig);
 
-    stateConfig.$inject = ['$stateProvider'];
+    stateConfig.$inject = ['$stateProvider','$urlRouterProvider'];
 
     function stateConfig($stateProvider) {
         $stateProvider.state('main', {
@@ -19,8 +19,9 @@
                     templateUrl: 'app/main/main.html',
                     controller: 'MainController',
                     controllerAs: 'vm'
+
                 }
-            },
+            }
             // resolve: {
             //     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
             //         $translatePartialLoader.addPart('main');

@@ -29,6 +29,9 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/js-xls/dist/xls.js',
             'src/main/webapp/bower_components/js-xlsx/dist/xlsx.js',
             'src/main/webapp/bower_components/es6-promise/promise.js',
+            'src/main/webapp/bower_components/moment/moment.js',
+            'src/main/webapp/bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
+            'src/main/webapp/bower_components/bootstrap-daterangepicker/daterangepicker.js',
             'src/main/webapp/bower_components/angular/angular.js',
             'src/main/webapp/bower_components/angular-aria/angular-aria.js',
             'src/main/webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
@@ -48,6 +51,8 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/ng-file-upload/ng-file-upload.js',
             'src/main/webapp/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
             'src/main/webapp/bower_components/alasql/dist/alasql.min.js',
+            'src/main/webapp/bower_components/angular-datepicker/dist/angular-datepicker.js',
+            'src/main/webapp/bower_components/angular-daterangepicker/js/angular-daterangepicker.js',
             'src/main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'src/main/webapp/app/app.module.js',

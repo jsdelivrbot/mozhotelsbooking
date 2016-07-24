@@ -7,19 +7,20 @@
   <meta name="description" content="">
   <meta name="google" value="notranslate">
   <meta name="viewport" content="width=device-width">
-  <base href="/src/main/webapp/" />
 <!-- <div ng-include="'index-fo.html'"></div>
 <div ng-include="'content/orange/menu.html'" ng-cloak=""></div> -->
-<div ui-view="navbar" ng-cloak=""></div>
-<div ui-view="frontOffice" ng-cloak=""></div>
 
 <!-- After application modification, repackage it with
 	./gradlew bootRepackage -x test -Pprod
 And then re-deploy it with
 	cf push -f ./deploy/cloudfoundry/manifest.yml -p build/libs/*.war -->
 
+
+  <div ui-view="navbar" ng-cloak></div>
+  <div ui-view="frontOffice" ng-cloak></div>
+  <div ui-view="dashboard" ng-cloak></div>
 </head>
-<body ng-app="mozhotelsbookingApp" ng-strict-di="">
+<body ng-app="mozhotelsbookingApp" ng-strict-di="" id="top" class="thebg" ng-cloak>
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -28,7 +29,7 @@ And then re-deploy it with
 
 
 
-    <div ui-view="content"></div>
+    <div ui-view="content" ng-cloak></div>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
     <script>
@@ -48,6 +49,9 @@ And then re-deploy it with
     <script src="bower_components/js-xls/dist/xls.js"></script>
     <script src="bower_components/js-xlsx/dist/xlsx.js"></script>
     <script src="bower_components/es6-promise/promise.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+    <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -67,6 +71,8 @@ And then re-deploy it with
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
     <script src="bower_components/alasql/dist/alasql.min.js"></script>
+    <script src="bower_components/angular-datepicker/dist/angular-datepicker.js"></script>
+    <script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -114,6 +120,7 @@ And then re-deploy it with
     <script src="app/intro/intro.controller.js"></script>
     <script src="app/home/home.state.js"></script>
     <script src="app/home/home.controller.js"></script>
+    <script src="app/headerFrontOfficeController.js"></script>
     <script src="app/entities/tourist/tourist-dialog.controller.js"></script>
     <script src="app/entities/tourist/tourist-detail.controller.js"></script>
     <script src="app/entities/tourist/tourist-delete-dialog.controller.js"></script>
@@ -295,6 +302,10 @@ And then re-deploy it with
     <script src="app/components/alert/alert-error.directive.js"></script>
     <script src="app/components/alert/alert.service.js"></script>
     <script src="app/components/alert/alert.directive.js"></script>
+    <script src="app/blog-details/blog-details.state.js"></script>
+    <script src="app/blog-details/blog-details.controller.js"></script>
+    <script src="app/blog/blog.state.js"></script>
+    <script src="app/blog/blog.controller.js"></script>
     <script src="app/blocks/interceptor/notification.interceptor.js"></script>
     <script src="app/blocks/interceptor/errorhandler.interceptor.js"></script>
     <script src="app/blocks/interceptor/auth-expired.interceptor.js"></script>
@@ -363,14 +374,35 @@ And then re-deploy it with
     <!-- My Scripts - Begin -->
         <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
         <script src="bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
-        <script src="bower_components/slick-carousel/slick/slick.js"></script>
-        <script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
-        <!-- <script src="/bower_components/angular-animate/angular-animate.js"></script> -->
+
+
+
+        <!-- <script src="bower_components/momentjs/moment.js"></script>
+        <script src="bower_components/moment/min/moment-with-locales.js"></script>
+        <script src="bower_components/moment-timezone/moment-timezone.js"></script>
+        <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.js"></script> -->
+
+        <!-- <script src="bower_components/angular-datepicker/dist/angular-datepicker.js"></script> -->
+        <!-- <script src="bower_components/moment/moment.js"></script> -->
+        <!-- <script src="bower_components/jquery-ui-daterangepicker/jquery.comiseo.daterangepicker.js"></script> -->
+        <!-- <script src="bower_components/moment-timezone/moment-timezone.js"></script> -->
+        <!-- <script src="/bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/velocity/velocity.js"></script>
+        <script src="bower_components/moment/min/moment-with-locales.js"></script>
+        <script src="bower_components/lumx/dist/lumx.js"></script>
     <!-- My Scripts - End -->
 
-    <!-- <script>
+
+
+    <script>
       $.material.init()
-    </script> -->
+    </script>
+    <!-- Javascript
+
+
+
 
 </body>
 </html>

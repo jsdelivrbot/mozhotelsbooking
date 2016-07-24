@@ -1,6 +1,6 @@
 {
   "name": "angular-slick-carousel",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "homepage": "https://github.com/devmark/angular-slick-carousel",
   "authors": [
     "DevMark <hc.devmark@gmail.com>"
@@ -15,8 +15,7 @@
   ],
   "license": "MIT",
   "main": [
-    "dist/angular-slick.js",
-    "bower.json"
+    "dist/angular-slick.js"
   ],
   "dependencies": {
     "slick-carousel": "~1.6.0",
@@ -32,14 +31,13 @@
     "jquery": "~2.1.4",
     "angular": "~1.4.0"
   },
-  "_release": "3.1.5",
+  "_release": "3.1.6",
   "_resolution": {
     "type": "version",
-    "tag": "3.1.5",
-    "commit": "80159972d0e70d625b93f406490889b24a29c1a3"
+    "tag": "3.1.6",
+    "commit": "dc23ea4dd6bd229120919ad40cb1335f0473739e"
   },
   "_source": "https://github.com/devmark/angular-slick-carousel.git",
   "_target": "^3.1.5",
-  "_originalSource": "angular-slick-carousel",
-  "_direct": true
+  "_originalSource": "angular-slick-carousel"
 }
