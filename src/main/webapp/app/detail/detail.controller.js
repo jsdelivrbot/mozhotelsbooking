@@ -17,5 +17,12 @@
 
       vm.minDate =  moment().subtract(1, "days");
 
+      vm.tabData   = [
+        {
+          heading: 'Summary',
+          route:   'detail.summary'
+        }=
+      ];
+
     }
 })();

@@ -27,6 +27,10 @@
             //         return $translate.refresh();
             //     }]
             // }
+        }),
+        .state('detail.summary', {
+          url:         '/detail/#summary',
+          templateUrl: 'app/detail/detail.html'
         });
     }
 })();

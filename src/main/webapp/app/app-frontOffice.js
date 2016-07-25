@@ -13,9 +13,7 @@
             abstract: true,
             views: {
                 'frontOffice@': {
-                    templateUrl: '/headerFrontOffice.html',
-                    controller: 'HeaderFrontOfficeController',
-                    controllerAs: 'vm'
+                    templateUrl: '/headerFrontOffice.html'
 
                 }
             },
