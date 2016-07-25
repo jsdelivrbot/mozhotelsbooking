@@ -29,7 +29,27 @@
             // }
         })
         .state('detail.summary', {
-          url:         '/detail/#summary',
+          url:         '#/detail/#summary',
+          templateUrl: 'app/detail/detail.html'
+        })
+        .state('detail.roomrates', {
+          url:         '#/detail/#roomrates',
+          templateUrl: 'app/detail/detail.html'
+        })
+        .state('detail.preferences', {
+          url:         '#/detail/#preferences',
+          templateUrl: 'app/detail/detail.html'
+        })
+        .state('detail.maps', {
+          url:         '#/detail/#maps',
+          templateUrl: 'app/detail/detail.html'
+        })
+        .state('detail.reviews', {
+          url:         '#/detail/#reviews',
+          templateUrl: 'app/detail/detail.html'
+        })
+        .state('detail.thingstodo', {
+          url:         '#/detail/#thingstodo',
           templateUrl: 'app/detail/detail.html'
         });
     }

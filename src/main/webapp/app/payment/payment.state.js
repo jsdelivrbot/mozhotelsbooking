@@ -28,6 +28,14 @@
             //     }]
             // }
 
+        })
+        .state('payment.card', {
+          url:         '#/payment/#card',
+          templateUrl: 'app/payment/payment.html'
+        })
+        .state('payment.paypal', {
+          url:         '#/payment/#paypal',
+          templateUrl: 'app/payment/payment.html'
         });
     }
 })();

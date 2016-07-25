@@ -27,6 +27,14 @@
             //         return $translate.refresh();
             //     }]
             // }
+        })
+        .state('blog-detail.newtopic', {
+          url:         '#/blog-detail/#newtopic',
+          templateUrl: 'app/blog-detail/blog.html'
+        })
+        .state('blog-detail.comments', {
+          url:         '#/blog-detail/#comments',
+          templateUrl: 'app/blog-detail/blog.html'
         });
     }
 })();
