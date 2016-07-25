@@ -21,7 +21,7 @@
         {
           heading: 'Summary',
           route:   'detail.summary'
-        }=
+        }
       ];
 
     }

@@ -5,10 +5,14 @@
         .module('mozhotelsbookingApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
+    NavbarController.$inject = ['$scope','$anchorScroll', '$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
 
-    function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
+    function NavbarController ($scope, $anchorScroll, $state, Auth, Principal, ProfileService, LoginService) {
         var vm = this;
+
+        $scope.scrollTo = function (id) {
+          $anchorScroll(id);
+        }
 
         vm.isNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;

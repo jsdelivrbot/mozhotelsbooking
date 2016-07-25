@@ -30,9 +30,7 @@
                 $anchorScroll();
     });
 
-      $rootScope.scrollTo = function (id) {
-        $anchorScroll(id);
-      }
+      
 
     //   vm.opts = {
     //     locale: {
