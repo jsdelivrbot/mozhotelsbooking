@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('InstanceRoomType Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockInstanceRoomType, MockPicture, MockInstanceFacility, MockInstanceTur, MockBooking;
+        var MockEntity, MockInstanceRoomType, MockPicture, MockInstanceFacility, MockBooking, MockInstanceTur;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -14,8 +14,8 @@ describe('Controller Tests', function() {
             MockInstanceRoomType = jasmine.createSpy('MockInstanceRoomType');
             MockPicture = jasmine.createSpy('MockPicture');
             MockInstanceFacility = jasmine.createSpy('MockInstanceFacility');
-            MockInstanceTur = jasmine.createSpy('MockInstanceTur');
             MockBooking = jasmine.createSpy('MockBooking');
+            MockInstanceTur = jasmine.createSpy('MockInstanceTur');
             
 
             var locals = {
@@ -25,8 +25,8 @@ describe('Controller Tests', function() {
                 'InstanceRoomType': MockInstanceRoomType,
                 'Picture': MockPicture,
                 'InstanceFacility': MockInstanceFacility,
-                'InstanceTur': MockInstanceTur,
-                'Booking': MockBooking
+                'Booking': MockBooking,
+                'InstanceTur': MockInstanceTur
             };
             createController = function() {
                 $injector.get('$controller')("InstanceRoomTypeDetailController", locals);

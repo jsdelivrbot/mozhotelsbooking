@@ -13,10 +13,22 @@
         vm.instanceFacility = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.instancefacilitytypes = InstanceFacilityType.query();
+        vm.instancefacilitytypes = [];
         vm.instanceroomtypes = InstanceRoomType.query();
         vm.instanceturs = InstanceTur.query();
         vm.bookings = Booking.query();
+
+        vm.facilities = function(){
+
+        vm.instanceFacility.instanceFacilityType="";
+
+        InstanceFacilityType.query().$promise.then(function(result) {
+            vm.instancefacilitytypes = alasql('SELECT id,instanceFacilityTypeName FROM ?  INTERSECT SELECT id,instanceFacilityTypeName FROM ? '
+            ,[result,vm.instanceFacility.instanceTur.instanceFacilityTypes]);
+            console.log(vm.instancefacilitytypes);
+            });
+
+        }
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -44,7 +56,6 @@
         function onSaveError () {
             vm.isSaving = false;
         }
-
 
     }
 })();

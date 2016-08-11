@@ -73,8 +73,6 @@
                             return {
                                 provinceName: null,
                                 description: null,
-                                photoPrincipal: null,
-                                photoPrincipalContentType: null,
                                 id: null
                             };
                         }

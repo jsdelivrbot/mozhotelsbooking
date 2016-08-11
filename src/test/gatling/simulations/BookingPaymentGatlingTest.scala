@@ -67,7 +67,7 @@ class BookingPaymentGatlingTest extends Simulation {
             .exec(http("Create new bookingPayment")
             .post("/api/booking-payments")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "type":null, "currency":"SAMPLE_TEXT", "amount":null, "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z", "state":null, "cardHolder":"SAMPLE_TEXT", "cardType":null, "cardNumber":"0", "cardExpiry":"0", "cardCcv":"0"}""")).asJSON
+            .body(StringBody("""{"id":null, "type":null, "currency":"SAMPLE_TEXT", "amount":null, "state":null, "cardHolder":"SAMPLE_TEXT", "cardType":null, "cardNumber":"0", "cardExpiry":"2020-01-01T00:00:00.000Z", "cardCcv":"0", "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z", "approval":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_bookingPayment_url"))).exitHereIfFailed
             .pause(10)

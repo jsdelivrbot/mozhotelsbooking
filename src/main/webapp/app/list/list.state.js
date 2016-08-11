@@ -10,8 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider.state('list', {
             parent: 'app-frontOffice',
-            url: '/list',
-  
+            url: '/list/:place/:rooms/:adults/:childs/:checkIn/:checkOut',
             data: {
                 authorities: []
             },
@@ -22,12 +21,15 @@
                     controllerAs: 'vm'
                 }
             },
-            // resolve: {
-            //     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
-            //         $translatePartialLoader.addPart('list');
-            //         return $translate.refresh();
-            //     }]
-            // }
+            resolve: {
+                mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
+                  $translatePartialLoader.addPart('instanceTur');
+                  $translatePartialLoader.addPart('instanceRating');
+                  $translatePartialLoader.addPart('global');
+                    return $translate.refresh();
+                }]
+            },
+
         });
     }
 })();

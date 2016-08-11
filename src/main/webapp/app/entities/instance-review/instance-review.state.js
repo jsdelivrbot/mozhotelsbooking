@@ -82,10 +82,10 @@
                                 evaluation: null,
                                 title: null,
                                 comment: null,
-                                active: null,
-                                approval: null,
                                 createDate: null,
                                 editDate: null,
+                                active: null,
+                                approval: null,
                                 id: null
                             };
                         }

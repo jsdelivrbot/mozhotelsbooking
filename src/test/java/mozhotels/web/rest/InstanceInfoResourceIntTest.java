@@ -48,6 +48,8 @@ public class InstanceInfoResourceIntTest {
     private static final InfoType UPDATED_INSTANCE_INFO = InfoType.USEFUL;
     private static final String DEFAULT_INSTANCE_INFO_NAME = "AAAAA";
     private static final String UPDATED_INSTANCE_INFO_NAME = "BBBBB";
+    private static final String DEFAULT_INFO = "AAAAA";
+    private static final String UPDATED_INFO = "BBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
 
@@ -84,6 +86,7 @@ public class InstanceInfoResourceIntTest {
         instanceInfo = new InstanceInfo();
         instanceInfo.setInstanceInfo(DEFAULT_INSTANCE_INFO);
         instanceInfo.setInstanceInfoName(DEFAULT_INSTANCE_INFO_NAME);
+        instanceInfo.setInfo(DEFAULT_INFO);
         instanceInfo.setDescription(DEFAULT_DESCRIPTION);
     }
 
@@ -105,6 +108,7 @@ public class InstanceInfoResourceIntTest {
         InstanceInfo testInstanceInfo = instanceInfos.get(instanceInfos.size() - 1);
         assertThat(testInstanceInfo.getInstanceInfo()).isEqualTo(DEFAULT_INSTANCE_INFO);
         assertThat(testInstanceInfo.getInstanceInfoName()).isEqualTo(DEFAULT_INSTANCE_INFO_NAME);
+        assertThat(testInstanceInfo.getInfo()).isEqualTo(DEFAULT_INFO);
         assertThat(testInstanceInfo.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
 
         // Validate the InstanceInfo in ElasticSearch
@@ -150,6 +154,24 @@ public class InstanceInfoResourceIntTest {
 
     @Test
     @Transactional
+    public void checkInfoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceInfoRepository.findAll().size();
+        // set the field null
+        instanceInfo.setInfo(null);
+
+        // Create the InstanceInfo, which fails.
+
+        restInstanceInfoMockMvc.perform(post("/api/instance-infos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceInfo)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceInfo> instanceInfos = instanceInfoRepository.findAll();
+        assertThat(instanceInfos).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllInstanceInfos() throws Exception {
         // Initialize the database
         instanceInfoRepository.saveAndFlush(instanceInfo);
@@ -161,6 +183,7 @@ public class InstanceInfoResourceIntTest {
                 .andExpect(jsonPath("$.[*].id").value(hasItem(instanceInfo.getId().intValue())))
                 .andExpect(jsonPath("$.[*].instanceInfo").value(hasItem(DEFAULT_INSTANCE_INFO.toString())))
                 .andExpect(jsonPath("$.[*].instanceInfoName").value(hasItem(DEFAULT_INSTANCE_INFO_NAME.toString())))
+                .andExpect(jsonPath("$.[*].info").value(hasItem(DEFAULT_INFO.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 
@@ -177,6 +200,7 @@ public class InstanceInfoResourceIntTest {
             .andExpect(jsonPath("$.id").value(instanceInfo.getId().intValue()))
             .andExpect(jsonPath("$.instanceInfo").value(DEFAULT_INSTANCE_INFO.toString()))
             .andExpect(jsonPath("$.instanceInfoName").value(DEFAULT_INSTANCE_INFO_NAME.toString()))
+            .andExpect(jsonPath("$.info").value(DEFAULT_INFO.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
 
@@ -201,6 +225,7 @@ public class InstanceInfoResourceIntTest {
         updatedInstanceInfo.setId(instanceInfo.getId());
         updatedInstanceInfo.setInstanceInfo(UPDATED_INSTANCE_INFO);
         updatedInstanceInfo.setInstanceInfoName(UPDATED_INSTANCE_INFO_NAME);
+        updatedInstanceInfo.setInfo(UPDATED_INFO);
         updatedInstanceInfo.setDescription(UPDATED_DESCRIPTION);
 
         restInstanceInfoMockMvc.perform(put("/api/instance-infos")
@@ -214,6 +239,7 @@ public class InstanceInfoResourceIntTest {
         InstanceInfo testInstanceInfo = instanceInfos.get(instanceInfos.size() - 1);
         assertThat(testInstanceInfo.getInstanceInfo()).isEqualTo(UPDATED_INSTANCE_INFO);
         assertThat(testInstanceInfo.getInstanceInfoName()).isEqualTo(UPDATED_INSTANCE_INFO_NAME);
+        assertThat(testInstanceInfo.getInfo()).isEqualTo(UPDATED_INFO);
         assertThat(testInstanceInfo.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
 
         // Validate the InstanceInfo in ElasticSearch
@@ -257,6 +283,7 @@ public class InstanceInfoResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(instanceInfo.getId().intValue())))
             .andExpect(jsonPath("$.[*].instanceInfo").value(hasItem(DEFAULT_INSTANCE_INFO.toString())))
             .andExpect(jsonPath("$.[*].instanceInfoName").value(hasItem(DEFAULT_INSTANCE_INFO_NAME.toString())))
+            .andExpect(jsonPath("$.[*].info").value(hasItem(DEFAULT_INFO.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 }

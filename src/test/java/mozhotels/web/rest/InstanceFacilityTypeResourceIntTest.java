@@ -43,11 +43,11 @@ import mozhotels.domain.enumeration.FacilityType;
 @IntegrationTest
 public class InstanceFacilityTypeResourceIntTest {
 
+    private static final String DEFAULT_INSTANCE_FACILITY_TYPE_NAME = "AAAAA";
+    private static final String UPDATED_INSTANCE_FACILITY_TYPE_NAME = "BBBBB";
 
     private static final FacilityType DEFAULT_FACILITY_TYPE = FacilityType.SERVICE;
     private static final FacilityType UPDATED_FACILITY_TYPE = FacilityType.RESOURCE;
-    private static final String DEFAULT_INSTANCE_FACILITY_TYPE_NAME = "AAAAA";
-    private static final String UPDATED_INSTANCE_FACILITY_TYPE_NAME = "BBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
 
@@ -56,6 +56,9 @@ public class InstanceFacilityTypeResourceIntTest {
 
     private static final Boolean DEFAULT_INSTANCE_ROOM_FACILITY = false;
     private static final Boolean UPDATED_INSTANCE_ROOM_FACILITY = true;
+
+    private static final Boolean DEFAULT_INSTANCE_BOOKING_FACILITY = false;
+    private static final Boolean UPDATED_INSTANCE_BOOKING_FACILITY = true;
 
     @Inject
     private InstanceFacilityTypeRepository instanceFacilityTypeRepository;
@@ -88,11 +91,12 @@ public class InstanceFacilityTypeResourceIntTest {
     public void initTest() {
         instanceFacilityTypeSearchRepository.deleteAll();
         instanceFacilityType = new InstanceFacilityType();
-        instanceFacilityType.setFacilityType(DEFAULT_FACILITY_TYPE);
         instanceFacilityType.setInstanceFacilityTypeName(DEFAULT_INSTANCE_FACILITY_TYPE_NAME);
+        instanceFacilityType.setFacilityType(DEFAULT_FACILITY_TYPE);
         instanceFacilityType.setDescription(DEFAULT_DESCRIPTION);
         instanceFacilityType.setInstanceFacility(DEFAULT_INSTANCE_FACILITY);
         instanceFacilityType.setInstanceRoomFacility(DEFAULT_INSTANCE_ROOM_FACILITY);
+        instanceFacilityType.setInstanceBookingFacility(DEFAULT_INSTANCE_BOOKING_FACILITY);
     }
 
     @Test
@@ -111,11 +115,12 @@ public class InstanceFacilityTypeResourceIntTest {
         List<InstanceFacilityType> instanceFacilityTypes = instanceFacilityTypeRepository.findAll();
         assertThat(instanceFacilityTypes).hasSize(databaseSizeBeforeCreate + 1);
         InstanceFacilityType testInstanceFacilityType = instanceFacilityTypes.get(instanceFacilityTypes.size() - 1);
-        assertThat(testInstanceFacilityType.getFacilityType()).isEqualTo(DEFAULT_FACILITY_TYPE);
         assertThat(testInstanceFacilityType.getInstanceFacilityTypeName()).isEqualTo(DEFAULT_INSTANCE_FACILITY_TYPE_NAME);
+        assertThat(testInstanceFacilityType.getFacilityType()).isEqualTo(DEFAULT_FACILITY_TYPE);
         assertThat(testInstanceFacilityType.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testInstanceFacilityType.isInstanceFacility()).isEqualTo(DEFAULT_INSTANCE_FACILITY);
         assertThat(testInstanceFacilityType.isInstanceRoomFacility()).isEqualTo(DEFAULT_INSTANCE_ROOM_FACILITY);
+        assertThat(testInstanceFacilityType.isInstanceBookingFacility()).isEqualTo(DEFAULT_INSTANCE_BOOKING_FACILITY);
 
         // Validate the InstanceFacilityType in ElasticSearch
         InstanceFacilityType instanceFacilityTypeEs = instanceFacilityTypeSearchRepository.findOne(testInstanceFacilityType.getId());
@@ -124,10 +129,10 @@ public class InstanceFacilityTypeResourceIntTest {
 
     @Test
     @Transactional
-    public void checkFacilityTypeIsRequired() throws Exception {
+    public void checkInstanceFacilityTypeNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = instanceFacilityTypeRepository.findAll().size();
         // set the field null
-        instanceFacilityType.setFacilityType(null);
+        instanceFacilityType.setInstanceFacilityTypeName(null);
 
         // Create the InstanceFacilityType, which fails.
 
@@ -142,10 +147,10 @@ public class InstanceFacilityTypeResourceIntTest {
 
     @Test
     @Transactional
-    public void checkInstanceFacilityTypeNameIsRequired() throws Exception {
+    public void checkFacilityTypeIsRequired() throws Exception {
         int databaseSizeBeforeTest = instanceFacilityTypeRepository.findAll().size();
         // set the field null
-        instanceFacilityType.setInstanceFacilityTypeName(null);
+        instanceFacilityType.setFacilityType(null);
 
         // Create the InstanceFacilityType, which fails.
 
@@ -169,11 +174,12 @@ public class InstanceFacilityTypeResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(instanceFacilityType.getId().intValue())))
-                .andExpect(jsonPath("$.[*].facilityType").value(hasItem(DEFAULT_FACILITY_TYPE.toString())))
                 .andExpect(jsonPath("$.[*].instanceFacilityTypeName").value(hasItem(DEFAULT_INSTANCE_FACILITY_TYPE_NAME.toString())))
+                .andExpect(jsonPath("$.[*].facilityType").value(hasItem(DEFAULT_FACILITY_TYPE.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].instanceFacility").value(hasItem(DEFAULT_INSTANCE_FACILITY.booleanValue())))
-                .andExpect(jsonPath("$.[*].instanceRoomFacility").value(hasItem(DEFAULT_INSTANCE_ROOM_FACILITY.booleanValue())));
+                .andExpect(jsonPath("$.[*].instanceRoomFacility").value(hasItem(DEFAULT_INSTANCE_ROOM_FACILITY.booleanValue())))
+                .andExpect(jsonPath("$.[*].instanceBookingFacility").value(hasItem(DEFAULT_INSTANCE_BOOKING_FACILITY.booleanValue())));
     }
 
     @Test
@@ -187,11 +193,12 @@ public class InstanceFacilityTypeResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(instanceFacilityType.getId().intValue()))
-            .andExpect(jsonPath("$.facilityType").value(DEFAULT_FACILITY_TYPE.toString()))
             .andExpect(jsonPath("$.instanceFacilityTypeName").value(DEFAULT_INSTANCE_FACILITY_TYPE_NAME.toString()))
+            .andExpect(jsonPath("$.facilityType").value(DEFAULT_FACILITY_TYPE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.instanceFacility").value(DEFAULT_INSTANCE_FACILITY.booleanValue()))
-            .andExpect(jsonPath("$.instanceRoomFacility").value(DEFAULT_INSTANCE_ROOM_FACILITY.booleanValue()));
+            .andExpect(jsonPath("$.instanceRoomFacility").value(DEFAULT_INSTANCE_ROOM_FACILITY.booleanValue()))
+            .andExpect(jsonPath("$.instanceBookingFacility").value(DEFAULT_INSTANCE_BOOKING_FACILITY.booleanValue()));
     }
 
     @Test
@@ -213,11 +220,12 @@ public class InstanceFacilityTypeResourceIntTest {
         // Update the instanceFacilityType
         InstanceFacilityType updatedInstanceFacilityType = new InstanceFacilityType();
         updatedInstanceFacilityType.setId(instanceFacilityType.getId());
-        updatedInstanceFacilityType.setFacilityType(UPDATED_FACILITY_TYPE);
         updatedInstanceFacilityType.setInstanceFacilityTypeName(UPDATED_INSTANCE_FACILITY_TYPE_NAME);
+        updatedInstanceFacilityType.setFacilityType(UPDATED_FACILITY_TYPE);
         updatedInstanceFacilityType.setDescription(UPDATED_DESCRIPTION);
         updatedInstanceFacilityType.setInstanceFacility(UPDATED_INSTANCE_FACILITY);
         updatedInstanceFacilityType.setInstanceRoomFacility(UPDATED_INSTANCE_ROOM_FACILITY);
+        updatedInstanceFacilityType.setInstanceBookingFacility(UPDATED_INSTANCE_BOOKING_FACILITY);
 
         restInstanceFacilityTypeMockMvc.perform(put("/api/instance-facility-types")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -228,11 +236,12 @@ public class InstanceFacilityTypeResourceIntTest {
         List<InstanceFacilityType> instanceFacilityTypes = instanceFacilityTypeRepository.findAll();
         assertThat(instanceFacilityTypes).hasSize(databaseSizeBeforeUpdate);
         InstanceFacilityType testInstanceFacilityType = instanceFacilityTypes.get(instanceFacilityTypes.size() - 1);
-        assertThat(testInstanceFacilityType.getFacilityType()).isEqualTo(UPDATED_FACILITY_TYPE);
         assertThat(testInstanceFacilityType.getInstanceFacilityTypeName()).isEqualTo(UPDATED_INSTANCE_FACILITY_TYPE_NAME);
+        assertThat(testInstanceFacilityType.getFacilityType()).isEqualTo(UPDATED_FACILITY_TYPE);
         assertThat(testInstanceFacilityType.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testInstanceFacilityType.isInstanceFacility()).isEqualTo(UPDATED_INSTANCE_FACILITY);
         assertThat(testInstanceFacilityType.isInstanceRoomFacility()).isEqualTo(UPDATED_INSTANCE_ROOM_FACILITY);
+        assertThat(testInstanceFacilityType.isInstanceBookingFacility()).isEqualTo(UPDATED_INSTANCE_BOOKING_FACILITY);
 
         // Validate the InstanceFacilityType in ElasticSearch
         InstanceFacilityType instanceFacilityTypeEs = instanceFacilityTypeSearchRepository.findOne(testInstanceFacilityType.getId());
@@ -273,10 +282,11 @@ public class InstanceFacilityTypeResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(instanceFacilityType.getId().intValue())))
-            .andExpect(jsonPath("$.[*].facilityType").value(hasItem(DEFAULT_FACILITY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].instanceFacilityTypeName").value(hasItem(DEFAULT_INSTANCE_FACILITY_TYPE_NAME.toString())))
+            .andExpect(jsonPath("$.[*].facilityType").value(hasItem(DEFAULT_FACILITY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].instanceFacility").value(hasItem(DEFAULT_INSTANCE_FACILITY.booleanValue())))
-            .andExpect(jsonPath("$.[*].instanceRoomFacility").value(hasItem(DEFAULT_INSTANCE_ROOM_FACILITY.booleanValue())));
+            .andExpect(jsonPath("$.[*].instanceRoomFacility").value(hasItem(DEFAULT_INSTANCE_ROOM_FACILITY.booleanValue())))
+            .andExpect(jsonPath("$.[*].instanceBookingFacility").value(hasItem(DEFAULT_INSTANCE_BOOKING_FACILITY.booleanValue())));
     }
 }

@@ -19,14 +19,15 @@
             "type": "Type",
             "currency": "Currency",
             "amount": "Amount",
-            "createDate": "Create Date",
-            "editDate": "Edit Date",
             "state": "State",
             "cardHolder": "Card Holder",
             "cardType": "Card Type",
             "cardNumber": "Card Number",
             "cardExpiry": "Card Expiry",
             "cardCcv": "Card Ccv",
+            "createDate": "Create Date",
+            "editDate": "Edit Date",
+            "approval": "Approval",
             "booking": "Booking"
         }
     }

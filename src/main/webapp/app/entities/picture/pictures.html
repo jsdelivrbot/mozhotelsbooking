@@ -37,9 +37,9 @@
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="mozhotelsbookingApp.picture.pictureName">Picture Name</span></th>
-                    <th><span translate="mozhotelsbookingApp.picture.description">Description</span></th>
-                    <th><span translate="mozhotelsbookingApp.picture.picture">Picture</span></th>
                     <th><span translate="mozhotelsbookingApp.picture.type">Type</span></th>
+                    <th><span translate="mozhotelsbookingApp.picture.picture">Picture</span></th>
+                    <th><span translate="mozhotelsbookingApp.picture.description">Description</span></th>
                     <th><span translate="mozhotelsbookingApp.picture.province">Province</span></th>
                     <th><span translate="mozhotelsbookingApp.picture.localTur">Local Tur</span></th>
                     <th><span translate="mozhotelsbookingApp.picture.instanceTur">Instance Tur</span></th>
@@ -52,19 +52,19 @@
                 <tr ng-repeat="picture in vm.pictures track by picture.id">
                     <td><a ui-sref="picture-detail({id:picture.id})">{{picture.id}}</a></td>
                     <td>{{picture.pictureName}}</td>
-                    <td>{{picture.description}}</td>
+                    <td translate="{{'mozhotelsbookingApp.PictureType.' + picture.type}}">{{picture.type}}</td>
                     <td>
                         <a ng-if="picture.picture" ng-click="vm.openFile(picture.pictureContentType, picture.picture)">
                             <img data-ng-src="{{'data:' + picture.pictureContentType + ';base64,' + picture.picture}}" style="max-height: 30px;"/>
                         </a>
                         <span ng-if="picture.picture">{{picture.pictureContentType}}, {{vm.byteSize(picture.picture)}}</span>
                     </td>
-                    <td translate="{{'mozhotelsbookingApp.PictureType.' + picture.type}}">{{picture.type}}</td>
+                    <td>{{picture.description}}</td>
                     <td>
                         <a ui-sref="province-detail({id:picture.province.id})">{{picture.province.provinceName}}</a>
                     </td>
                     <td>
-                        <a ui-sref="local-tur-detail({id:picture.localTur.id})">{{picture.localTur.locaTurName}}</a>
+                        <a ui-sref="local-tur-detail({id:picture.localTur.id})">{{picture.localTur.localTurName}}</a>
                     </td>
                     <td>
                         <a ui-sref="instance-tur-detail({id:picture.instanceTur.id})">{{picture.instanceTur.instanceTurName}}</a>

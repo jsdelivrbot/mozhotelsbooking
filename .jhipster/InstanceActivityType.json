@@ -6,6 +6,14 @@
       "relationshipName": "instanceActivity",
       "otherEntityName": "instanceActivity",
       "otherEntityRelationshipName": "instanceActivityType"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-many",
+      "relationshipName": "instanceTur",
+      "otherEntityName": "instanceTur",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "instanceActivityType"
     }
   ],
   "fields": [

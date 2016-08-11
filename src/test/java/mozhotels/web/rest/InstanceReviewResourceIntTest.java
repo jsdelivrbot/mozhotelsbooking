@@ -75,12 +75,6 @@ public class InstanceReviewResourceIntTest {
     private static final String DEFAULT_COMMENT = "AAAAA";
     private static final String UPDATED_COMMENT = "BBBBB";
 
-    private static final Boolean DEFAULT_ACTIVE = false;
-    private static final Boolean UPDATED_ACTIVE = true;
-
-    private static final Boolean DEFAULT_APPROVAL = false;
-    private static final Boolean UPDATED_APPROVAL = true;
-
     private static final ZonedDateTime DEFAULT_CREATE_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_CREATE_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_CREATE_DATE_STR = dateTimeFormatter.format(DEFAULT_CREATE_DATE);
@@ -88,6 +82,12 @@ public class InstanceReviewResourceIntTest {
     private static final ZonedDateTime DEFAULT_EDIT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_EDIT_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_EDIT_DATE_STR = dateTimeFormatter.format(DEFAULT_EDIT_DATE);
+
+    private static final Boolean DEFAULT_ACTIVE = false;
+    private static final Boolean UPDATED_ACTIVE = true;
+
+    private static final Boolean DEFAULT_APPROVAL = false;
+    private static final Boolean UPDATED_APPROVAL = true;
 
     @Inject
     private InstanceReviewRepository instanceReviewRepository;
@@ -129,10 +129,10 @@ public class InstanceReviewResourceIntTest {
         instanceReview.setEvaluation(DEFAULT_EVALUATION);
         instanceReview.setTitle(DEFAULT_TITLE);
         instanceReview.setComment(DEFAULT_COMMENT);
-        instanceReview.setActive(DEFAULT_ACTIVE);
-        instanceReview.setApproval(DEFAULT_APPROVAL);
         instanceReview.setCreateDate(DEFAULT_CREATE_DATE);
         instanceReview.setEditDate(DEFAULT_EDIT_DATE);
+        instanceReview.setActive(DEFAULT_ACTIVE);
+        instanceReview.setApproval(DEFAULT_APPROVAL);
     }
 
     @Test
@@ -160,14 +160,176 @@ public class InstanceReviewResourceIntTest {
         assertThat(testInstanceReview.getEvaluation()).isEqualTo(DEFAULT_EVALUATION);
         assertThat(testInstanceReview.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testInstanceReview.getComment()).isEqualTo(DEFAULT_COMMENT);
-        assertThat(testInstanceReview.isActive()).isEqualTo(DEFAULT_ACTIVE);
-        assertThat(testInstanceReview.isApproval()).isEqualTo(DEFAULT_APPROVAL);
         assertThat(testInstanceReview.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
         assertThat(testInstanceReview.getEditDate()).isEqualTo(DEFAULT_EDIT_DATE);
+        assertThat(testInstanceReview.isActive()).isEqualTo(DEFAULT_ACTIVE);
+        assertThat(testInstanceReview.isApproval()).isEqualTo(DEFAULT_APPROVAL);
 
         // Validate the InstanceReview in ElasticSearch
         InstanceReview instanceReviewEs = instanceReviewSearchRepository.findOne(testInstanceReview.getId());
         assertThat(instanceReviewEs).isEqualToComparingFieldByField(testInstanceReview);
+    }
+
+    @Test
+    @Transactional
+    public void checkCleanlinessIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceReviewRepository.findAll().size();
+        // set the field null
+        instanceReview.setCleanliness(null);
+
+        // Create the InstanceReview, which fails.
+
+        restInstanceReviewMockMvc.perform(post("/api/instance-reviews")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceReview)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceReview> instanceReviews = instanceReviewRepository.findAll();
+        assertThat(instanceReviews).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkRoomConfortIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceReviewRepository.findAll().size();
+        // set the field null
+        instanceReview.setRoomConfort(null);
+
+        // Create the InstanceReview, which fails.
+
+        restInstanceReviewMockMvc.perform(post("/api/instance-reviews")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceReview)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceReview> instanceReviews = instanceReviewRepository.findAll();
+        assertThat(instanceReviews).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkLocationIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceReviewRepository.findAll().size();
+        // set the field null
+        instanceReview.setLocation(null);
+
+        // Create the InstanceReview, which fails.
+
+        restInstanceReviewMockMvc.perform(post("/api/instance-reviews")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceReview)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceReview> instanceReviews = instanceReviewRepository.findAll();
+        assertThat(instanceReviews).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkServiceStaffIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceReviewRepository.findAll().size();
+        // set the field null
+        instanceReview.setServiceStaff(null);
+
+        // Create the InstanceReview, which fails.
+
+        restInstanceReviewMockMvc.perform(post("/api/instance-reviews")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceReview)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceReview> instanceReviews = instanceReviewRepository.findAll();
+        assertThat(instanceReviews).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkSleepQualityIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceReviewRepository.findAll().size();
+        // set the field null
+        instanceReview.setSleepQuality(null);
+
+        // Create the InstanceReview, which fails.
+
+        restInstanceReviewMockMvc.perform(post("/api/instance-reviews")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceReview)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceReview> instanceReviews = instanceReviewRepository.findAll();
+        assertThat(instanceReviews).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkValuePriceIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceReviewRepository.findAll().size();
+        // set the field null
+        instanceReview.setValuePrice(null);
+
+        // Create the InstanceReview, which fails.
+
+        restInstanceReviewMockMvc.perform(post("/api/instance-reviews")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceReview)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceReview> instanceReviews = instanceReviewRepository.findAll();
+        assertThat(instanceReviews).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkEvaluationIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceReviewRepository.findAll().size();
+        // set the field null
+        instanceReview.setEvaluation(null);
+
+        // Create the InstanceReview, which fails.
+
+        restInstanceReviewMockMvc.perform(post("/api/instance-reviews")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceReview)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceReview> instanceReviews = instanceReviewRepository.findAll();
+        assertThat(instanceReviews).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkTitleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceReviewRepository.findAll().size();
+        // set the field null
+        instanceReview.setTitle(null);
+
+        // Create the InstanceReview, which fails.
+
+        restInstanceReviewMockMvc.perform(post("/api/instance-reviews")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceReview)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceReview> instanceReviews = instanceReviewRepository.findAll();
+        assertThat(instanceReviews).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkCommentIsRequired() throws Exception {
+        int databaseSizeBeforeTest = instanceReviewRepository.findAll().size();
+        // set the field null
+        instanceReview.setComment(null);
+
+        // Create the InstanceReview, which fails.
+
+        restInstanceReviewMockMvc.perform(post("/api/instance-reviews")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(instanceReview)))
+                .andExpect(status().isBadRequest());
+
+        List<InstanceReview> instanceReviews = instanceReviewRepository.findAll();
+        assertThat(instanceReviews).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -190,10 +352,10 @@ public class InstanceReviewResourceIntTest {
                 .andExpect(jsonPath("$.[*].evaluation").value(hasItem(DEFAULT_EVALUATION.toString())))
                 .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
                 .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
-                .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
-                .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())))
                 .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
-                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)));
+                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+                .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 
     @Test
@@ -216,10 +378,10 @@ public class InstanceReviewResourceIntTest {
             .andExpect(jsonPath("$.evaluation").value(DEFAULT_EVALUATION.toString()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT.toString()))
-            .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()))
-            .andExpect(jsonPath("$.approval").value(DEFAULT_APPROVAL.booleanValue()))
             .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE_STR))
-            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR));
+            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR))
+            .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()))
+            .andExpect(jsonPath("$.approval").value(DEFAULT_APPROVAL.booleanValue()));
     }
 
     @Test
@@ -250,10 +412,10 @@ public class InstanceReviewResourceIntTest {
         updatedInstanceReview.setEvaluation(UPDATED_EVALUATION);
         updatedInstanceReview.setTitle(UPDATED_TITLE);
         updatedInstanceReview.setComment(UPDATED_COMMENT);
-        updatedInstanceReview.setActive(UPDATED_ACTIVE);
-        updatedInstanceReview.setApproval(UPDATED_APPROVAL);
         updatedInstanceReview.setCreateDate(UPDATED_CREATE_DATE);
         updatedInstanceReview.setEditDate(UPDATED_EDIT_DATE);
+        updatedInstanceReview.setActive(UPDATED_ACTIVE);
+        updatedInstanceReview.setApproval(UPDATED_APPROVAL);
 
         restInstanceReviewMockMvc.perform(put("/api/instance-reviews")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -273,10 +435,10 @@ public class InstanceReviewResourceIntTest {
         assertThat(testInstanceReview.getEvaluation()).isEqualTo(UPDATED_EVALUATION);
         assertThat(testInstanceReview.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testInstanceReview.getComment()).isEqualTo(UPDATED_COMMENT);
-        assertThat(testInstanceReview.isActive()).isEqualTo(UPDATED_ACTIVE);
-        assertThat(testInstanceReview.isApproval()).isEqualTo(UPDATED_APPROVAL);
         assertThat(testInstanceReview.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
         assertThat(testInstanceReview.getEditDate()).isEqualTo(UPDATED_EDIT_DATE);
+        assertThat(testInstanceReview.isActive()).isEqualTo(UPDATED_ACTIVE);
+        assertThat(testInstanceReview.isApproval()).isEqualTo(UPDATED_APPROVAL);
 
         // Validate the InstanceReview in ElasticSearch
         InstanceReview instanceReviewEs = instanceReviewSearchRepository.findOne(testInstanceReview.getId());
@@ -326,9 +488,9 @@ public class InstanceReviewResourceIntTest {
             .andExpect(jsonPath("$.[*].evaluation").value(hasItem(DEFAULT_EVALUATION.toString())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
-            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
-            .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())))
             .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
-            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)));
+            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+            .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 }

@@ -38,22 +38,6 @@
     },
     {
       "fieldId": 4,
-      "fieldName": "createDate",
-      "fieldType": "ZonedDateTime",
-      "fieldValidateRules": [
-        "required"
-      ]
-    },
-    {
-      "fieldId": 5,
-      "fieldName": "editDate",
-      "fieldType": "ZonedDateTime",
-      "fieldValidateRules": [
-        "required"
-      ]
-    },
-    {
-      "fieldId": 6,
       "fieldName": "state",
       "fieldType": "PaymentState",
       "fieldValues": "SUBMITED,IN_PROGRESS,PAID,CANCELED,FAILED",
@@ -62,7 +46,7 @@
       ]
     },
     {
-      "fieldId": 7,
+      "fieldId": 5,
       "fieldName": "cardHolder",
       "fieldType": "String",
       "fieldValidateRules": [
@@ -70,7 +54,7 @@
       ]
     },
     {
-      "fieldId": 8,
+      "fieldId": 6,
       "fieldName": "cardType",
       "fieldType": "CardType",
       "fieldValues": "VISA,MASTERCARD,MOZHOTELS,OTHER",
@@ -79,7 +63,7 @@
       ]
     },
     {
-      "fieldId": 9,
+      "fieldId": 7,
       "fieldName": "cardNumber",
       "fieldType": "Integer",
       "fieldValidateRules": [
@@ -87,20 +71,41 @@
       ]
     },
     {
-      "fieldId": 10,
+      "fieldId": 8,
       "fieldName": "cardExpiry",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 9,
+      "fieldName": "cardCcv",
       "fieldType": "Integer",
       "fieldValidateRules": [
         "required"
       ]
     },
     {
-      "fieldId": 11,
-      "fieldName": "cardCcv",
-      "fieldType": "Integer",
+      "fieldId": 10,
+      "fieldName": "createDate",
+      "fieldType": "ZonedDateTime",
       "fieldValidateRules": [
         "required"
       ]
+    },
+    {
+      "fieldId": 11,
+      "fieldName": "editDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 12,
+      "fieldName": "approval",
+      "fieldType": "Boolean"
     }
   ],
   "changelogDate": "20160705045720",

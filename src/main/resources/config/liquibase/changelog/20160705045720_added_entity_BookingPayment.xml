@@ -33,14 +33,6 @@
                 <constraints nullable="false" />
             </column>
             
-            <column name="create_date" type="timestamp">
-                <constraints nullable="false" />
-            </column>
-            
-            <column name="edit_date" type="timestamp">
-                <constraints nullable="false" />
-            </column>
-            
             <column name="state" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
@@ -57,12 +49,24 @@
                 <constraints nullable="false" />
             </column>
             
-            <column name="card_expiry" type="integer">
+            <column name="card_expiry" type="date">
                 <constraints nullable="false" />
             </column>
             
             <column name="card_ccv" type="integer">
                 <constraints nullable="false" />
+            </column>
+            
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="edit_date" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="approval" type="bit">
+                <constraints nullable="true" />
             </column>
                         <column name="booking_id" type="bigint">
                 <constraints unique="true" nullable="true" />

@@ -36,7 +36,11 @@
             <thead>
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceContact.contactNumber">Contact Number</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceContact.contactNumberPrincipal">Contact Number Principal</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceContact.zipCode">Zip Code</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceContact.address">Address</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceContact.website">Website</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceContact.email">Email</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceContact.instanceTur">Instance Tur</span></th>
                     <th></th>
                 </tr>
@@ -44,7 +48,11 @@
             <tbody>
                 <tr ng-repeat="instanceContact in vm.instanceContacts track by instanceContact.id">
                     <td><a ui-sref="instance-contact-detail({id:instanceContact.id})">{{instanceContact.id}}</a></td>
-                    <td>{{instanceContact.contactNumber}}</td>
+                    <td>{{instanceContact.contactNumberPrincipal}}</td>
+                    <td>{{instanceContact.zipCode}}</td>
+                    <td>{{instanceContact.address}}</td>
+                    <td>{{instanceContact.website}}</td>
+                    <td>{{instanceContact.email}}</td>
                     <td>
                         <a ui-sref="instance-tur-detail({id:instanceContact.instanceTur.id})">{{instanceContact.instanceTur.instanceTurName}}</a>
                     </td>

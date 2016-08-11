@@ -73,7 +73,7 @@
                             return {
                                 instanceRoomTypeName: null,
                                 description: null,
-                                quantity: null,
+                                roomQuantity: null,
                                 capacityAdults: null,
                                 capacityChildren: null,
                                 onlinePrice: null,
@@ -82,6 +82,10 @@
                                 tax: null,
                                 photoPrincipal: null,
                                 photoPrincipalContentType: null,
+                                createDate: null,
+                                editDate: null,
+                                active: null,
+                                approval: null,
                                 id: null
                             };
                         }

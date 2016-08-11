@@ -12,7 +12,7 @@
       "relationshipType": "many-to-one",
       "relationshipName": "localTur",
       "otherEntityName": "localTur",
-      "otherEntityField": "locaTurName"
+      "otherEntityField": "localTurName"
     },
     {
       "relationshipId": 3,
@@ -47,8 +47,9 @@
     },
     {
       "fieldId": 2,
-      "fieldName": "description",
-      "fieldType": "String"
+      "fieldName": "type",
+      "fieldType": "PictureType",
+      "fieldValues": "LOCALTUR,INSTANCETUR,INSTANCEACTIVITY,ROOMTYPE,TOURIST"
     },
     {
       "fieldId": 3,
@@ -58,9 +59,8 @@
     },
     {
       "fieldId": 4,
-      "fieldName": "type",
-      "fieldType": "PictureType",
-      "fieldValues": "PROVINCE,LOCALTUR,INSTANCETUR,INSTANCEACTIVITY,ROOMTYPE,TOURIST"
+      "fieldName": "description",
+      "fieldType": "String"
     }
   ],
   "changelogDate": "20160705045716",

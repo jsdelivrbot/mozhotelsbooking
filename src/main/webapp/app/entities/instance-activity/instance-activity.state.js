@@ -74,8 +74,8 @@
                         entity: function () {
                             return {
                                 instanceActivityName: null,
-                                description: null,
                                 area: null,
+                                description: null,
                                 photoPrincipal: null,
                                 photoPrincipalContentType: null,
                                 id: null

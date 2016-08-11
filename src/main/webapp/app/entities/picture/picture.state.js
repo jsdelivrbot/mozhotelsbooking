@@ -74,10 +74,10 @@
                         entity: function () {
                             return {
                                 pictureName: null,
-                                description: null,
+                                type: null,
                                 picture: null,
                                 pictureContentType: null,
-                                type: null,
+                                description: null,
                                 id: null
                             };
                         }

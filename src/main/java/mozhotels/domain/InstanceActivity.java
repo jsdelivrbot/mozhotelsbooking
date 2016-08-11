@@ -33,12 +33,12 @@ public class InstanceActivity implements Serializable {
     @Column(name = "instance_activity_name", nullable = false)
     private String instanceActivityName;
 
-    @Column(name = "description")
-    private String description;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "area")
     private ActivityArea area;
+
+    @Column(name = "description")
+    private String description;
 
     @Lob
     @Column(name = "photo_principal")
@@ -74,20 +74,20 @@ public class InstanceActivity implements Serializable {
         this.instanceActivityName = instanceActivityName;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public ActivityArea getArea() {
         return area;
     }
 
     public void setArea(ActivityArea area) {
         this.area = area;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public byte[] getPhotoPrincipal() {
@@ -155,8 +155,8 @@ public class InstanceActivity implements Serializable {
         return "InstanceActivity{" +
             "id=" + id +
             ", instanceActivityName='" + instanceActivityName + "'" +
-            ", description='" + description + "'" +
             ", area='" + area + "'" +
+            ", description='" + description + "'" +
             ", photoPrincipal='" + photoPrincipal + "'" +
             ", photoPrincipalContentType='" + photoPrincipalContentType + "'" +
             '}';

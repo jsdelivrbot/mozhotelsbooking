@@ -5,15 +5,16 @@
         .module('mozhotelsbookingApp')
         .controller('InstanceActivityTypeDialogController', InstanceActivityTypeDialogController);
 
-    InstanceActivityTypeDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'InstanceActivityType', 'InstanceActivity'];
+    InstanceActivityTypeDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'InstanceActivityType', 'InstanceActivity', 'InstanceTur'];
 
-    function InstanceActivityTypeDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, InstanceActivityType, InstanceActivity) {
+    function InstanceActivityTypeDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, InstanceActivityType, InstanceActivity, InstanceTur) {
         var vm = this;
 
         vm.instanceActivityType = entity;
         vm.clear = clear;
         vm.save = save;
         vm.instanceactivities = InstanceActivity.query();
+        vm.instanceturs = InstanceTur.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

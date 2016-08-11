@@ -39,6 +39,11 @@ public class InstanceActivityType implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<InstanceActivity> instanceActivities = new HashSet<>();
 
+    @ManyToMany(mappedBy = "instanceActivityTypes")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<InstanceTur> instanceTurs = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -69,6 +74,14 @@ public class InstanceActivityType implements Serializable {
 
     public void setInstanceActivities(Set<InstanceActivity> instanceActivities) {
         this.instanceActivities = instanceActivities;
+    }
+
+    public Set<InstanceTur> getInstanceTurs() {
+        return instanceTurs;
+    }
+
+    public void setInstanceTurs(Set<InstanceTur> instanceTurs) {
+        this.instanceTurs = instanceTurs;
     }
 
     @Override

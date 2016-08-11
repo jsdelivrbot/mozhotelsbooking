@@ -18,7 +18,8 @@
             },
             "instanceActivityTypeName": "Instance Activity Type Name",
             "description": "Description",
-            "instanceActivity": "Instance Activity"
+            "instanceActivity": "Instance Activity",
+            "instanceTur": "Instance Tur"
         }
     }
 }

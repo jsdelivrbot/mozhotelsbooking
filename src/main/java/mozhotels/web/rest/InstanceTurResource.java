@@ -32,13 +32,13 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class InstanceTurResource {
 
     private final Logger log = LoggerFactory.getLogger(InstanceTurResource.class);
-        
+
     @Inject
     private InstanceTurRepository instanceTurRepository;
-    
+
     @Inject
     private InstanceTurSearchRepository instanceTurSearchRepository;
-    
+
     /**
      * POST  /instance-turs : Create a new instanceTur.
      *
@@ -90,17 +90,26 @@ public class InstanceTurResource {
     /**
      * GET  /instance-turs : get all the instanceTurs.
      *
+     * @param filter the filter of the request
      * @return the ResponseEntity with status 200 (OK) and the list of instanceTurs in body
      */
     @RequestMapping(value = "/instance-turs",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<InstanceTur> getAllInstanceTurs() {
+    public List<InstanceTur> getAllInstanceTurs(@RequestParam(required = false) String filter) {
+        if ("instancecontact-is-null".equals(filter)) {
+            log.debug("REST request to get all InstanceTurs where instanceContact is null");
+            return StreamSupport
+                .stream(instanceTurRepository.findAll().spliterator(), false)
+                .filter(instanceTur -> instanceTur.getInstanceContact() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all InstanceTurs");
-        List<InstanceTur> instanceTurs = instanceTurRepository.findAll();
+        List<InstanceTur> instanceTurs = instanceTurRepository.findAllWithEagerRelationships();
         return instanceTurs;
     }
+
 
     /**
      * GET  /instance-turs/:id : get the "id" instanceTur.
@@ -114,7 +123,7 @@ public class InstanceTurResource {
     @Timed
     public ResponseEntity<InstanceTur> getInstanceTur(@PathVariable Long id) {
         log.debug("REST request to get InstanceTur : {}", id);
-        InstanceTur instanceTur = instanceTurRepository.findOne(id);
+        InstanceTur instanceTur = instanceTurRepository.findOneWithEagerRelationships(id);
         return Optional.ofNullable(instanceTur)
             .map(result -> new ResponseEntity<>(
                 result,

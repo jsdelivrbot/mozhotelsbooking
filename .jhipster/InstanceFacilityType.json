@@ -6,22 +6,30 @@
       "relationshipName": "instanceFacility",
       "otherEntityName": "instanceFacility",
       "otherEntityRelationshipName": "instanceFacilityType"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-many",
+      "relationshipName": "instanceTur",
+      "otherEntityName": "instanceTur",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "instanceFacilityType"
     }
   ],
   "fields": [
     {
       "fieldId": 1,
-      "fieldName": "facilityType",
-      "fieldType": "FacilityType",
-      "fieldValues": "SERVICE,RESOURCE",
+      "fieldName": "instanceFacilityTypeName",
+      "fieldType": "String",
       "fieldValidateRules": [
         "required"
       ]
     },
     {
       "fieldId": 2,
-      "fieldName": "instanceFacilityTypeName",
-      "fieldType": "String",
+      "fieldName": "facilityType",
+      "fieldType": "FacilityType",
+      "fieldValues": "SERVICE,RESOURCE",
       "fieldValidateRules": [
         "required"
       ]
@@ -39,6 +47,11 @@
     {
       "fieldId": 5,
       "fieldName": "instanceRoomFacility",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 6,
+      "fieldName": "instanceBookingFacility",
       "fieldType": "Boolean"
     }
   ],

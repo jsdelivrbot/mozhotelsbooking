@@ -30,8 +30,9 @@ public class Picture implements Serializable {
     @Column(name = "picture_name", nullable = false)
     private String pictureName;
 
-    @Column(name = "description")
-    private String description;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private PictureType type;
 
     @Lob
     @Column(name = "picture")
@@ -40,9 +41,8 @@ public class Picture implements Serializable {
     @Column(name = "picture_content_type")
     private String pictureContentType;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type")
-    private PictureType type;
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne
     private Province province;
@@ -75,12 +75,12 @@ public class Picture implements Serializable {
         this.pictureName = pictureName;
     }
 
-    public String getDescription() {
-        return description;
+    public PictureType getType() {
+        return type;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setType(PictureType type) {
+        this.type = type;
     }
 
     public byte[] getPicture() {
@@ -99,12 +99,12 @@ public class Picture implements Serializable {
         this.pictureContentType = pictureContentType;
     }
 
-    public PictureType getType() {
-        return type;
+    public String getDescription() {
+        return description;
     }
 
-    public void setType(PictureType type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Province getProvince() {
@@ -172,10 +172,10 @@ public class Picture implements Serializable {
         return "Picture{" +
             "id=" + id +
             ", pictureName='" + pictureName + "'" +
-            ", description='" + description + "'" +
+            ", type='" + type + "'" +
             ", picture='" + picture + "'" +
             ", pictureContentType='" + pictureContentType + "'" +
-            ", type='" + type + "'" +
+            ", description='" + description + "'" +
             '}';
     }
 }

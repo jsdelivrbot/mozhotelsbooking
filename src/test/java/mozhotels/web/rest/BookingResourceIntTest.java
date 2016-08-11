@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.LocalDate;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -51,30 +52,17 @@ public class BookingResourceIntTest {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
 
-    private static final ZonedDateTime DEFAULT_CHECK_IN = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
-    private static final ZonedDateTime UPDATED_CHECK_IN = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_CHECK_IN_STR = dateTimeFormatter.format(DEFAULT_CHECK_IN);
+    private static final LocalDate DEFAULT_CHECK_IN = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CHECK_IN = LocalDate.now(ZoneId.systemDefault());
 
-    private static final ZonedDateTime DEFAULT_CHECK_OUT = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
-    private static final ZonedDateTime UPDATED_CHECK_OUT = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_CHECK_OUT_STR = dateTimeFormatter.format(DEFAULT_CHECK_OUT);
+    private static final LocalDate DEFAULT_CHECK_OUT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CHECK_OUT = LocalDate.now(ZoneId.systemDefault());
 
     private static final Integer DEFAULT_PEOPLE_ADULT = 1;
     private static final Integer UPDATED_PEOPLE_ADULT = 2;
 
     private static final Integer DEFAULT_PEOPLE_CHILD = 1;
     private static final Integer UPDATED_PEOPLE_CHILD = 2;
-
-    private static final ZonedDateTime DEFAULT_CREATE_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
-    private static final ZonedDateTime UPDATED_CREATE_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_CREATE_DATE_STR = dateTimeFormatter.format(DEFAULT_CREATE_DATE);
-
-    private static final ZonedDateTime DEFAULT_EDIT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
-    private static final ZonedDateTime UPDATED_EDIT_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_EDIT_DATE_STR = dateTimeFormatter.format(DEFAULT_EDIT_DATE);
-
-    private static final BookingState DEFAULT_STATE = BookingState.SUBMITED;
-    private static final BookingState UPDATED_STATE = BookingState.IN_PROGRESS;
 
     private static final Integer DEFAULT_ROOMS = 1;
     private static final Integer UPDATED_ROOMS = 2;
@@ -84,6 +72,19 @@ public class BookingResourceIntTest {
 
     private static final BigDecimal DEFAULT_TOTAL_PRICE = new BigDecimal(1);
     private static final BigDecimal UPDATED_TOTAL_PRICE = new BigDecimal(2);
+
+    private static final BookingState DEFAULT_STATE = BookingState.SUBMITED;
+    private static final BookingState UPDATED_STATE = BookingState.IN_PROGRESS;
+    private static final String DEFAULT_NOTES = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_NOTES = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_CREATE_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_CREATE_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_CREATE_DATE_STR = dateTimeFormatter.format(DEFAULT_CREATE_DATE);
+
+    private static final ZonedDateTime DEFAULT_EDIT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_EDIT_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_EDIT_DATE_STR = dateTimeFormatter.format(DEFAULT_EDIT_DATE);
 
     @Inject
     private BookingRepository bookingRepository;
@@ -120,12 +121,13 @@ public class BookingResourceIntTest {
         booking.setCheckOut(DEFAULT_CHECK_OUT);
         booking.setPeopleAdult(DEFAULT_PEOPLE_ADULT);
         booking.setPeopleChild(DEFAULT_PEOPLE_CHILD);
-        booking.setCreateDate(DEFAULT_CREATE_DATE);
-        booking.setEditDate(DEFAULT_EDIT_DATE);
-        booking.setState(DEFAULT_STATE);
         booking.setRooms(DEFAULT_ROOMS);
         booking.setTax(DEFAULT_TAX);
         booking.setTotalPrice(DEFAULT_TOTAL_PRICE);
+        booking.setState(DEFAULT_STATE);
+        booking.setNotes(DEFAULT_NOTES);
+        booking.setCreateDate(DEFAULT_CREATE_DATE);
+        booking.setEditDate(DEFAULT_EDIT_DATE);
     }
 
     @Test
@@ -148,12 +150,13 @@ public class BookingResourceIntTest {
         assertThat(testBooking.getCheckOut()).isEqualTo(DEFAULT_CHECK_OUT);
         assertThat(testBooking.getPeopleAdult()).isEqualTo(DEFAULT_PEOPLE_ADULT);
         assertThat(testBooking.getPeopleChild()).isEqualTo(DEFAULT_PEOPLE_CHILD);
-        assertThat(testBooking.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
-        assertThat(testBooking.getEditDate()).isEqualTo(DEFAULT_EDIT_DATE);
-        assertThat(testBooking.getState()).isEqualTo(DEFAULT_STATE);
         assertThat(testBooking.getRooms()).isEqualTo(DEFAULT_ROOMS);
         assertThat(testBooking.getTax()).isEqualTo(DEFAULT_TAX);
         assertThat(testBooking.getTotalPrice()).isEqualTo(DEFAULT_TOTAL_PRICE);
+        assertThat(testBooking.getState()).isEqualTo(DEFAULT_STATE);
+        assertThat(testBooking.getNotes()).isEqualTo(DEFAULT_NOTES);
+        assertThat(testBooking.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
+        assertThat(testBooking.getEditDate()).isEqualTo(DEFAULT_EDIT_DATE);
 
         // Validate the Booking in ElasticSearch
         Booking bookingEs = bookingSearchRepository.findOne(testBooking.getId());
@@ -234,42 +237,6 @@ public class BookingResourceIntTest {
 
     @Test
     @Transactional
-    public void checkCreateDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = bookingRepository.findAll().size();
-        // set the field null
-        booking.setCreateDate(null);
-
-        // Create the Booking, which fails.
-
-        restBookingMockMvc.perform(post("/api/bookings")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(booking)))
-                .andExpect(status().isBadRequest());
-
-        List<Booking> bookings = bookingRepository.findAll();
-        assertThat(bookings).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkStateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = bookingRepository.findAll().size();
-        // set the field null
-        booking.setState(null);
-
-        // Create the Booking, which fails.
-
-        restBookingMockMvc.perform(post("/api/bookings")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(booking)))
-                .andExpect(status().isBadRequest());
-
-        List<Booking> bookings = bookingRepository.findAll();
-        assertThat(bookings).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkRoomsIsRequired() throws Exception {
         int databaseSizeBeforeTest = bookingRepository.findAll().size();
         // set the field null
@@ -324,6 +291,42 @@ public class BookingResourceIntTest {
 
     @Test
     @Transactional
+    public void checkStateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = bookingRepository.findAll().size();
+        // set the field null
+        booking.setState(null);
+
+        // Create the Booking, which fails.
+
+        restBookingMockMvc.perform(post("/api/bookings")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(booking)))
+                .andExpect(status().isBadRequest());
+
+        List<Booking> bookings = bookingRepository.findAll();
+        assertThat(bookings).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkCreateDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = bookingRepository.findAll().size();
+        // set the field null
+        booking.setCreateDate(null);
+
+        // Create the Booking, which fails.
+
+        restBookingMockMvc.perform(post("/api/bookings")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(booking)))
+                .andExpect(status().isBadRequest());
+
+        List<Booking> bookings = bookingRepository.findAll();
+        assertThat(bookings).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllBookings() throws Exception {
         // Initialize the database
         bookingRepository.saveAndFlush(booking);
@@ -333,16 +336,17 @@ public class BookingResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().intValue())))
-                .andExpect(jsonPath("$.[*].checkIn").value(hasItem(DEFAULT_CHECK_IN_STR)))
-                .andExpect(jsonPath("$.[*].checkOut").value(hasItem(DEFAULT_CHECK_OUT_STR)))
+                .andExpect(jsonPath("$.[*].checkIn").value(hasItem(DEFAULT_CHECK_IN.toString())))
+                .andExpect(jsonPath("$.[*].checkOut").value(hasItem(DEFAULT_CHECK_OUT.toString())))
                 .andExpect(jsonPath("$.[*].peopleAdult").value(hasItem(DEFAULT_PEOPLE_ADULT)))
                 .andExpect(jsonPath("$.[*].peopleChild").value(hasItem(DEFAULT_PEOPLE_CHILD)))
-                .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
-                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
-                .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
                 .andExpect(jsonPath("$.[*].rooms").value(hasItem(DEFAULT_ROOMS)))
                 .andExpect(jsonPath("$.[*].tax").value(hasItem(DEFAULT_TAX.doubleValue())))
-                .andExpect(jsonPath("$.[*].totalPrice").value(hasItem(DEFAULT_TOTAL_PRICE.intValue())));
+                .andExpect(jsonPath("$.[*].totalPrice").value(hasItem(DEFAULT_TOTAL_PRICE.intValue())))
+                .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
+                .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES.toString())))
+                .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
+                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)));
     }
 
     @Test
@@ -356,16 +360,17 @@ public class BookingResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(booking.getId().intValue()))
-            .andExpect(jsonPath("$.checkIn").value(DEFAULT_CHECK_IN_STR))
-            .andExpect(jsonPath("$.checkOut").value(DEFAULT_CHECK_OUT_STR))
+            .andExpect(jsonPath("$.checkIn").value(DEFAULT_CHECK_IN.toString()))
+            .andExpect(jsonPath("$.checkOut").value(DEFAULT_CHECK_OUT.toString()))
             .andExpect(jsonPath("$.peopleAdult").value(DEFAULT_PEOPLE_ADULT))
             .andExpect(jsonPath("$.peopleChild").value(DEFAULT_PEOPLE_CHILD))
-            .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE_STR))
-            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR))
-            .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()))
             .andExpect(jsonPath("$.rooms").value(DEFAULT_ROOMS))
             .andExpect(jsonPath("$.tax").value(DEFAULT_TAX.doubleValue()))
-            .andExpect(jsonPath("$.totalPrice").value(DEFAULT_TOTAL_PRICE.intValue()));
+            .andExpect(jsonPath("$.totalPrice").value(DEFAULT_TOTAL_PRICE.intValue()))
+            .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()))
+            .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES.toString()))
+            .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE_STR))
+            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR));
     }
 
     @Test
@@ -391,12 +396,13 @@ public class BookingResourceIntTest {
         updatedBooking.setCheckOut(UPDATED_CHECK_OUT);
         updatedBooking.setPeopleAdult(UPDATED_PEOPLE_ADULT);
         updatedBooking.setPeopleChild(UPDATED_PEOPLE_CHILD);
-        updatedBooking.setCreateDate(UPDATED_CREATE_DATE);
-        updatedBooking.setEditDate(UPDATED_EDIT_DATE);
-        updatedBooking.setState(UPDATED_STATE);
         updatedBooking.setRooms(UPDATED_ROOMS);
         updatedBooking.setTax(UPDATED_TAX);
         updatedBooking.setTotalPrice(UPDATED_TOTAL_PRICE);
+        updatedBooking.setState(UPDATED_STATE);
+        updatedBooking.setNotes(UPDATED_NOTES);
+        updatedBooking.setCreateDate(UPDATED_CREATE_DATE);
+        updatedBooking.setEditDate(UPDATED_EDIT_DATE);
 
         restBookingMockMvc.perform(put("/api/bookings")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -411,12 +417,13 @@ public class BookingResourceIntTest {
         assertThat(testBooking.getCheckOut()).isEqualTo(UPDATED_CHECK_OUT);
         assertThat(testBooking.getPeopleAdult()).isEqualTo(UPDATED_PEOPLE_ADULT);
         assertThat(testBooking.getPeopleChild()).isEqualTo(UPDATED_PEOPLE_CHILD);
-        assertThat(testBooking.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
-        assertThat(testBooking.getEditDate()).isEqualTo(UPDATED_EDIT_DATE);
-        assertThat(testBooking.getState()).isEqualTo(UPDATED_STATE);
         assertThat(testBooking.getRooms()).isEqualTo(UPDATED_ROOMS);
         assertThat(testBooking.getTax()).isEqualTo(UPDATED_TAX);
         assertThat(testBooking.getTotalPrice()).isEqualTo(UPDATED_TOTAL_PRICE);
+        assertThat(testBooking.getState()).isEqualTo(UPDATED_STATE);
+        assertThat(testBooking.getNotes()).isEqualTo(UPDATED_NOTES);
+        assertThat(testBooking.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
+        assertThat(testBooking.getEditDate()).isEqualTo(UPDATED_EDIT_DATE);
 
         // Validate the Booking in ElasticSearch
         Booking bookingEs = bookingSearchRepository.findOne(testBooking.getId());
@@ -457,15 +464,16 @@ public class BookingResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().intValue())))
-            .andExpect(jsonPath("$.[*].checkIn").value(hasItem(DEFAULT_CHECK_IN_STR)))
-            .andExpect(jsonPath("$.[*].checkOut").value(hasItem(DEFAULT_CHECK_OUT_STR)))
+            .andExpect(jsonPath("$.[*].checkIn").value(hasItem(DEFAULT_CHECK_IN.toString())))
+            .andExpect(jsonPath("$.[*].checkOut").value(hasItem(DEFAULT_CHECK_OUT.toString())))
             .andExpect(jsonPath("$.[*].peopleAdult").value(hasItem(DEFAULT_PEOPLE_ADULT)))
             .andExpect(jsonPath("$.[*].peopleChild").value(hasItem(DEFAULT_PEOPLE_CHILD)))
-            .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
-            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
-            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
             .andExpect(jsonPath("$.[*].rooms").value(hasItem(DEFAULT_ROOMS)))
             .andExpect(jsonPath("$.[*].tax").value(hasItem(DEFAULT_TAX.doubleValue())))
-            .andExpect(jsonPath("$.[*].totalPrice").value(hasItem(DEFAULT_TOTAL_PRICE.intValue())));
+            .andExpect(jsonPath("$.[*].totalPrice").value(hasItem(DEFAULT_TOTAL_PRICE.intValue())))
+            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
+            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES.toString())))
+            .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
+            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)));
     }
 }

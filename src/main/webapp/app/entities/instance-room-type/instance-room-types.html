@@ -38,7 +38,7 @@
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.instanceRoomTypeName">Instance Room Type Name</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.description">Description</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceRoomType.quantity">Quantity</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceRoomType.roomQuantity">Room Quantity</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.capacityAdults">Capacity Adults</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.capacityChildren">Capacity Children</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.onlinePrice">Online Price</span></th>
@@ -46,6 +46,10 @@
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.taxInclude">Tax Include</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.tax">Tax</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.photoPrincipal">Photo Principal</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceRoomType.createDate">Create Date</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceRoomType.editDate">Edit Date</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceRoomType.active">Active</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceRoomType.approval">Approval</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.instanceRoomFacility">Instance Room Facility</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceRoomType.instanceTur">Instance Tur</span></th>
                     <th></th>
@@ -56,7 +60,7 @@
                     <td><a ui-sref="instance-room-type-detail({id:instanceRoomType.id})">{{instanceRoomType.id}}</a></td>
                     <td>{{instanceRoomType.instanceRoomTypeName}}</td>
                     <td>{{instanceRoomType.description}}</td>
-                    <td>{{instanceRoomType.quantity}}</td>
+                    <td>{{instanceRoomType.roomQuantity}}</td>
                     <td>{{instanceRoomType.capacityAdults}}</td>
                     <td>{{instanceRoomType.capacityChildren}}</td>
                     <td>{{instanceRoomType.onlinePrice}}</td>
@@ -69,9 +73,13 @@
                         </a>
                         <span ng-if="instanceRoomType.photoPrincipal">{{instanceRoomType.photoPrincipalContentType}}, {{vm.byteSize(instanceRoomType.photoPrincipal)}}</span>
                     </td>
+                    <td>{{instanceRoomType.createDate | date:'medium'}}</td>
+                    <td>{{instanceRoomType.editDate | date:'medium'}}</td>
+                    <td>{{instanceRoomType.active}}</td>
+                    <td>{{instanceRoomType.approval}}</td>
                     <td>
                         <span ng-repeat="instanceRoomFacility in instanceRoomType.instanceRoomFacilities">
-                            <a class="form-control-static" ui-sref="instance-facility-detail({id: {{instanceRoomFacility.id}}})">{{instanceRoomFacility.instanceRoomFacilityName}}</a>{{$last ? '' : ', '}}
+                            <a class="form-control-static" ui-sref="instance-facility-detail({id: {{instanceRoomFacility.id}}})">{{instanceRoomFacility.instanceFacilityName}}</a>{{$last ? '' : ', '}}
                         </span>
                     </td>
                     <td>

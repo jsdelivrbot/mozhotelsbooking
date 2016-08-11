@@ -38,7 +38,6 @@
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="mozhotelsbookingApp.province.provinceName">Province Name</span></th>
                     <th><span translate="mozhotelsbookingApp.province.description">Description</span></th>
-                    <th><span translate="mozhotelsbookingApp.province.photoPrincipal">Photo Principal</span></th>
                     <th><span translate="mozhotelsbookingApp.province.region">Region</span></th>
                     <th></th>
                 </tr>
@@ -48,12 +47,6 @@
                     <td><a ui-sref="province-detail({id:province.id})">{{province.id}}</a></td>
                     <td>{{province.provinceName}}</td>
                     <td>{{province.description}}</td>
-                    <td>
-                        <a ng-if="province.photoPrincipal" ng-click="vm.openFile(province.photoPrincipalContentType, province.photoPrincipal)">
-                            <img data-ng-src="{{'data:' + province.photoPrincipalContentType + ';base64,' + province.photoPrincipal}}" style="max-height: 30px;"/>
-                        </a>
-                        <span ng-if="province.photoPrincipal">{{province.photoPrincipalContentType}}, {{vm.byteSize(province.photoPrincipal)}}</span>
-                    </td>
                     <td>
                         <a ui-sref="region-detail({id:province.region.id})">{{province.region.regionName}}</a>
                     </td>

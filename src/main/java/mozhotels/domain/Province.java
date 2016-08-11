@@ -34,13 +34,6 @@ public class Province implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Lob
-    @Column(name = "photo_principal")
-    private byte[] photoPrincipal;
-
-    @Column(name = "photo_principal_content_type")
-    private String photoPrincipalContentType;
-
     @OneToMany(mappedBy = "province")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -76,22 +69,6 @@ public class Province implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public byte[] getPhotoPrincipal() {
-        return photoPrincipal;
-    }
-
-    public void setPhotoPrincipal(byte[] photoPrincipal) {
-        this.photoPrincipal = photoPrincipal;
-    }
-
-    public String getPhotoPrincipalContentType() {
-        return photoPrincipalContentType;
-    }
-
-    public void setPhotoPrincipalContentType(String photoPrincipalContentType) {
-        this.photoPrincipalContentType = photoPrincipalContentType;
     }
 
     public Set<LocalTur> getLocalTurs() {
@@ -144,8 +121,6 @@ public class Province implements Serializable {
             "id=" + id +
             ", provinceName='" + provinceName + "'" +
             ", description='" + description + "'" +
-            ", photoPrincipal='" + photoPrincipal + "'" +
-            ", photoPrincipalContentType='" + photoPrincipalContentType + "'" +
             '}';
     }
 }

@@ -29,7 +29,7 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="quantity" type="integer">
+            <column name="room_quantity" type="integer">
                 <constraints nullable="true" />
             </column>
             
@@ -46,7 +46,7 @@
             </column>
             
             <column name="branch_price" type="decimal(10,2)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             
             <column name="tax_include" type="bit">
@@ -64,12 +64,30 @@
                 <constraints nullable="true" />
             </column>
             
+            <column name="create_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="edit_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="active" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="approval" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="instance_tur_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="instance_room_type" columnName="create_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="instance_room_type" columnName="edit_date" columnDataType="datetime"/>
         
         <createTable tableName="instance_room_type_instance_room_facility">
             <column name="instance_room_facilities_id" type="bigint">

@@ -12,23 +12,22 @@
       "relationshipType": "many-to-many",
       "relationshipName": "instanceRoomFacility",
       "otherEntityName": "instanceFacility",
-      "otherEntityField": "instanceRoomFacilityName",
+      "otherEntityField": "instanceFacilityName",
       "ownerSide": true
     },
     {
       "relationshipId": 3,
+      "relationshipType": "one-to-many",
+      "relationshipName": "booking",
+      "otherEntityName": "booking",
+      "otherEntityRelationshipName": "instanceRoomType"
+    },
+    {
+      "relationshipId": 4,
       "relationshipType": "many-to-one",
       "relationshipName": "instanceTur",
       "otherEntityName": "instanceTur",
       "otherEntityField": "instanceTurName"
-    },
-    {
-      "relationshipId": 4,
-      "relationshipType": "many-to-many",
-      "relationshipName": "booking",
-      "otherEntityName": "booking",
-      "ownerSide": false,
-      "otherEntityRelationshipName": "instanceRoomType"
     }
   ],
   "fields": [
@@ -47,7 +46,7 @@
     },
     {
       "fieldId": 3,
-      "fieldName": "quantity",
+      "fieldName": "roomQuantity",
       "fieldType": "Integer"
     },
     {
@@ -71,10 +70,7 @@
     {
       "fieldId": 7,
       "fieldName": "branchPrice",
-      "fieldType": "BigDecimal",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldType": "BigDecimal"
     },
     {
       "fieldId": 8,
@@ -91,6 +87,26 @@
       "fieldName": "photoPrincipal",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldId": 11,
+      "fieldName": "createDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 12,
+      "fieldName": "editDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 13,
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 14,
+      "fieldName": "approval",
+      "fieldType": "Boolean"
     }
   ],
   "changelogDate": "20160705045713",

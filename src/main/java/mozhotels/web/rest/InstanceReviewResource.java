@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -49,7 +50,7 @@ public class InstanceReviewResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<InstanceReview> createInstanceReview(@RequestBody InstanceReview instanceReview) throws URISyntaxException {
+    public ResponseEntity<InstanceReview> createInstanceReview(@Valid @RequestBody InstanceReview instanceReview) throws URISyntaxException {
         log.debug("REST request to save InstanceReview : {}", instanceReview);
         if (instanceReview.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("instanceReview", "idexists", "A new instanceReview cannot already have an ID")).body(null);
@@ -74,7 +75,7 @@ public class InstanceReviewResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<InstanceReview> updateInstanceReview(@RequestBody InstanceReview instanceReview) throws URISyntaxException {
+    public ResponseEntity<InstanceReview> updateInstanceReview(@Valid @RequestBody InstanceReview instanceReview) throws URISyntaxException {
         log.debug("REST request to update InstanceReview : {}", instanceReview);
         if (instanceReview.getId() == null) {
             return createInstanceReview(instanceReview);

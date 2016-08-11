@@ -67,7 +67,7 @@ class InstanceActivityGatlingTest extends Simulation {
             .exec(http("Create new instanceActivity")
             .post("/api/instance-activities")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "instanceActivityName":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "area":null, "photoPrincipal":null}""")).asJSON
+            .body(StringBody("""{"id":null, "instanceActivityName":"SAMPLE_TEXT", "area":null, "description":"SAMPLE_TEXT", "photoPrincipal":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_instanceActivity_url"))).exitHereIfFailed
             .pause(10)

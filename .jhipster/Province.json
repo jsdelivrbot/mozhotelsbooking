@@ -35,12 +35,6 @@
       "fieldId": 2,
       "fieldName": "description",
       "fieldType": "String"
-    },
-    {
-      "fieldId": 3,
-      "fieldName": "photoPrincipal",
-      "fieldType": "byte[]",
-      "fieldTypeBlobContent": "image"
     }
   ],
   "changelogDate": "20160705045703",

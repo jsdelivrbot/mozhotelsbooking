@@ -37,20 +37,22 @@
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.instanceTurName">Instance Tur Name</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceTur.rating">Rating</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.description">Description</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceTur.address">Address</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceTur.website">Website</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceTur.email">Email</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.latitude">Latitude</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.longitude">Longitude</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.rooms">Rooms</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.beds">Beds</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.floors">Floors</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceTur.rating">Rating</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.currency">Currency</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceTur.contactNumberPrincipal">Contact Number Principal</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceTur.zipCode">Zip Code</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.photoPrincipal">Photo Principal</span></th>
+                    <!-- <th><span translate="mozhotelsbookingApp.instanceTur.agreementNumber">Agreement Number</span></th> -->
+                    <!-- <th><span translate="mozhotelsbookingApp.instanceTur.createDate">Create Date</span></th> -->
+                    <!-- <th><span translate="mozhotelsbookingApp.instanceTur.editDate">Edit Date</span></th> -->
+                    <th><span translate="mozhotelsbookingApp.instanceTur.active">Active</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceTur.approval">Approval</span></th>
+                    <!-- <th><span translate="mozhotelsbookingApp.instanceTur.instanceFacilityType">Instance Facility Type</span></th> -->
+                    <!-- <th><span translate="mozhotelsbookingApp.instanceTur.instanceActivityType">Instance Activity Type</span></th> -->
                     <th><span translate="mozhotelsbookingApp.instanceTur.localTur">Local Tur</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceTur.instanceTurType">Instance Tur Type</span></th>
                     <th></th>
@@ -60,25 +62,35 @@
                 <tr ng-repeat="instanceTur in vm.instanceTurs track by instanceTur.id">
                     <td><a ui-sref="instance-tur-detail({id:instanceTur.id})">{{instanceTur.id}}</a></td>
                     <td>{{instanceTur.instanceTurName}}</td>
+                    <td translate="{{'mozhotelsbookingApp.InstanceRating.' + instanceTur.rating}}">{{instanceTur.rating}}</td>
                     <td>{{instanceTur.description}}</td>
-                    <td>{{instanceTur.address}}</td>
-                    <td>{{instanceTur.website}}</td>
-                    <td>{{instanceTur.email}}</td>
                     <td>{{instanceTur.latitude}}</td>
                     <td>{{instanceTur.longitude}}</td>
                     <td>{{instanceTur.rooms}}</td>
                     <td>{{instanceTur.beds}}</td>
                     <td>{{instanceTur.floors}}</td>
-                    <td translate="{{'mozhotelsbookingApp.InstanceRating.' + instanceTur.rating}}">{{instanceTur.rating}}</td>
-                    <td>{{instanceTur.currency}}</td>
-                    <td>{{instanceTur.contactNumberPrincipal}}</td>
-                    <td>{{instanceTur.zipCode}}</td>
+                    <td translate="{{'mozhotelsbookingApp.Currency.' + instanceTur.currency}}">{{instanceTur.currency}}</td>
                     <td>
                         <a ng-if="instanceTur.photoPrincipal" ng-click="vm.openFile(instanceTur.photoPrincipalContentType, instanceTur.photoPrincipal)">
                             <img data-ng-src="{{'data:' + instanceTur.photoPrincipalContentType + ';base64,' + instanceTur.photoPrincipal}}" style="max-height: 30px;"/>
                         </a>
                         <span ng-if="instanceTur.photoPrincipal">{{instanceTur.photoPrincipalContentType}}, {{vm.byteSize(instanceTur.photoPrincipal)}}</span>
                     </td>
+                    <!-- <td>{{instanceTur.agreementNumber}}</td> -->
+                    <!-- <td>{{instanceTur.createDate | date:'medium'}}</td> -->
+                    <!-- <td>{{instanceTur.editDate | date:'medium'}}</td> -->
+                    <td>{{instanceTur.active}}</td>
+                    <td>{{instanceTur.approval}}</td>
+                    <!-- <td>
+                        <span ng-repeat="instanceFacilityType in instanceTur.instanceFacilityTypes">
+                            <a class="form-control-static" ui-sref="instance-facility-type-detail({id: {{instanceFacilityType.id}}})">{{instanceFacilityType.instanceFacilityTypeName}}</a>{{$last ? '' : ', '}}
+                        </span>
+                    </td> -->
+                    <!-- <td>
+                        <span ng-repeat="instanceActivityType in instanceTur.instanceActivityTypes">
+                            <a class="form-control-static" ui-sref="instance-activity-type-detail({id: {{instanceActivityType.id}}})">{{instanceActivityType.instanceActivityTypeName}}</a>{{$last ? '' : ', '}}
+                        </span>
+                    </td> -->
                     <td>
                         <a ui-sref="local-tur-detail({id:instanceTur.localTur.id})">{{instanceTur.localTur.localTurName}}</a>
                     </td>

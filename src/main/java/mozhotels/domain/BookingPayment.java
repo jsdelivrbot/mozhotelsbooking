@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
@@ -46,14 +47,6 @@ public class BookingPayment implements Serializable {
     private BigDecimal amount;
 
     @NotNull
-    @Column(name = "create_date", nullable = false)
-    private ZonedDateTime createDate;
-
-    @NotNull
-    @Column(name = "edit_date", nullable = false)
-    private ZonedDateTime editDate;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
     private PaymentState state;
@@ -73,11 +66,22 @@ public class BookingPayment implements Serializable {
 
     @NotNull
     @Column(name = "card_expiry", nullable = false)
-    private Integer cardExpiry;
+    private LocalDate cardExpiry;
 
     @NotNull
     @Column(name = "card_ccv", nullable = false)
     private Integer cardCcv;
+
+    @NotNull
+    @Column(name = "create_date", nullable = false)
+    private ZonedDateTime createDate;
+
+    @NotNull
+    @Column(name = "edit_date", nullable = false)
+    private ZonedDateTime editDate;
+
+    @Column(name = "approval")
+    private Boolean approval;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -115,22 +119,6 @@ public class BookingPayment implements Serializable {
         this.amount = amount;
     }
 
-    public ZonedDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(ZonedDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public ZonedDateTime getEditDate() {
-        return editDate;
-    }
-
-    public void setEditDate(ZonedDateTime editDate) {
-        this.editDate = editDate;
-    }
-
     public PaymentState getState() {
         return state;
     }
@@ -163,11 +151,11 @@ public class BookingPayment implements Serializable {
         this.cardNumber = cardNumber;
     }
 
-    public Integer getCardExpiry() {
+    public LocalDate getCardExpiry() {
         return cardExpiry;
     }
 
-    public void setCardExpiry(Integer cardExpiry) {
+    public void setCardExpiry(LocalDate cardExpiry) {
         this.cardExpiry = cardExpiry;
     }
 
@@ -177,6 +165,30 @@ public class BookingPayment implements Serializable {
 
     public void setCardCcv(Integer cardCcv) {
         this.cardCcv = cardCcv;
+    }
+
+    public ZonedDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(ZonedDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public ZonedDateTime getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(ZonedDateTime editDate) {
+        this.editDate = editDate;
+    }
+
+    public Boolean isApproval() {
+        return approval;
+    }
+
+    public void setApproval(Boolean approval) {
+        this.approval = approval;
     }
 
     public Booking getBooking() {
@@ -214,14 +226,15 @@ public class BookingPayment implements Serializable {
             ", type='" + type + "'" +
             ", currency='" + currency + "'" +
             ", amount='" + amount + "'" +
-            ", createDate='" + createDate + "'" +
-            ", editDate='" + editDate + "'" +
             ", state='" + state + "'" +
             ", cardHolder='" + cardHolder + "'" +
             ", cardType='" + cardType + "'" +
             ", cardNumber='" + cardNumber + "'" +
             ", cardExpiry='" + cardExpiry + "'" +
             ", cardCcv='" + cardCcv + "'" +
+            ", createDate='" + createDate + "'" +
+            ", editDate='" + editDate + "'" +
+            ", approval='" + approval + "'" +
             '}';
     }
 }

@@ -80,14 +80,15 @@
                                 type: null,
                                 currency: null,
                                 amount: null,
-                                createDate: null,
-                                editDate: null,
                                 state: null,
                                 cardHolder: null,
                                 cardType: null,
                                 cardNumber: null,
                                 cardExpiry: null,
                                 cardCcv: null,
+                                createDate: null,
+                                editDate: null,
+                                approval: null,
                                 id: null
                             };
                         }

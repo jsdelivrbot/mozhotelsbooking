@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -50,7 +49,7 @@ public class InstanceContactResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<InstanceContact> createInstanceContact(@Valid @RequestBody InstanceContact instanceContact) throws URISyntaxException {
+    public ResponseEntity<InstanceContact> createInstanceContact(@RequestBody InstanceContact instanceContact) throws URISyntaxException {
         log.debug("REST request to save InstanceContact : {}", instanceContact);
         if (instanceContact.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("instanceContact", "idexists", "A new instanceContact cannot already have an ID")).body(null);
@@ -75,7 +74,7 @@ public class InstanceContactResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<InstanceContact> updateInstanceContact(@Valid @RequestBody InstanceContact instanceContact) throws URISyntaxException {
+    public ResponseEntity<InstanceContact> updateInstanceContact(@RequestBody InstanceContact instanceContact) throws URISyntaxException {
         log.debug("REST request to update InstanceContact : {}", instanceContact);
         if (instanceContact.getId() == null) {
             return createInstanceContact(instanceContact);

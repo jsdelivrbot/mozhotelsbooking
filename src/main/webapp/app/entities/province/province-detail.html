@@ -12,15 +12,6 @@
         <dd>
             <span>{{vm.province.description}}</span>
         </dd>
-        <dt><span translate="mozhotelsbookingApp.province.photoPrincipal">Photo Principal</span></dt>
-        <dd>
-            <div ng-if="vm.province.photoPrincipal">
-                <a ng-click="vm.openFile(vm.province.photoPrincipalContentType, vm.province.photoPrincipal)">
-                    <img data-ng-src="{{'data:' + vm.province.photoPrincipalContentType + ';base64,' + vm.province.photoPrincipal}}" style="max-width: 100%;"/>
-                </a>
-                {{vm.province.photoPrincipalContentType}}, {{vm.byteSize(vm.province.photoPrincipal)}}
-            </div>
-        </dd>
         <dt><span translate="mozhotelsbookingApp.province.region">Region</span></dt>
         <dd>
             <a ui-sref="region-detail({id:vm.province.region.id})">{{vm.province.region.regionName}}</a>

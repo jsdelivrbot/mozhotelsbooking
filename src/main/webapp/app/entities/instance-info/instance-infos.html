@@ -38,6 +38,7 @@
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceInfo.instanceInfo">Instance Info</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceInfo.instanceInfoName">Instance Info Name</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceInfo.info">Info</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceInfo.description">Description</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceInfo.instanceInfoType">Instance Info Type</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceInfo.instanceTur">Instance Tur</span></th>
@@ -49,6 +50,7 @@
                     <td><a ui-sref="instance-info-detail({id:instanceInfo.id})">{{instanceInfo.id}}</a></td>
                     <td translate="{{'mozhotelsbookingApp.InfoType.' + instanceInfo.instanceInfo}}">{{instanceInfo.instanceInfo}}</td>
                     <td>{{instanceInfo.instanceInfoName}}</td>
+                    <td>{{instanceInfo.info}}</td>
                     <td>{{instanceInfo.description}}</td>
                     <td>
                         <a ui-sref="instance-info-type-detail({id:instanceInfo.instanceInfoType.id})">{{instanceInfo.instanceInfoType.instanceInfoTypeName}}</a>

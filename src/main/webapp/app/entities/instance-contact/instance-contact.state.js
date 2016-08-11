@@ -71,7 +71,11 @@
                     resolve: {
                         entity: function () {
                             return {
-                                contactNumber: null,
+                                contactNumberPrincipal: null,
+                                zipCode: null,
+                                address: null,
+                                website: null,
+                                email: null,
                                 id: null
                             };
                         }

@@ -56,46 +56,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="mozhotelsbookingApp.bookingPayment.createDate" for="field_createDate">Create Date</label>
-                <div class="input-group">
-                    <input id="field_createDate" type="text" class="form-control" name="createDate" datetime-picker="{{dateformat}}" ng-model="vm.bookingPayment.createDate" is-open="vm.datePickerOpenStatus.createDate"
-                    required  />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createDate')"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </div>
-            <div ng-show="editForm.createDate.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.createDate.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.createDate.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="mozhotelsbookingApp.bookingPayment.editDate" for="field_editDate">Edit Date</label>
-                <div class="input-group">
-                    <input id="field_editDate" type="text" class="form-control" name="editDate" datetime-picker="{{dateformat}}" ng-model="vm.bookingPayment.editDate" is-open="vm.datePickerOpenStatus.editDate"
-                    required  />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('editDate')"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </div>
-            <div ng-show="editForm.editDate.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.editDate.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.editDate.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="control-label" translate="mozhotelsbookingApp.bookingPayment.state" for="field_state">State</label>
             <select class="form-control" name="state" ng-model="vm.bookingPayment.state" id="field_state" required>
                 <option value="SUBMITED" translate="mozhotelsbookingApp.PaymentState.SUBMITED">SUBMITED</option>
@@ -156,17 +116,17 @@
         </div>
         <div class="form-group">
             <label class="control-label" translate="mozhotelsbookingApp.bookingPayment.cardExpiry" for="field_cardExpiry">Card Expiry</label>
-            <input type="number" class="form-control" name="cardExpiry" id="field_cardExpiry"
-                    ng-model="vm.bookingPayment.cardExpiry"
-                    required />
+                <div class="input-group">
+                    <input id="field_cardExpiry" type="text" class="form-control" name="cardExpiry" uib-datepicker-popup="{{dateformat}}" ng-model="vm.bookingPayment.cardExpiry" is-open="vm.datePickerOpenStatus.cardExpiry"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('cardExpiry')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
             <div ng-show="editForm.cardExpiry.$invalid">
                 <p class="help-block"
                     ng-show="editForm.cardExpiry.$error.required" translate="entity.validation.required">
                     This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.cardExpiry.$error.number" translate="entity.validation.number">
-                    This field should be a number.
                 </p>
             </div>
         </div>
@@ -185,6 +145,52 @@
                     This field should be a number.
                 </p>
             </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.bookingPayment.createDate" for="field_createDate">Create Date</label>
+                <div class="input-group">
+                    <input id="field_createDate" type="text" class="form-control" name="createDate" datetime-picker="{{dateformat}}" ng-model="vm.bookingPayment.createDate" is-open="vm.datePickerOpenStatus.createDate"
+                    required  />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.createDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.createDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.createDate.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.bookingPayment.editDate" for="field_editDate">Edit Date</label>
+                <div class="input-group">
+                    <input id="field_editDate" type="text" class="form-control" name="editDate" datetime-picker="{{dateformat}}" ng-model="vm.bookingPayment.editDate" is-open="vm.datePickerOpenStatus.editDate"
+                    required  />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('editDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.editDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.editDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.editDate.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.bookingPayment.approval" for="field_approval">Approval</label>
+            <input type="checkbox" class="form-control" name="approval" id="field_approval"
+                    ng-model="vm.bookingPayment.approval"
+                     />
         </div>
 
         <div class="form-group">

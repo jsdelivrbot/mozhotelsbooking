@@ -8,11 +8,14 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
 import mozhotels.domain.enumeration.InstanceRating;
+
+import mozhotels.domain.enumeration.Currency;
 
 /**
  * A InstanceTur.
@@ -33,19 +36,13 @@ public class InstanceTur implements Serializable {
     @Column(name = "instance_tur_name", nullable = false)
     private String instanceTurName;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rating")
+    private InstanceRating rating;
+
     @NotNull
     @Column(name = "description", nullable = false)
     private String description;
-
-    @NotNull
-    @Column(name = "address", nullable = false)
-    private String address;
-
-    @Column(name = "website")
-    private String website;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "latitude")
     private Double latitude;
@@ -62,19 +59,10 @@ public class InstanceTur implements Serializable {
     @Column(name = "floors")
     private Integer floors;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "rating")
-    private InstanceRating rating;
-
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "currency", nullable = false)
-    private String currency;
-
-    @Column(name = "contact_number_principal")
-    private Integer contactNumberPrincipal;
-
-    @Column(name = "zip_code")
-    private String zipCode;
+    private Currency currency;
 
     @Lob
     @Column(name = "photo_principal")
@@ -83,20 +71,44 @@ public class InstanceTur implements Serializable {
     @Column(name = "photo_principal_content_type")
     private String photoPrincipalContentType;
 
+    @Column(name = "agreement_number")
+    private String agreementNumber;
+
+    @Column(name = "create_date")
+    private ZonedDateTime createDate;
+
+    @Column(name = "edit_date")
+    private ZonedDateTime editDate;
+
+    @Column(name = "active")
+    private Boolean active;
+
+    @Column(name = "approval")
+    private Boolean approval;
+
     @OneToMany(mappedBy = "instanceTur")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Picture> pictures = new HashSet<>();
 
-    @OneToMany(mappedBy = "instanceTur")
-    @JsonIgnore
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<InstanceContact> instanceContacts = new HashSet<>();
+    @JoinTable(name = "instance_tur_instance_facility_type",
+               joinColumns = @JoinColumn(name="instance_turs_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="instance_facility_types_id", referencedColumnName="ID"))
+    private Set<InstanceFacilityType> instanceFacilityTypes = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "instance_tur_instance_activity_type",
+               joinColumns = @JoinColumn(name="instance_turs_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="instance_activity_types_id", referencedColumnName="ID"))
+    private Set<InstanceActivityType> instanceActivityTypes = new HashSet<>();
 
     @OneToMany(mappedBy = "instanceTur")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<InstanceFacility> instanceResources = new HashSet<>();
+    private Set<InstanceFacility> instanceFacilities = new HashSet<>();
 
     @OneToMany(mappedBy = "instanceTur")
     @JsonIgnore
@@ -123,11 +135,20 @@ public class InstanceTur implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Booking> bookings = new HashSet<>();
 
+    @OneToMany(mappedBy = "instanceTur")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Favorite> favorites = new HashSet<>();
+
     @ManyToOne
     private LocalTur localTur;
 
     @ManyToOne
     private InstanceTurType instanceTurType;
+
+    @OneToOne(mappedBy = "instanceTur")
+    @JsonIgnore
+    private InstanceContact instanceContact;
 
     public Long getId() {
         return id;
@@ -145,36 +166,20 @@ public class InstanceTur implements Serializable {
         this.instanceTurName = instanceTurName;
     }
 
+    public InstanceRating getRating() {
+        return rating;
+    }
+
+    public void setRating(InstanceRating rating) {
+        this.rating = rating;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Double getLatitude() {
@@ -217,36 +222,12 @@ public class InstanceTur implements Serializable {
         this.floors = floors;
     }
 
-    public InstanceRating getRating() {
-        return rating;
-    }
-
-    public void setRating(InstanceRating rating) {
-        this.rating = rating;
-    }
-
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
-    }
-
-    public Integer getContactNumberPrincipal() {
-        return contactNumberPrincipal;
-    }
-
-    public void setContactNumberPrincipal(Integer contactNumberPrincipal) {
-        this.contactNumberPrincipal = contactNumberPrincipal;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
     }
 
     public byte[] getPhotoPrincipal() {
@@ -265,6 +246,46 @@ public class InstanceTur implements Serializable {
         this.photoPrincipalContentType = photoPrincipalContentType;
     }
 
+    public String getAgreementNumber() {
+        return agreementNumber;
+    }
+
+    public void setAgreementNumber(String agreementNumber) {
+        this.agreementNumber = agreementNumber;
+    }
+
+    public ZonedDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(ZonedDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public ZonedDateTime getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(ZonedDateTime editDate) {
+        this.editDate = editDate;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Boolean isApproval() {
+        return approval;
+    }
+
+    public void setApproval(Boolean approval) {
+        this.approval = approval;
+    }
+
     public Set<Picture> getPictures() {
         return pictures;
     }
@@ -273,20 +294,28 @@ public class InstanceTur implements Serializable {
         this.pictures = pictures;
     }
 
-    public Set<InstanceContact> getInstanceContacts() {
-        return instanceContacts;
+    public Set<InstanceFacilityType> getInstanceFacilityTypes() {
+        return instanceFacilityTypes;
     }
 
-    public void setInstanceContacts(Set<InstanceContact> instanceContacts) {
-        this.instanceContacts = instanceContacts;
+    public void setInstanceFacilityTypes(Set<InstanceFacilityType> instanceFacilityTypes) {
+        this.instanceFacilityTypes = instanceFacilityTypes;
     }
 
-    public Set<InstanceFacility> getInstanceResources() {
-        return instanceResources;
+    public Set<InstanceActivityType> getInstanceActivityTypes() {
+        return instanceActivityTypes;
     }
 
-    public void setInstanceResources(Set<InstanceFacility> instanceFacilities) {
-        this.instanceResources = instanceFacilities;
+    public void setInstanceActivityTypes(Set<InstanceActivityType> instanceActivityTypes) {
+        this.instanceActivityTypes = instanceActivityTypes;
+    }
+
+    public Set<InstanceFacility> getInstanceFacilities() {
+        return instanceFacilities;
+    }
+
+    public void setInstanceFacilities(Set<InstanceFacility> instanceFacilities) {
+        this.instanceFacilities = instanceFacilities;
     }
 
     public Set<InstanceActivity> getInstanceActivities() {
@@ -329,6 +358,14 @@ public class InstanceTur implements Serializable {
         this.bookings = bookings;
     }
 
+    public Set<Favorite> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(Set<Favorite> favorites) {
+        this.favorites = favorites;
+    }
+
     public LocalTur getLocalTur() {
         return localTur;
     }
@@ -343,6 +380,14 @@ public class InstanceTur implements Serializable {
 
     public void setInstanceTurType(InstanceTurType instanceTurType) {
         this.instanceTurType = instanceTurType;
+    }
+
+    public InstanceContact getInstanceContact() {
+        return instanceContact;
+    }
+
+    public void setInstanceContact(InstanceContact instanceContact) {
+        this.instanceContact = instanceContact;
     }
 
     @Override
@@ -370,21 +415,21 @@ public class InstanceTur implements Serializable {
         return "InstanceTur{" +
             "id=" + id +
             ", instanceTurName='" + instanceTurName + "'" +
+            ", rating='" + rating + "'" +
             ", description='" + description + "'" +
-            ", address='" + address + "'" +
-            ", website='" + website + "'" +
-            ", email='" + email + "'" +
             ", latitude='" + latitude + "'" +
             ", longitude='" + longitude + "'" +
             ", rooms='" + rooms + "'" +
             ", beds='" + beds + "'" +
             ", floors='" + floors + "'" +
-            ", rating='" + rating + "'" +
             ", currency='" + currency + "'" +
-            ", contactNumberPrincipal='" + contactNumberPrincipal + "'" +
-            ", zipCode='" + zipCode + "'" +
             ", photoPrincipal='" + photoPrincipal + "'" +
             ", photoPrincipalContentType='" + photoPrincipalContentType + "'" +
+            ", agreementNumber='" + agreementNumber + "'" +
+            ", createDate='" + createDate + "'" +
+            ", editDate='" + editDate + "'" +
+            ", active='" + active + "'" +
+            ", approval='" + approval + "'" +
             '}';
     }
 }

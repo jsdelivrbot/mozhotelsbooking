@@ -37,8 +37,8 @@
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceActivity.instanceActivityName">Instance Activity Name</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceActivity.description">Description</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceActivity.area">Area</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceActivity.description">Description</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceActivity.photoPrincipal">Photo Principal</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceActivity.instanceActivityType">Instance Activity Type</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceActivity.instanceTur">Instance Tur</span></th>
@@ -49,8 +49,8 @@
                 <tr ng-repeat="instanceActivity in vm.instanceActivities track by instanceActivity.id">
                     <td><a ui-sref="instance-activity-detail({id:instanceActivity.id})">{{instanceActivity.id}}</a></td>
                     <td>{{instanceActivity.instanceActivityName}}</td>
-                    <td>{{instanceActivity.description}}</td>
                     <td translate="{{'mozhotelsbookingApp.ActivityArea.' + instanceActivity.area}}">{{instanceActivity.area}}</td>
+                    <td>{{instanceActivity.description}}</td>
                     <td>
                         <a ng-if="instanceActivity.photoPrincipal" ng-click="vm.openFile(instanceActivity.photoPrincipalContentType, instanceActivity.photoPrincipal)">
                             <img data-ng-src="{{'data:' + instanceActivity.photoPrincipalContentType + ';base64,' + instanceActivity.photoPrincipal}}" style="max-height: 30px;"/>

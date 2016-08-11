@@ -28,7 +28,7 @@
       "relationshipName": "booking",
       "otherEntityName": "booking",
       "ownerSide": false,
-      "otherEntityRelationshipName": "instanceRoomFacility"
+      "otherEntityRelationshipName": "instanceFacility"
     }
   ],
   "fields": [
@@ -42,19 +42,19 @@
     },
     {
       "fieldId": 2,
+      "fieldName": "area",
+      "fieldType": "InstanceArea",
+      "fieldValues": "INDOOR,OUTDOOR"
+    },
+    {
+      "fieldId": 3,
       "fieldName": "description",
       "fieldType": "String"
     },
     {
-      "fieldId": 3,
+      "fieldId": 4,
       "fieldName": "quantity",
       "fieldType": "Integer"
-    },
-    {
-      "fieldId": 4,
-      "fieldName": "area",
-      "fieldType": "InstanceArea",
-      "fieldValues": "INDOOR,OUTDOOR"
     },
     {
       "fieldId": 5,

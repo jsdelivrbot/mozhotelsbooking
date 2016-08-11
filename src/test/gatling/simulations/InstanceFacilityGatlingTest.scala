@@ -67,7 +67,7 @@ class InstanceFacilityGatlingTest extends Simulation {
             .exec(http("Create new instanceFacility")
             .post("/api/instance-facilities")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "instanceFacilityName":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "quantity":"0", "area":null, "price":null, "bookingInclude":null}""")).asJSON
+            .body(StringBody("""{"id":null, "instanceFacilityName":"SAMPLE_TEXT", "area":null, "description":"SAMPLE_TEXT", "quantity":"0", "price":null, "bookingInclude":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_instanceFacility_url"))).exitHereIfFailed
             .pause(10)

@@ -25,6 +25,10 @@ import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.math.BigDecimal;;
 import java.util.List;
 
@@ -44,13 +48,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class InstanceRoomTypeResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
+
     private static final String DEFAULT_INSTANCE_ROOM_TYPE_NAME = "AAAAA";
     private static final String UPDATED_INSTANCE_ROOM_TYPE_NAME = "BBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
 
-    private static final Integer DEFAULT_QUANTITY = 1;
-    private static final Integer UPDATED_QUANTITY = 2;
+    private static final Integer DEFAULT_ROOM_QUANTITY = 1;
+    private static final Integer UPDATED_ROOM_QUANTITY = 2;
 
     private static final Integer DEFAULT_CAPACITY_ADULTS = 1;
     private static final Integer UPDATED_CAPACITY_ADULTS = 2;
@@ -74,6 +80,20 @@ public class InstanceRoomTypeResourceIntTest {
     private static final byte[] UPDATED_PHOTO_PRINCIPAL = TestUtil.createByteArray(2, "1");
     private static final String DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE = "image/png";
+
+    private static final ZonedDateTime DEFAULT_CREATE_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_CREATE_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_CREATE_DATE_STR = dateTimeFormatter.format(DEFAULT_CREATE_DATE);
+
+    private static final ZonedDateTime DEFAULT_EDIT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_EDIT_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_EDIT_DATE_STR = dateTimeFormatter.format(DEFAULT_EDIT_DATE);
+
+    private static final Boolean DEFAULT_ACTIVE = false;
+    private static final Boolean UPDATED_ACTIVE = true;
+
+    private static final Boolean DEFAULT_APPROVAL = false;
+    private static final Boolean UPDATED_APPROVAL = true;
 
     @Inject
     private InstanceRoomTypeRepository instanceRoomTypeRepository;
@@ -108,7 +128,7 @@ public class InstanceRoomTypeResourceIntTest {
         instanceRoomType = new InstanceRoomType();
         instanceRoomType.setInstanceRoomTypeName(DEFAULT_INSTANCE_ROOM_TYPE_NAME);
         instanceRoomType.setDescription(DEFAULT_DESCRIPTION);
-        instanceRoomType.setQuantity(DEFAULT_QUANTITY);
+        instanceRoomType.setRoomQuantity(DEFAULT_ROOM_QUANTITY);
         instanceRoomType.setCapacityAdults(DEFAULT_CAPACITY_ADULTS);
         instanceRoomType.setCapacityChildren(DEFAULT_CAPACITY_CHILDREN);
         instanceRoomType.setOnlinePrice(DEFAULT_ONLINE_PRICE);
@@ -117,6 +137,10 @@ public class InstanceRoomTypeResourceIntTest {
         instanceRoomType.setTax(DEFAULT_TAX);
         instanceRoomType.setPhotoPrincipal(DEFAULT_PHOTO_PRINCIPAL);
         instanceRoomType.setPhotoPrincipalContentType(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
+        instanceRoomType.setCreateDate(DEFAULT_CREATE_DATE);
+        instanceRoomType.setEditDate(DEFAULT_EDIT_DATE);
+        instanceRoomType.setActive(DEFAULT_ACTIVE);
+        instanceRoomType.setApproval(DEFAULT_APPROVAL);
     }
 
     @Test
@@ -137,7 +161,7 @@ public class InstanceRoomTypeResourceIntTest {
         InstanceRoomType testInstanceRoomType = instanceRoomTypes.get(instanceRoomTypes.size() - 1);
         assertThat(testInstanceRoomType.getInstanceRoomTypeName()).isEqualTo(DEFAULT_INSTANCE_ROOM_TYPE_NAME);
         assertThat(testInstanceRoomType.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testInstanceRoomType.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
+        assertThat(testInstanceRoomType.getRoomQuantity()).isEqualTo(DEFAULT_ROOM_QUANTITY);
         assertThat(testInstanceRoomType.getCapacityAdults()).isEqualTo(DEFAULT_CAPACITY_ADULTS);
         assertThat(testInstanceRoomType.getCapacityChildren()).isEqualTo(DEFAULT_CAPACITY_CHILDREN);
         assertThat(testInstanceRoomType.getOnlinePrice()).isEqualTo(DEFAULT_ONLINE_PRICE);
@@ -146,6 +170,10 @@ public class InstanceRoomTypeResourceIntTest {
         assertThat(testInstanceRoomType.getTax()).isEqualTo(DEFAULT_TAX);
         assertThat(testInstanceRoomType.getPhotoPrincipal()).isEqualTo(DEFAULT_PHOTO_PRINCIPAL);
         assertThat(testInstanceRoomType.getPhotoPrincipalContentType()).isEqualTo(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
+        assertThat(testInstanceRoomType.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
+        assertThat(testInstanceRoomType.getEditDate()).isEqualTo(DEFAULT_EDIT_DATE);
+        assertThat(testInstanceRoomType.isActive()).isEqualTo(DEFAULT_ACTIVE);
+        assertThat(testInstanceRoomType.isApproval()).isEqualTo(DEFAULT_APPROVAL);
 
         // Validate the InstanceRoomType in ElasticSearch
         InstanceRoomType instanceRoomTypeEs = instanceRoomTypeSearchRepository.findOne(testInstanceRoomType.getId());
@@ -190,24 +218,6 @@ public class InstanceRoomTypeResourceIntTest {
 
     @Test
     @Transactional
-    public void checkBranchPriceIsRequired() throws Exception {
-        int databaseSizeBeforeTest = instanceRoomTypeRepository.findAll().size();
-        // set the field null
-        instanceRoomType.setBranchPrice(null);
-
-        // Create the InstanceRoomType, which fails.
-
-        restInstanceRoomTypeMockMvc.perform(post("/api/instance-room-types")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(instanceRoomType)))
-                .andExpect(status().isBadRequest());
-
-        List<InstanceRoomType> instanceRoomTypes = instanceRoomTypeRepository.findAll();
-        assertThat(instanceRoomTypes).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllInstanceRoomTypes() throws Exception {
         // Initialize the database
         instanceRoomTypeRepository.saveAndFlush(instanceRoomType);
@@ -219,7 +229,7 @@ public class InstanceRoomTypeResourceIntTest {
                 .andExpect(jsonPath("$.[*].id").value(hasItem(instanceRoomType.getId().intValue())))
                 .andExpect(jsonPath("$.[*].instanceRoomTypeName").value(hasItem(DEFAULT_INSTANCE_ROOM_TYPE_NAME.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-                .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
+                .andExpect(jsonPath("$.[*].roomQuantity").value(hasItem(DEFAULT_ROOM_QUANTITY)))
                 .andExpect(jsonPath("$.[*].capacityAdults").value(hasItem(DEFAULT_CAPACITY_ADULTS)))
                 .andExpect(jsonPath("$.[*].capacityChildren").value(hasItem(DEFAULT_CAPACITY_CHILDREN)))
                 .andExpect(jsonPath("$.[*].onlinePrice").value(hasItem(DEFAULT_ONLINE_PRICE.intValue())))
@@ -227,7 +237,11 @@ public class InstanceRoomTypeResourceIntTest {
                 .andExpect(jsonPath("$.[*].taxInclude").value(hasItem(DEFAULT_TAX_INCLUDE.booleanValue())))
                 .andExpect(jsonPath("$.[*].tax").value(hasItem(DEFAULT_TAX.intValue())))
                 .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
-                .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))));
+                .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))))
+                .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
+                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+                .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 
     @Test
@@ -243,7 +257,7 @@ public class InstanceRoomTypeResourceIntTest {
             .andExpect(jsonPath("$.id").value(instanceRoomType.getId().intValue()))
             .andExpect(jsonPath("$.instanceRoomTypeName").value(DEFAULT_INSTANCE_ROOM_TYPE_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
+            .andExpect(jsonPath("$.roomQuantity").value(DEFAULT_ROOM_QUANTITY))
             .andExpect(jsonPath("$.capacityAdults").value(DEFAULT_CAPACITY_ADULTS))
             .andExpect(jsonPath("$.capacityChildren").value(DEFAULT_CAPACITY_CHILDREN))
             .andExpect(jsonPath("$.onlinePrice").value(DEFAULT_ONLINE_PRICE.intValue()))
@@ -251,7 +265,11 @@ public class InstanceRoomTypeResourceIntTest {
             .andExpect(jsonPath("$.taxInclude").value(DEFAULT_TAX_INCLUDE.booleanValue()))
             .andExpect(jsonPath("$.tax").value(DEFAULT_TAX.intValue()))
             .andExpect(jsonPath("$.photoPrincipalContentType").value(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE))
-            .andExpect(jsonPath("$.photoPrincipal").value(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL)));
+            .andExpect(jsonPath("$.photoPrincipal").value(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL)))
+            .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE_STR))
+            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR))
+            .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()))
+            .andExpect(jsonPath("$.approval").value(DEFAULT_APPROVAL.booleanValue()));
     }
 
     @Test
@@ -275,7 +293,7 @@ public class InstanceRoomTypeResourceIntTest {
         updatedInstanceRoomType.setId(instanceRoomType.getId());
         updatedInstanceRoomType.setInstanceRoomTypeName(UPDATED_INSTANCE_ROOM_TYPE_NAME);
         updatedInstanceRoomType.setDescription(UPDATED_DESCRIPTION);
-        updatedInstanceRoomType.setQuantity(UPDATED_QUANTITY);
+        updatedInstanceRoomType.setRoomQuantity(UPDATED_ROOM_QUANTITY);
         updatedInstanceRoomType.setCapacityAdults(UPDATED_CAPACITY_ADULTS);
         updatedInstanceRoomType.setCapacityChildren(UPDATED_CAPACITY_CHILDREN);
         updatedInstanceRoomType.setOnlinePrice(UPDATED_ONLINE_PRICE);
@@ -284,6 +302,10 @@ public class InstanceRoomTypeResourceIntTest {
         updatedInstanceRoomType.setTax(UPDATED_TAX);
         updatedInstanceRoomType.setPhotoPrincipal(UPDATED_PHOTO_PRINCIPAL);
         updatedInstanceRoomType.setPhotoPrincipalContentType(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
+        updatedInstanceRoomType.setCreateDate(UPDATED_CREATE_DATE);
+        updatedInstanceRoomType.setEditDate(UPDATED_EDIT_DATE);
+        updatedInstanceRoomType.setActive(UPDATED_ACTIVE);
+        updatedInstanceRoomType.setApproval(UPDATED_APPROVAL);
 
         restInstanceRoomTypeMockMvc.perform(put("/api/instance-room-types")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -296,7 +318,7 @@ public class InstanceRoomTypeResourceIntTest {
         InstanceRoomType testInstanceRoomType = instanceRoomTypes.get(instanceRoomTypes.size() - 1);
         assertThat(testInstanceRoomType.getInstanceRoomTypeName()).isEqualTo(UPDATED_INSTANCE_ROOM_TYPE_NAME);
         assertThat(testInstanceRoomType.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testInstanceRoomType.getQuantity()).isEqualTo(UPDATED_QUANTITY);
+        assertThat(testInstanceRoomType.getRoomQuantity()).isEqualTo(UPDATED_ROOM_QUANTITY);
         assertThat(testInstanceRoomType.getCapacityAdults()).isEqualTo(UPDATED_CAPACITY_ADULTS);
         assertThat(testInstanceRoomType.getCapacityChildren()).isEqualTo(UPDATED_CAPACITY_CHILDREN);
         assertThat(testInstanceRoomType.getOnlinePrice()).isEqualTo(UPDATED_ONLINE_PRICE);
@@ -305,6 +327,10 @@ public class InstanceRoomTypeResourceIntTest {
         assertThat(testInstanceRoomType.getTax()).isEqualTo(UPDATED_TAX);
         assertThat(testInstanceRoomType.getPhotoPrincipal()).isEqualTo(UPDATED_PHOTO_PRINCIPAL);
         assertThat(testInstanceRoomType.getPhotoPrincipalContentType()).isEqualTo(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
+        assertThat(testInstanceRoomType.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
+        assertThat(testInstanceRoomType.getEditDate()).isEqualTo(UPDATED_EDIT_DATE);
+        assertThat(testInstanceRoomType.isActive()).isEqualTo(UPDATED_ACTIVE);
+        assertThat(testInstanceRoomType.isApproval()).isEqualTo(UPDATED_APPROVAL);
 
         // Validate the InstanceRoomType in ElasticSearch
         InstanceRoomType instanceRoomTypeEs = instanceRoomTypeSearchRepository.findOne(testInstanceRoomType.getId());
@@ -347,7 +373,7 @@ public class InstanceRoomTypeResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(instanceRoomType.getId().intValue())))
             .andExpect(jsonPath("$.[*].instanceRoomTypeName").value(hasItem(DEFAULT_INSTANCE_ROOM_TYPE_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
+            .andExpect(jsonPath("$.[*].roomQuantity").value(hasItem(DEFAULT_ROOM_QUANTITY)))
             .andExpect(jsonPath("$.[*].capacityAdults").value(hasItem(DEFAULT_CAPACITY_ADULTS)))
             .andExpect(jsonPath("$.[*].capacityChildren").value(hasItem(DEFAULT_CAPACITY_CHILDREN)))
             .andExpect(jsonPath("$.[*].onlinePrice").value(hasItem(DEFAULT_ONLINE_PRICE.intValue())))
@@ -355,6 +381,10 @@ public class InstanceRoomTypeResourceIntTest {
             .andExpect(jsonPath("$.[*].taxInclude").value(hasItem(DEFAULT_TAX_INCLUDE.booleanValue())))
             .andExpect(jsonPath("$.[*].tax").value(hasItem(DEFAULT_TAX.intValue())))
             .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))));
+            .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))))
+            .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
+            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+            .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 }

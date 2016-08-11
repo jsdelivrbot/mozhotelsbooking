@@ -27,6 +27,7 @@
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('instanceTur');
                     $translatePartialLoader.addPart('instanceRating');
+                    $translatePartialLoader.addPart('currency');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
@@ -50,6 +51,7 @@
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('instanceTur');
                     $translatePartialLoader.addPart('instanceRating');
+                    $translatePartialLoader.addPart('currency');
                     return $translate.refresh();
                 }],
                 entity: ['$stateParams', 'InstanceTur', function($stateParams, InstanceTur) {
@@ -74,21 +76,21 @@
                         entity: function () {
                             return {
                                 instanceTurName: null,
+                                rating: null,
                                 description: null,
-                                address: null,
-                                website: null,
-                                email: null,
                                 latitude: null,
                                 longitude: null,
                                 rooms: null,
                                 beds: null,
                                 floors: null,
-                                rating: null,
                                 currency: null,
-                                contactNumberPrincipal: null,
-                                zipCode: null,
                                 photoPrincipal: null,
                                 photoPrincipalContentType: null,
+                                agreementNumber: null,
+                                createDate: null,
+                                editDate: null,
+                                active: null,
+                                approval: null,
                                 id: null
                             };
                         }

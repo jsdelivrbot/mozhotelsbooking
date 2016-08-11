@@ -67,7 +67,7 @@ class BookingGatlingTest extends Simulation {
             .exec(http("Create new booking")
             .post("/api/bookings")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "checkIn":"2020-01-01T00:00:00.000Z", "checkOut":"2020-01-01T00:00:00.000Z", "peopleAdult":"0", "peopleChild":"0", "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z", "state":null, "rooms":"0", "tax":null, "totalPrice":null}""")).asJSON
+            .body(StringBody("""{"id":null, "checkIn":"2020-01-01T00:00:00.000Z", "checkOut":"2020-01-01T00:00:00.000Z", "peopleAdult":"0", "peopleChild":"0", "rooms":"0", "tax":null, "totalPrice":null, "state":null, "notes":"SAMPLE_TEXT", "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_booking_url"))).exitHereIfFailed
             .pause(10)

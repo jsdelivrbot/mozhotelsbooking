@@ -87,15 +87,21 @@
         </div>
         <div class="form-group">
             <label class="control-label" translate="mozhotelsbookingApp.tourist.language" for="field_language">Language</label>
-            <input type="text" class="form-control" name="language" id="field_language"
-                    ng-model="vm.tourist.language"
-                     />
+            <select class="form-control" name="language" ng-model="vm.tourist.language" id="field_language">
+                <option value="PT" translate="mozhotelsbookingApp.Language.PT">PT</option>
+                <option value="EN" translate="mozhotelsbookingApp.Language.EN">EN</option>
+                <option value="FR" translate="mozhotelsbookingApp.Language.FR">FR</option>
+                <option value="SP" translate="mozhotelsbookingApp.Language.SP">SP</option>
+            </select>
         </div>
         <div class="form-group">
             <label class="control-label" translate="mozhotelsbookingApp.tourist.currency" for="field_currency">Currency</label>
-            <input type="text" class="form-control" name="currency" id="field_currency"
-                    ng-model="vm.tourist.currency"
-                     />
+            <select class="form-control" name="currency" ng-model="vm.tourist.currency" id="field_currency">
+                <option value="MZN" translate="mozhotelsbookingApp.Currency.MZN">MZN</option>
+                <option value="USD" translate="mozhotelsbookingApp.Currency.USD">USD</option>
+                <option value="EUR" translate="mozhotelsbookingApp.Currency.EUR">EUR</option>
+                <option value="ZAR" translate="mozhotelsbookingApp.Currency.ZAR">ZAR</option>
+            </select>
         </div>
         <div class="form-group" ngf-drop ngf-change="vm.setPhotoPrincipal($file, vm.tourist)" ngf-pattern="'image/*'">
             <label class="control-label" translate="mozhotelsbookingApp.tourist.photoPrincipal" for="field_photoPrincipal">Photo Principal</label>
@@ -123,41 +129,33 @@
             <label class="control-label" translate="mozhotelsbookingApp.tourist.createDate" for="field_createDate">Create Date</label>
                 <div class="input-group">
                     <input id="field_createDate" type="text" class="form-control" name="createDate" datetime-picker="{{dateformat}}" ng-model="vm.tourist.createDate" is-open="vm.datePickerOpenStatus.createDate"
-                    required  />
+                      />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createDate')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
-            <div ng-show="editForm.createDate.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.createDate.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.createDate.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
-                </p>
-            </div>
         </div>
         <div class="form-group">
             <label class="control-label" translate="mozhotelsbookingApp.tourist.editDate" for="field_editDate">Edit Date</label>
                 <div class="input-group">
                     <input id="field_editDate" type="text" class="form-control" name="editDate" datetime-picker="{{dateformat}}" ng-model="vm.tourist.editDate" is-open="vm.datePickerOpenStatus.editDate"
-                    required  />
+                      />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('editDate')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
-            <div ng-show="editForm.editDate.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.editDate.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.editDate.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
-                </p>
-            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.tourist.active" for="field_active">Active</label>
+            <input type="checkbox" class="form-control" name="active" id="field_active"
+                    ng-model="vm.tourist.active"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.tourist.approval" for="field_approval">Approval</label>
+            <input type="checkbox" class="form-control" name="approval" id="field_approval"
+                    ng-model="vm.tourist.approval"
+                     />
         </div>
 
         <div class="form-group">

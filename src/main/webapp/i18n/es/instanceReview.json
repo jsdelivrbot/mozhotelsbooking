@@ -25,10 +25,10 @@
             "evaluation": "Evaluation",
             "title": "Title",
             "comment": "Comment",
-            "active": "Active",
-            "approval": "Approval",
             "createDate": "Create Date",
             "editDate": "Edit Date",
+            "active": "Active",
+            "approval": "Approval",
             "instanceTur": "Instance Tur",
             "tourist": "Tourist"
         }

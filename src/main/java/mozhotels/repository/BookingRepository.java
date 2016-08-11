@@ -13,10 +13,10 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface BookingRepository extends JpaRepository<Booking,Long> {
 
-    @Query("select distinct booking from Booking booking left join fetch booking.instanceRoomTypes left join fetch booking.instanceRoomFacilities")
+    @Query("select distinct booking from Booking booking left join fetch booking.instanceFacilities")
     List<Booking> findAllWithEagerRelationships();
 
-    @Query("select booking from Booking booking left join fetch booking.instanceRoomTypes left join fetch booking.instanceRoomFacilities where booking.id =:id")
+    @Query("select booking from Booking booking left join fetch booking.instanceFacilities where booking.id =:id")
     Booking findOneWithEagerRelationships(@Param("id") Long id);
 
 }

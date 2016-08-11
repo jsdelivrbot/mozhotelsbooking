@@ -67,7 +67,7 @@ class InstanceInfoGatlingTest extends Simulation {
             .exec(http("Create new instanceInfo")
             .post("/api/instance-infos")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "instanceInfo":null, "instanceInfoName":"SAMPLE_TEXT", "description":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "instanceInfo":null, "instanceInfoName":"SAMPLE_TEXT", "info":"SAMPLE_TEXT", "description":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_instanceInfo_url"))).exitHereIfFailed
             .pause(10)

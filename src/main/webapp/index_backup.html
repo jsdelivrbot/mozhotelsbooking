@@ -9,8 +9,6 @@
   <meta name="viewport" content="width=device-width">
 <!-- <div ng-include="'index-fo.html'"></div>
 <div ng-include="'content/orange/menu.html'" ng-cloak=""></div> -->
-<div ui-view="navbar" ng-cloak></div>
-  <div ui-view="frontOffice" ng-cloak></div>
 
 <!-- After application modification, repackage it with
 	./gradlew bootRepackage -x test -Pprod
@@ -18,6 +16,9 @@ And then re-deploy it with
 	cf push -f ./deploy/cloudfoundry/manifest.yml -p build/libs/*.war -->
 
 
+  <div ui-view="navbar" ng-cloak></div>
+  <div ui-view="frontOffice" ng-cloak></div>
+  <div ui-view="dashboard" ng-cloak></div>
 </head>
 <body ng-app="mozhotelsbookingApp" ng-strict-di="" id="top" class="thebg" ng-cloak>
     <!--[if lt IE 9]>
@@ -48,6 +49,9 @@ And then re-deploy it with
     <script src="bower_components/js-xls/dist/xls.js"></script>
     <script src="bower_components/js-xlsx/dist/xlsx.js"></script>
     <script src="bower_components/es6-promise/promise.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+    <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -67,6 +71,8 @@ And then re-deploy it with
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
     <script src="bower_components/alasql/dist/alasql.min.js"></script>
+    <script src="bower_components/angular-datepicker/dist/angular-datepicker.js"></script>
+    <script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -104,6 +110,7 @@ And then re-deploy it with
     <script src="app/loading/loading.controller.js"></script>
     <script src="app/list/list.state.js"></script>
     <script src="app/list/list.controller.js"></script>
+    <script src="app/list/instance-tur.list.service.js"></script>
     <script src="app/layouts/navbar/navbar.controller.js"></script>
     <script src="app/layouts/navbar/active-menu.directive.js"></script>
     <script src="app/layouts/navbar/active-link.directive.js"></script>
@@ -162,6 +169,7 @@ And then re-deploy it with
     <script src="app/entities/instance-tur/instance-tur.state.js"></script>
     <script src="app/entities/instance-tur/instance-tur.service.js"></script>
     <script src="app/entities/instance-tur/instance-tur.search.service.js"></script>
+    <script src="app/entities/instance-tur/instance-tur.list.service.js"></script>
     <script src="app/entities/instance-tur/instance-tur.controller.js"></script>
     <script src="app/entities/instance-room-type/instance-room-type-dialog.controller.js"></script>
     <script src="app/entities/instance-room-type/instance-room-type-detail.controller.js"></script>
@@ -240,6 +248,13 @@ And then re-deploy it with
     <script src="app/entities/guest-tourist/guest-tourist.service.js"></script>
     <script src="app/entities/guest-tourist/guest-tourist.search.service.js"></script>
     <script src="app/entities/guest-tourist/guest-tourist.controller.js"></script>
+    <script src="app/entities/favorite/favorite-dialog.controller.js"></script>
+    <script src="app/entities/favorite/favorite-detail.controller.js"></script>
+    <script src="app/entities/favorite/favorite-delete-dialog.controller.js"></script>
+    <script src="app/entities/favorite/favorite.state.js"></script>
+    <script src="app/entities/favorite/favorite.service.js"></script>
+    <script src="app/entities/favorite/favorite.search.service.js"></script>
+    <script src="app/entities/favorite/favorite.controller.js"></script>
     <script src="app/entities/entity.state.js"></script>
     <script src="app/entities/country/country-dialog.controller.js"></script>
     <script src="app/entities/country/country-detail.controller.js"></script>
@@ -295,6 +310,10 @@ And then re-deploy it with
     <script src="app/components/alert/alert-error.directive.js"></script>
     <script src="app/components/alert/alert.service.js"></script>
     <script src="app/components/alert/alert.directive.js"></script>
+    <script src="app/blog-detail/blog-detail.state.js"></script>
+    <script src="app/blog-detail/blog-detail.controller.js"></script>
+    <script src="app/blog/blog.state.js"></script>
+    <script src="app/blog/blog.controller.js"></script>
     <script src="app/blocks/interceptor/notification.interceptor.js"></script>
     <script src="app/blocks/interceptor/errorhandler.interceptor.js"></script>
     <script src="app/blocks/interceptor/auth-expired.interceptor.js"></script>
@@ -364,16 +383,34 @@ And then re-deploy it with
         <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
         <script src="bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
 
-        <!-- <script src="/bower_components/angular-animate/angular-animate.js"></script> -->
+          <script src="bower_components/checklist-model/checklist-model.js"></script>
+          <link rel="stylesheet" href="bower_components/allmighty-autocomplete/style/autocomplete.css">
+          <!-- <link rel="stylesheet" href="bower_components/allmighty-autocomplete/style/style.css"> -->
+          <script src="bower_components/allmighty-autocomplete/script/autocomplete.js"></script>
+          <script src="bower_components/allmighty-autocomplete/script/app.js"></script>
+          <script src="bower_components/angularjs-slider/dist/rzslider.js"></script>
+        <!-- <script src="bower_components/momentjs/moment.js"></script>
+        <script src="bower_components/moment/min/moment-with-locales.js"></script>
+        <script src="bower_components/moment-timezone/moment-timezone.js"></script>
+        <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.js"></script> -->
+
+        <!-- <script src="bower_components/angular-datepicker/dist/angular-datepicker.js"></script> -->
+        <!-- <script src="bower_components/moment/moment.js"></script> -->
+        <!-- <script src="bower_components/jquery-ui-daterangepicker/jquery.comiseo.daterangepicker.js"></script> -->
+        <!-- <script src="bower_components/moment-timezone/moment-timezone.js"></script> -->
+        <!-- <script src="/bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/velocity/velocity.js"></script>
+        <script src="bower_components/moment/min/moment-with-locales.js"></script>
+        <script src="bower_components/lumx/dist/lumx.js"></script>
     <!-- My Scripts - End -->
+
+
 
     <script>
       $.material.init()
     </script>
     <!-- Javascript
-
-
-
-
 </body>
 </html>

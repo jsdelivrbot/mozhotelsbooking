@@ -29,6 +29,13 @@
       "otherEntityField": "id",
       "ownerSide": true,
       "otherEntityRelationshipName": "tourist"
+    },
+    {
+      "relationshipId": 5,
+      "relationshipType": "one-to-many",
+      "relationshipName": "favorite",
+      "otherEntityName": "favorite",
+      "otherEntityRelationshipName": "tourist"
     }
   ],
   "fields": [
@@ -83,12 +90,14 @@
     {
       "fieldId": 7,
       "fieldName": "language",
-      "fieldType": "String"
+      "fieldType": "Language",
+      "fieldValues": "PT,EN,FR,SP"
     },
     {
       "fieldId": 8,
       "fieldName": "currency",
-      "fieldType": "String"
+      "fieldType": "Currency",
+      "fieldValues": "MZN,USD,EUR,ZAR"
     },
     {
       "fieldId": 9,
@@ -99,18 +108,22 @@
     {
       "fieldId": 10,
       "fieldName": "createDate",
-      "fieldType": "ZonedDateTime",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldType": "ZonedDateTime"
     },
     {
       "fieldId": 11,
       "fieldName": "editDate",
-      "fieldType": "ZonedDateTime",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 12,
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 13,
+      "fieldName": "approval",
+      "fieldType": "Boolean"
     }
   ],
   "changelogDate": "20160705045717",

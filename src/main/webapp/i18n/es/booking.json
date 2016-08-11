@@ -20,17 +20,18 @@
             "checkOut": "Check Out",
             "peopleAdult": "People Adult",
             "peopleChild": "People Child",
-            "createDate": "Create Date",
-            "editDate": "Edit Date",
-            "state": "State",
             "rooms": "Rooms",
             "tax": "Tax",
             "totalPrice": "Total Price",
-            "instanceRoomType": "Instance Room Type",
-            "instanceRoomFacility": "Instance Room Facility",
+            "state": "State",
+            "notes": "Notes",
+            "createDate": "Create Date",
+            "editDate": "Edit Date",
+            "instanceFacility": "Instance Facility",
             "tourist": "Tourist",
             "guestTourist": "Guest Tourist",
             "instanceTur": "Instance Tur",
+            "instanceRoomType": "Instance Room Type",
             "bookingPayment": "Booking Payment"
         }
     }

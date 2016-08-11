@@ -13,6 +13,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
+import mozhotels.domain.enumeration.Language;
+
+import mozhotels.domain.enumeration.Currency;
+
 /**
  * A Tourist.
  */
@@ -52,11 +56,13 @@ public class Tourist implements Serializable {
     @Column(name = "country_booking", nullable = false)
     private String countryBooking;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "language")
-    private String language;
+    private Language language;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "currency")
-    private String currency;
+    private Currency currency;
 
     @Lob
     @Column(name = "photo_principal")
@@ -65,13 +71,17 @@ public class Tourist implements Serializable {
     @Column(name = "photo_principal_content_type")
     private String photoPrincipalContentType;
 
-    @NotNull
-    @Column(name = "create_date", nullable = false)
+    @Column(name = "create_date")
     private ZonedDateTime createDate;
 
-    @NotNull
-    @Column(name = "edit_date", nullable = false)
+    @Column(name = "edit_date")
     private ZonedDateTime editDate;
+
+    @Column(name = "active")
+    private Boolean active;
+
+    @Column(name = "approval")
+    private Boolean approval;
 
     @OneToMany(mappedBy = "tourist")
     @JsonIgnore
@@ -91,6 +101,11 @@ public class Tourist implements Serializable {
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
+
+    @OneToMany(mappedBy = "tourist")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Favorite> favorites = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -148,19 +163,19 @@ public class Tourist implements Serializable {
         this.countryBooking = countryBooking;
     }
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(Language language) {
         this.language = language;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 
@@ -196,6 +211,22 @@ public class Tourist implements Serializable {
         this.editDate = editDate;
     }
 
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Boolean isApproval() {
+        return approval;
+    }
+
+    public void setApproval(Boolean approval) {
+        this.approval = approval;
+    }
+
     public Set<Booking> getBookings() {
         return bookings;
     }
@@ -226,6 +257,14 @@ public class Tourist implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Favorite> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(Set<Favorite> favorites) {
+        this.favorites = favorites;
     }
 
     @Override
@@ -264,6 +303,8 @@ public class Tourist implements Serializable {
             ", photoPrincipalContentType='" + photoPrincipalContentType + "'" +
             ", createDate='" + createDate + "'" +
             ", editDate='" + editDate + "'" +
+            ", active='" + active + "'" +
+            ", approval='" + approval + "'" +
             '}';
     }
 }

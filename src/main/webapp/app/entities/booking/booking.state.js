@@ -77,12 +77,13 @@
                                 checkOut: null,
                                 peopleAdult: null,
                                 peopleChild: null,
-                                createDate: null,
-                                editDate: null,
-                                state: null,
                                 rooms: null,
                                 tax: null,
                                 totalPrice: null,
+                                state: null,
+                                notes: null,
+                                createDate: null,
+                                editDate: null,
                                 id: null
                             };
                         }

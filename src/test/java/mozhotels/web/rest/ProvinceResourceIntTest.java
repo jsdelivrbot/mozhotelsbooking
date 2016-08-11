@@ -21,7 +21,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -47,11 +46,6 @@ public class ProvinceResourceIntTest {
     private static final String UPDATED_PROVINCE_NAME = "BBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
-
-    private static final byte[] DEFAULT_PHOTO_PRINCIPAL = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_PHOTO_PRINCIPAL = TestUtil.createByteArray(2, "1");
-    private static final String DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE = "image/png";
 
     @Inject
     private ProvinceRepository provinceRepository;
@@ -86,8 +80,6 @@ public class ProvinceResourceIntTest {
         province = new Province();
         province.setProvinceName(DEFAULT_PROVINCE_NAME);
         province.setDescription(DEFAULT_DESCRIPTION);
-        province.setPhotoPrincipal(DEFAULT_PHOTO_PRINCIPAL);
-        province.setPhotoPrincipalContentType(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
     }
 
     @Test
@@ -108,8 +100,6 @@ public class ProvinceResourceIntTest {
         Province testProvince = provinces.get(provinces.size() - 1);
         assertThat(testProvince.getProvinceName()).isEqualTo(DEFAULT_PROVINCE_NAME);
         assertThat(testProvince.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testProvince.getPhotoPrincipal()).isEqualTo(DEFAULT_PHOTO_PRINCIPAL);
-        assertThat(testProvince.getPhotoPrincipalContentType()).isEqualTo(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
 
         // Validate the Province in ElasticSearch
         Province provinceEs = provinceSearchRepository.findOne(testProvince.getId());
@@ -146,9 +136,7 @@ public class ProvinceResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(province.getId().intValue())))
                 .andExpect(jsonPath("$.[*].provinceName").value(hasItem(DEFAULT_PROVINCE_NAME.toString())))
-                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-                .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
-                .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))));
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 
     @Test
@@ -163,9 +151,7 @@ public class ProvinceResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(province.getId().intValue()))
             .andExpect(jsonPath("$.provinceName").value(DEFAULT_PROVINCE_NAME.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.photoPrincipalContentType").value(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE))
-            .andExpect(jsonPath("$.photoPrincipal").value(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL)));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
 
     @Test
@@ -189,8 +175,6 @@ public class ProvinceResourceIntTest {
         updatedProvince.setId(province.getId());
         updatedProvince.setProvinceName(UPDATED_PROVINCE_NAME);
         updatedProvince.setDescription(UPDATED_DESCRIPTION);
-        updatedProvince.setPhotoPrincipal(UPDATED_PHOTO_PRINCIPAL);
-        updatedProvince.setPhotoPrincipalContentType(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
 
         restProvinceMockMvc.perform(put("/api/provinces")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -203,8 +187,6 @@ public class ProvinceResourceIntTest {
         Province testProvince = provinces.get(provinces.size() - 1);
         assertThat(testProvince.getProvinceName()).isEqualTo(UPDATED_PROVINCE_NAME);
         assertThat(testProvince.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testProvince.getPhotoPrincipal()).isEqualTo(UPDATED_PHOTO_PRINCIPAL);
-        assertThat(testProvince.getPhotoPrincipalContentType()).isEqualTo(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
 
         // Validate the Province in ElasticSearch
         Province provinceEs = provinceSearchRepository.findOne(testProvince.getId());
@@ -246,8 +228,6 @@ public class ProvinceResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(province.getId().intValue())))
             .andExpect(jsonPath("$.[*].provinceName").value(hasItem(DEFAULT_PROVINCE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 }

@@ -46,16 +46,16 @@ public class PictureResourceIntTest {
 
     private static final String DEFAULT_PICTURE_NAME = "AAAAA";
     private static final String UPDATED_PICTURE_NAME = "BBBBB";
-    private static final String DEFAULT_DESCRIPTION = "AAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBB";
+
+    private static final PictureType DEFAULT_TYPE = PictureType.LOCALTUR;
+    private static final PictureType UPDATED_TYPE = PictureType.INSTANCETUR;
 
     private static final byte[] DEFAULT_PICTURE = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PICTURE = TestUtil.createByteArray(2, "1");
     private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
-
-    private static final PictureType DEFAULT_TYPE = PictureType.PROVINCE;
-    private static final PictureType UPDATED_TYPE = PictureType.LOCALTUR;
+    private static final String DEFAULT_DESCRIPTION = "AAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBB";
 
     @Inject
     private PictureRepository pictureRepository;
@@ -89,10 +89,10 @@ public class PictureResourceIntTest {
         pictureSearchRepository.deleteAll();
         picture = new Picture();
         picture.setPictureName(DEFAULT_PICTURE_NAME);
-        picture.setDescription(DEFAULT_DESCRIPTION);
+        picture.setType(DEFAULT_TYPE);
         picture.setPicture(DEFAULT_PICTURE);
         picture.setPictureContentType(DEFAULT_PICTURE_CONTENT_TYPE);
-        picture.setType(DEFAULT_TYPE);
+        picture.setDescription(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -112,10 +112,10 @@ public class PictureResourceIntTest {
         assertThat(pictures).hasSize(databaseSizeBeforeCreate + 1);
         Picture testPicture = pictures.get(pictures.size() - 1);
         assertThat(testPicture.getPictureName()).isEqualTo(DEFAULT_PICTURE_NAME);
-        assertThat(testPicture.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testPicture.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testPicture.getPicture()).isEqualTo(DEFAULT_PICTURE);
         assertThat(testPicture.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
-        assertThat(testPicture.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testPicture.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
 
         // Validate the Picture in ElasticSearch
         Picture pictureEs = pictureSearchRepository.findOne(testPicture.getId());
@@ -152,10 +152,10 @@ public class PictureResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(picture.getId().intValue())))
                 .andExpect(jsonPath("$.[*].pictureName").value(hasItem(DEFAULT_PICTURE_NAME.toString())))
-                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+                .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
                 .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
                 .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
-                .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 
     @Test
@@ -170,10 +170,10 @@ public class PictureResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(picture.getId().intValue()))
             .andExpect(jsonPath("$.pictureName").value(DEFAULT_PICTURE_NAME.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
             .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
-            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
 
     @Test
@@ -196,10 +196,10 @@ public class PictureResourceIntTest {
         Picture updatedPicture = new Picture();
         updatedPicture.setId(picture.getId());
         updatedPicture.setPictureName(UPDATED_PICTURE_NAME);
-        updatedPicture.setDescription(UPDATED_DESCRIPTION);
+        updatedPicture.setType(UPDATED_TYPE);
         updatedPicture.setPicture(UPDATED_PICTURE);
         updatedPicture.setPictureContentType(UPDATED_PICTURE_CONTENT_TYPE);
-        updatedPicture.setType(UPDATED_TYPE);
+        updatedPicture.setDescription(UPDATED_DESCRIPTION);
 
         restPictureMockMvc.perform(put("/api/pictures")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -211,10 +211,10 @@ public class PictureResourceIntTest {
         assertThat(pictures).hasSize(databaseSizeBeforeUpdate);
         Picture testPicture = pictures.get(pictures.size() - 1);
         assertThat(testPicture.getPictureName()).isEqualTo(UPDATED_PICTURE_NAME);
-        assertThat(testPicture.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testPicture.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testPicture.getPicture()).isEqualTo(UPDATED_PICTURE);
         assertThat(testPicture.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
-        assertThat(testPicture.getType()).isEqualTo(UPDATED_TYPE);
+        assertThat(testPicture.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
 
         // Validate the Picture in ElasticSearch
         Picture pictureEs = pictureSearchRepository.findOne(testPicture.getId());
@@ -256,9 +256,9 @@ public class PictureResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(picture.getId().intValue())))
             .andExpect(jsonPath("$.[*].pictureName").value(hasItem(DEFAULT_PICTURE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 }

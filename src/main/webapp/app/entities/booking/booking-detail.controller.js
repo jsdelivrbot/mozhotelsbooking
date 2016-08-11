@@ -5,9 +5,9 @@
         .module('mozhotelsbookingApp')
         .controller('BookingDetailController', BookingDetailController);
 
-    BookingDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Booking', 'InstanceRoomType', 'InstanceFacility', 'Tourist', 'GuestTourist', 'InstanceTur', 'BookingPayment'];
+    BookingDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Booking', 'InstanceFacility', 'Tourist', 'GuestTourist', 'InstanceTur', 'InstanceRoomType', 'BookingPayment'];
 
-    function BookingDetailController($scope, $rootScope, $stateParams, entity, Booking, InstanceRoomType, InstanceFacility, Tourist, GuestTourist, InstanceTur, BookingPayment) {
+    function BookingDetailController($scope, $rootScope, $stateParams, entity, Booking, InstanceFacility, Tourist, GuestTourist, InstanceTur, InstanceRoomType, BookingPayment) {
         var vm = this;
 
         vm.booking = entity;

@@ -26,6 +26,8 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('tourist');
+                    $translatePartialLoader.addPart('language');
+                    $translatePartialLoader.addPart('currency');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
@@ -48,6 +50,8 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('tourist');
+                    $translatePartialLoader.addPart('language');
+                    $translatePartialLoader.addPart('currency');
                     return $translate.refresh();
                 }],
                 entity: ['$stateParams', 'Tourist', function($stateParams, Tourist) {
@@ -83,6 +87,8 @@
                                 photoPrincipalContentType: null,
                                 createDate: null,
                                 editDate: null,
+                                active: null,
+                                approval: null,
                                 id: null
                             };
                         }

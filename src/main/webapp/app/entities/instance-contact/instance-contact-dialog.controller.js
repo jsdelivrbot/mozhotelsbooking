@@ -5,15 +5,23 @@
         .module('mozhotelsbookingApp')
         .controller('InstanceContactDialogController', InstanceContactDialogController);
 
-    InstanceContactDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'InstanceContact', 'InstanceTur'];
+    InstanceContactDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'InstanceContact', 'InstanceTur'];
 
-    function InstanceContactDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, InstanceContact, InstanceTur) {
+    function InstanceContactDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, InstanceContact, InstanceTur) {
         var vm = this;
 
         vm.instanceContact = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.instanceturs = InstanceTur.query();
+        vm.instanceturs = InstanceTur.query({filter: 'instancecontact-is-null'});
+        $q.all([vm.instanceContact.$promise, vm.instanceturs.$promise]).then(function() {
+            if (!vm.instanceContact.instanceTur || !vm.instanceContact.instanceTur.id) {
+                return $q.reject();
+            }
+            return InstanceTur.get({id : vm.instanceContact.instanceTur.id}).$promise;
+        }).then(function(instanceTur) {
+            vm.instanceturs.push(instanceTur);
+        });
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

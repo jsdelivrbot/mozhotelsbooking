@@ -67,7 +67,7 @@ class InstanceReviewGatlingTest extends Simulation {
             .exec(http("Create new instanceReview")
             .post("/api/instance-reviews")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "cleanliness":null, "roomConfort":null, "location":null, "serviceStaff":null, "sleepQuality":null, "valuePrice":null, "evaluation":null, "title":"SAMPLE_TEXT", "comment":"SAMPLE_TEXT", "active":null, "approval":null, "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "cleanliness":null, "roomConfort":null, "location":null, "serviceStaff":null, "sleepQuality":null, "valuePrice":null, "evaluation":null, "title":"SAMPLE_TEXT", "comment":"SAMPLE_TEXT", "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z", "active":null, "approval":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_instanceReview_url"))).exitHereIfFailed
             .pause(10)

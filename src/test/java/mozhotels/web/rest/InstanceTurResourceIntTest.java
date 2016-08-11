@@ -25,6 +25,10 @@ import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,6 +36,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import mozhotels.domain.enumeration.InstanceRating;
+import mozhotels.domain.enumeration.Currency;
 
 /**
  * Test class for the InstanceTurResource REST controller.
@@ -44,16 +49,15 @@ import mozhotels.domain.enumeration.InstanceRating;
 @IntegrationTest
 public class InstanceTurResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
+
     private static final String DEFAULT_INSTANCE_TUR_NAME = "AAAAA";
     private static final String UPDATED_INSTANCE_TUR_NAME = "BBBBB";
+
+    private static final InstanceRating DEFAULT_RATING = InstanceRating.NA;
+    private static final InstanceRating UPDATED_RATING = InstanceRating.ONE;
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
-    private static final String DEFAULT_ADDRESS = "AAAAA";
-    private static final String UPDATED_ADDRESS = "BBBBB";
-    private static final String DEFAULT_WEBSITE = "AAAAA";
-    private static final String UPDATED_WEBSITE = "BBBBB";
-    private static final String DEFAULT_EMAIL = "AAAAA";
-    private static final String UPDATED_EMAIL = "BBBBB";
 
     private static final Double DEFAULT_LATITUDE = 1D;
     private static final Double UPDATED_LATITUDE = 2D;
@@ -70,20 +74,29 @@ public class InstanceTurResourceIntTest {
     private static final Integer DEFAULT_FLOORS = 1;
     private static final Integer UPDATED_FLOORS = 2;
 
-    private static final InstanceRating DEFAULT_RATING = InstanceRating.NA;
-    private static final InstanceRating UPDATED_RATING = InstanceRating.ONE;
-    private static final String DEFAULT_CURRENCY = "AAAAA";
-    private static final String UPDATED_CURRENCY = "BBBBB";
-
-    private static final Integer DEFAULT_CONTACT_NUMBER_PRINCIPAL = 1;
-    private static final Integer UPDATED_CONTACT_NUMBER_PRINCIPAL = 2;
-    private static final String DEFAULT_ZIP_CODE = "AAAAA";
-    private static final String UPDATED_ZIP_CODE = "BBBBB";
+    private static final Currency DEFAULT_CURRENCY = Currency.MZN;
+    private static final Currency UPDATED_CURRENCY = Currency.USD;
 
     private static final byte[] DEFAULT_PHOTO_PRINCIPAL = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PHOTO_PRINCIPAL = TestUtil.createByteArray(2, "1");
     private static final String DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE = "image/png";
+    private static final String DEFAULT_AGREEMENT_NUMBER = "AAAAA";
+    private static final String UPDATED_AGREEMENT_NUMBER = "BBBBB";
+
+    private static final ZonedDateTime DEFAULT_CREATE_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_CREATE_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_CREATE_DATE_STR = dateTimeFormatter.format(DEFAULT_CREATE_DATE);
+
+    private static final ZonedDateTime DEFAULT_EDIT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_EDIT_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_EDIT_DATE_STR = dateTimeFormatter.format(DEFAULT_EDIT_DATE);
+
+    private static final Boolean DEFAULT_ACTIVE = false;
+    private static final Boolean UPDATED_ACTIVE = true;
+
+    private static final Boolean DEFAULT_APPROVAL = false;
+    private static final Boolean UPDATED_APPROVAL = true;
 
     @Inject
     private InstanceTurRepository instanceTurRepository;
@@ -117,21 +130,21 @@ public class InstanceTurResourceIntTest {
         instanceTurSearchRepository.deleteAll();
         instanceTur = new InstanceTur();
         instanceTur.setInstanceTurName(DEFAULT_INSTANCE_TUR_NAME);
+        instanceTur.setRating(DEFAULT_RATING);
         instanceTur.setDescription(DEFAULT_DESCRIPTION);
-        instanceTur.setAddress(DEFAULT_ADDRESS);
-        instanceTur.setWebsite(DEFAULT_WEBSITE);
-        instanceTur.setEmail(DEFAULT_EMAIL);
         instanceTur.setLatitude(DEFAULT_LATITUDE);
         instanceTur.setLongitude(DEFAULT_LONGITUDE);
         instanceTur.setRooms(DEFAULT_ROOMS);
         instanceTur.setBeds(DEFAULT_BEDS);
         instanceTur.setFloors(DEFAULT_FLOORS);
-        instanceTur.setRating(DEFAULT_RATING);
         instanceTur.setCurrency(DEFAULT_CURRENCY);
-        instanceTur.setContactNumberPrincipal(DEFAULT_CONTACT_NUMBER_PRINCIPAL);
-        instanceTur.setZipCode(DEFAULT_ZIP_CODE);
         instanceTur.setPhotoPrincipal(DEFAULT_PHOTO_PRINCIPAL);
         instanceTur.setPhotoPrincipalContentType(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
+        instanceTur.setAgreementNumber(DEFAULT_AGREEMENT_NUMBER);
+        instanceTur.setCreateDate(DEFAULT_CREATE_DATE);
+        instanceTur.setEditDate(DEFAULT_EDIT_DATE);
+        instanceTur.setActive(DEFAULT_ACTIVE);
+        instanceTur.setApproval(DEFAULT_APPROVAL);
     }
 
     @Test
@@ -151,21 +164,21 @@ public class InstanceTurResourceIntTest {
         assertThat(instanceTurs).hasSize(databaseSizeBeforeCreate + 1);
         InstanceTur testInstanceTur = instanceTurs.get(instanceTurs.size() - 1);
         assertThat(testInstanceTur.getInstanceTurName()).isEqualTo(DEFAULT_INSTANCE_TUR_NAME);
+        assertThat(testInstanceTur.getRating()).isEqualTo(DEFAULT_RATING);
         assertThat(testInstanceTur.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testInstanceTur.getAddress()).isEqualTo(DEFAULT_ADDRESS);
-        assertThat(testInstanceTur.getWebsite()).isEqualTo(DEFAULT_WEBSITE);
-        assertThat(testInstanceTur.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testInstanceTur.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
         assertThat(testInstanceTur.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
         assertThat(testInstanceTur.getRooms()).isEqualTo(DEFAULT_ROOMS);
         assertThat(testInstanceTur.getBeds()).isEqualTo(DEFAULT_BEDS);
         assertThat(testInstanceTur.getFloors()).isEqualTo(DEFAULT_FLOORS);
-        assertThat(testInstanceTur.getRating()).isEqualTo(DEFAULT_RATING);
         assertThat(testInstanceTur.getCurrency()).isEqualTo(DEFAULT_CURRENCY);
-        assertThat(testInstanceTur.getContactNumberPrincipal()).isEqualTo(DEFAULT_CONTACT_NUMBER_PRINCIPAL);
-        assertThat(testInstanceTur.getZipCode()).isEqualTo(DEFAULT_ZIP_CODE);
         assertThat(testInstanceTur.getPhotoPrincipal()).isEqualTo(DEFAULT_PHOTO_PRINCIPAL);
         assertThat(testInstanceTur.getPhotoPrincipalContentType()).isEqualTo(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
+        assertThat(testInstanceTur.getAgreementNumber()).isEqualTo(DEFAULT_AGREEMENT_NUMBER);
+        assertThat(testInstanceTur.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
+        assertThat(testInstanceTur.getEditDate()).isEqualTo(DEFAULT_EDIT_DATE);
+        assertThat(testInstanceTur.isActive()).isEqualTo(DEFAULT_ACTIVE);
+        assertThat(testInstanceTur.isApproval()).isEqualTo(DEFAULT_APPROVAL);
 
         // Validate the InstanceTur in ElasticSearch
         InstanceTur instanceTurEs = instanceTurSearchRepository.findOne(testInstanceTur.getId());
@@ -210,24 +223,6 @@ public class InstanceTurResourceIntTest {
 
     @Test
     @Transactional
-    public void checkAddressIsRequired() throws Exception {
-        int databaseSizeBeforeTest = instanceTurRepository.findAll().size();
-        // set the field null
-        instanceTur.setAddress(null);
-
-        // Create the InstanceTur, which fails.
-
-        restInstanceTurMockMvc.perform(post("/api/instance-turs")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(instanceTur)))
-                .andExpect(status().isBadRequest());
-
-        List<InstanceTur> instanceTurs = instanceTurRepository.findAll();
-        assertThat(instanceTurs).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkCurrencyIsRequired() throws Exception {
         int databaseSizeBeforeTest = instanceTurRepository.findAll().size();
         // set the field null
@@ -256,21 +251,21 @@ public class InstanceTurResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(instanceTur.getId().intValue())))
                 .andExpect(jsonPath("$.[*].instanceTurName").value(hasItem(DEFAULT_INSTANCE_TUR_NAME.toString())))
+                .andExpect(jsonPath("$.[*].rating").value(hasItem(DEFAULT_RATING.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-                .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
-                .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE.toString())))
-                .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
                 .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
                 .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())))
                 .andExpect(jsonPath("$.[*].rooms").value(hasItem(DEFAULT_ROOMS)))
                 .andExpect(jsonPath("$.[*].beds").value(hasItem(DEFAULT_BEDS)))
                 .andExpect(jsonPath("$.[*].floors").value(hasItem(DEFAULT_FLOORS)))
-                .andExpect(jsonPath("$.[*].rating").value(hasItem(DEFAULT_RATING.toString())))
                 .andExpect(jsonPath("$.[*].currency").value(hasItem(DEFAULT_CURRENCY.toString())))
-                .andExpect(jsonPath("$.[*].contactNumberPrincipal").value(hasItem(DEFAULT_CONTACT_NUMBER_PRINCIPAL)))
-                .andExpect(jsonPath("$.[*].zipCode").value(hasItem(DEFAULT_ZIP_CODE.toString())))
                 .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
-                .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))));
+                .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))))
+                .andExpect(jsonPath("$.[*].agreementNumber").value(hasItem(DEFAULT_AGREEMENT_NUMBER.toString())))
+                .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
+                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+                .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 
     @Test
@@ -285,21 +280,21 @@ public class InstanceTurResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(instanceTur.getId().intValue()))
             .andExpect(jsonPath("$.instanceTurName").value(DEFAULT_INSTANCE_TUR_NAME.toString()))
+            .andExpect(jsonPath("$.rating").value(DEFAULT_RATING.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
-            .andExpect(jsonPath("$.website").value(DEFAULT_WEBSITE.toString()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
             .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.doubleValue()))
             .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.doubleValue()))
             .andExpect(jsonPath("$.rooms").value(DEFAULT_ROOMS))
             .andExpect(jsonPath("$.beds").value(DEFAULT_BEDS))
             .andExpect(jsonPath("$.floors").value(DEFAULT_FLOORS))
-            .andExpect(jsonPath("$.rating").value(DEFAULT_RATING.toString()))
             .andExpect(jsonPath("$.currency").value(DEFAULT_CURRENCY.toString()))
-            .andExpect(jsonPath("$.contactNumberPrincipal").value(DEFAULT_CONTACT_NUMBER_PRINCIPAL))
-            .andExpect(jsonPath("$.zipCode").value(DEFAULT_ZIP_CODE.toString()))
             .andExpect(jsonPath("$.photoPrincipalContentType").value(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE))
-            .andExpect(jsonPath("$.photoPrincipal").value(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL)));
+            .andExpect(jsonPath("$.photoPrincipal").value(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL)))
+            .andExpect(jsonPath("$.agreementNumber").value(DEFAULT_AGREEMENT_NUMBER.toString()))
+            .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE_STR))
+            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR))
+            .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()))
+            .andExpect(jsonPath("$.approval").value(DEFAULT_APPROVAL.booleanValue()));
     }
 
     @Test
@@ -322,21 +317,21 @@ public class InstanceTurResourceIntTest {
         InstanceTur updatedInstanceTur = new InstanceTur();
         updatedInstanceTur.setId(instanceTur.getId());
         updatedInstanceTur.setInstanceTurName(UPDATED_INSTANCE_TUR_NAME);
+        updatedInstanceTur.setRating(UPDATED_RATING);
         updatedInstanceTur.setDescription(UPDATED_DESCRIPTION);
-        updatedInstanceTur.setAddress(UPDATED_ADDRESS);
-        updatedInstanceTur.setWebsite(UPDATED_WEBSITE);
-        updatedInstanceTur.setEmail(UPDATED_EMAIL);
         updatedInstanceTur.setLatitude(UPDATED_LATITUDE);
         updatedInstanceTur.setLongitude(UPDATED_LONGITUDE);
         updatedInstanceTur.setRooms(UPDATED_ROOMS);
         updatedInstanceTur.setBeds(UPDATED_BEDS);
         updatedInstanceTur.setFloors(UPDATED_FLOORS);
-        updatedInstanceTur.setRating(UPDATED_RATING);
         updatedInstanceTur.setCurrency(UPDATED_CURRENCY);
-        updatedInstanceTur.setContactNumberPrincipal(UPDATED_CONTACT_NUMBER_PRINCIPAL);
-        updatedInstanceTur.setZipCode(UPDATED_ZIP_CODE);
         updatedInstanceTur.setPhotoPrincipal(UPDATED_PHOTO_PRINCIPAL);
         updatedInstanceTur.setPhotoPrincipalContentType(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
+        updatedInstanceTur.setAgreementNumber(UPDATED_AGREEMENT_NUMBER);
+        updatedInstanceTur.setCreateDate(UPDATED_CREATE_DATE);
+        updatedInstanceTur.setEditDate(UPDATED_EDIT_DATE);
+        updatedInstanceTur.setActive(UPDATED_ACTIVE);
+        updatedInstanceTur.setApproval(UPDATED_APPROVAL);
 
         restInstanceTurMockMvc.perform(put("/api/instance-turs")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -348,21 +343,21 @@ public class InstanceTurResourceIntTest {
         assertThat(instanceTurs).hasSize(databaseSizeBeforeUpdate);
         InstanceTur testInstanceTur = instanceTurs.get(instanceTurs.size() - 1);
         assertThat(testInstanceTur.getInstanceTurName()).isEqualTo(UPDATED_INSTANCE_TUR_NAME);
+        assertThat(testInstanceTur.getRating()).isEqualTo(UPDATED_RATING);
         assertThat(testInstanceTur.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testInstanceTur.getAddress()).isEqualTo(UPDATED_ADDRESS);
-        assertThat(testInstanceTur.getWebsite()).isEqualTo(UPDATED_WEBSITE);
-        assertThat(testInstanceTur.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testInstanceTur.getLatitude()).isEqualTo(UPDATED_LATITUDE);
         assertThat(testInstanceTur.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
         assertThat(testInstanceTur.getRooms()).isEqualTo(UPDATED_ROOMS);
         assertThat(testInstanceTur.getBeds()).isEqualTo(UPDATED_BEDS);
         assertThat(testInstanceTur.getFloors()).isEqualTo(UPDATED_FLOORS);
-        assertThat(testInstanceTur.getRating()).isEqualTo(UPDATED_RATING);
         assertThat(testInstanceTur.getCurrency()).isEqualTo(UPDATED_CURRENCY);
-        assertThat(testInstanceTur.getContactNumberPrincipal()).isEqualTo(UPDATED_CONTACT_NUMBER_PRINCIPAL);
-        assertThat(testInstanceTur.getZipCode()).isEqualTo(UPDATED_ZIP_CODE);
         assertThat(testInstanceTur.getPhotoPrincipal()).isEqualTo(UPDATED_PHOTO_PRINCIPAL);
         assertThat(testInstanceTur.getPhotoPrincipalContentType()).isEqualTo(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
+        assertThat(testInstanceTur.getAgreementNumber()).isEqualTo(UPDATED_AGREEMENT_NUMBER);
+        assertThat(testInstanceTur.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
+        assertThat(testInstanceTur.getEditDate()).isEqualTo(UPDATED_EDIT_DATE);
+        assertThat(testInstanceTur.isActive()).isEqualTo(UPDATED_ACTIVE);
+        assertThat(testInstanceTur.isApproval()).isEqualTo(UPDATED_APPROVAL);
 
         // Validate the InstanceTur in ElasticSearch
         InstanceTur instanceTurEs = instanceTurSearchRepository.findOne(testInstanceTur.getId());
@@ -404,20 +399,20 @@ public class InstanceTurResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(instanceTur.getId().intValue())))
             .andExpect(jsonPath("$.[*].instanceTurName").value(hasItem(DEFAULT_INSTANCE_TUR_NAME.toString())))
+            .andExpect(jsonPath("$.[*].rating").value(hasItem(DEFAULT_RATING.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
-            .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE.toString())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
             .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
             .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())))
             .andExpect(jsonPath("$.[*].rooms").value(hasItem(DEFAULT_ROOMS)))
             .andExpect(jsonPath("$.[*].beds").value(hasItem(DEFAULT_BEDS)))
             .andExpect(jsonPath("$.[*].floors").value(hasItem(DEFAULT_FLOORS)))
-            .andExpect(jsonPath("$.[*].rating").value(hasItem(DEFAULT_RATING.toString())))
             .andExpect(jsonPath("$.[*].currency").value(hasItem(DEFAULT_CURRENCY.toString())))
-            .andExpect(jsonPath("$.[*].contactNumberPrincipal").value(hasItem(DEFAULT_CONTACT_NUMBER_PRINCIPAL)))
-            .andExpect(jsonPath("$.[*].zipCode").value(hasItem(DEFAULT_ZIP_CODE.toString())))
             .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))));
+            .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))))
+            .andExpect(jsonPath("$.[*].agreementNumber").value(hasItem(DEFAULT_AGREEMENT_NUMBER.toString())))
+            .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
+            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+            .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 }

@@ -16,14 +16,6 @@
         <dd>
             <span>{{vm.bookingPayment.amount}}</span>
         </dd>
-        <dt><span translate="mozhotelsbookingApp.bookingPayment.createDate">Create Date</span></dt>
-        <dd>
-            <span>{{vm.bookingPayment.createDate | date:'medium'}}</span>
-        </dd>
-        <dt><span translate="mozhotelsbookingApp.bookingPayment.editDate">Edit Date</span></dt>
-        <dd>
-            <span>{{vm.bookingPayment.editDate | date:'medium'}}</span>
-        </dd>
         <dt><span translate="mozhotelsbookingApp.bookingPayment.state">State</span></dt>
         <dd>
             <span translate="{{'mozhotelsbookingApp.PaymentState.' + vm.bookingPayment.state}}">{{vm.bookingPayment.state}}</span>
@@ -42,11 +34,23 @@
         </dd>
         <dt><span translate="mozhotelsbookingApp.bookingPayment.cardExpiry">Card Expiry</span></dt>
         <dd>
-            <span>{{vm.bookingPayment.cardExpiry}}</span>
+            <span>{{vm.bookingPayment.cardExpiry | date:'mediumDate'}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.bookingPayment.cardCcv">Card Ccv</span></dt>
         <dd>
             <span>{{vm.bookingPayment.cardCcv}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.bookingPayment.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{vm.bookingPayment.createDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.bookingPayment.editDate">Edit Date</span></dt>
+        <dd>
+            <span>{{vm.bookingPayment.editDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.bookingPayment.approval">Approval</span></dt>
+        <dd>
+            <span>{{vm.bookingPayment.approval}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.bookingPayment.booking">Booking</span></dt>
         <dd>

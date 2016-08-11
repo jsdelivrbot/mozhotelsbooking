@@ -46,14 +46,14 @@ public class InstanceFacilityResourceIntTest {
 
     private static final String DEFAULT_INSTANCE_FACILITY_NAME = "AAAAA";
     private static final String UPDATED_INSTANCE_FACILITY_NAME = "BBBBB";
+
+    private static final InstanceArea DEFAULT_AREA = InstanceArea.INDOOR;
+    private static final InstanceArea UPDATED_AREA = InstanceArea.OUTDOOR;
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
 
     private static final Integer DEFAULT_QUANTITY = 1;
     private static final Integer UPDATED_QUANTITY = 2;
-
-    private static final InstanceArea DEFAULT_AREA = InstanceArea.INDOOR;
-    private static final InstanceArea UPDATED_AREA = InstanceArea.OUTDOOR;
 
     private static final BigDecimal DEFAULT_PRICE = new BigDecimal(1);
     private static final BigDecimal UPDATED_PRICE = new BigDecimal(2);
@@ -93,9 +93,9 @@ public class InstanceFacilityResourceIntTest {
         instanceFacilitySearchRepository.deleteAll();
         instanceFacility = new InstanceFacility();
         instanceFacility.setInstanceFacilityName(DEFAULT_INSTANCE_FACILITY_NAME);
+        instanceFacility.setArea(DEFAULT_AREA);
         instanceFacility.setDescription(DEFAULT_DESCRIPTION);
         instanceFacility.setQuantity(DEFAULT_QUANTITY);
-        instanceFacility.setArea(DEFAULT_AREA);
         instanceFacility.setPrice(DEFAULT_PRICE);
         instanceFacility.setBookingInclude(DEFAULT_BOOKING_INCLUDE);
     }
@@ -117,9 +117,9 @@ public class InstanceFacilityResourceIntTest {
         assertThat(instanceFacilities).hasSize(databaseSizeBeforeCreate + 1);
         InstanceFacility testInstanceFacility = instanceFacilities.get(instanceFacilities.size() - 1);
         assertThat(testInstanceFacility.getInstanceFacilityName()).isEqualTo(DEFAULT_INSTANCE_FACILITY_NAME);
+        assertThat(testInstanceFacility.getArea()).isEqualTo(DEFAULT_AREA);
         assertThat(testInstanceFacility.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testInstanceFacility.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
-        assertThat(testInstanceFacility.getArea()).isEqualTo(DEFAULT_AREA);
         assertThat(testInstanceFacility.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testInstanceFacility.isBookingInclude()).isEqualTo(DEFAULT_BOOKING_INCLUDE);
 
@@ -158,9 +158,9 @@ public class InstanceFacilityResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(instanceFacility.getId().intValue())))
                 .andExpect(jsonPath("$.[*].instanceFacilityName").value(hasItem(DEFAULT_INSTANCE_FACILITY_NAME.toString())))
+                .andExpect(jsonPath("$.[*].area").value(hasItem(DEFAULT_AREA.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
-                .andExpect(jsonPath("$.[*].area").value(hasItem(DEFAULT_AREA.toString())))
                 .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
                 .andExpect(jsonPath("$.[*].bookingInclude").value(hasItem(DEFAULT_BOOKING_INCLUDE.booleanValue())));
     }
@@ -177,9 +177,9 @@ public class InstanceFacilityResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(instanceFacility.getId().intValue()))
             .andExpect(jsonPath("$.instanceFacilityName").value(DEFAULT_INSTANCE_FACILITY_NAME.toString()))
+            .andExpect(jsonPath("$.area").value(DEFAULT_AREA.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
-            .andExpect(jsonPath("$.area").value(DEFAULT_AREA.toString()))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.intValue()))
             .andExpect(jsonPath("$.bookingInclude").value(DEFAULT_BOOKING_INCLUDE.booleanValue()));
     }
@@ -204,9 +204,9 @@ public class InstanceFacilityResourceIntTest {
         InstanceFacility updatedInstanceFacility = new InstanceFacility();
         updatedInstanceFacility.setId(instanceFacility.getId());
         updatedInstanceFacility.setInstanceFacilityName(UPDATED_INSTANCE_FACILITY_NAME);
+        updatedInstanceFacility.setArea(UPDATED_AREA);
         updatedInstanceFacility.setDescription(UPDATED_DESCRIPTION);
         updatedInstanceFacility.setQuantity(UPDATED_QUANTITY);
-        updatedInstanceFacility.setArea(UPDATED_AREA);
         updatedInstanceFacility.setPrice(UPDATED_PRICE);
         updatedInstanceFacility.setBookingInclude(UPDATED_BOOKING_INCLUDE);
 
@@ -220,9 +220,9 @@ public class InstanceFacilityResourceIntTest {
         assertThat(instanceFacilities).hasSize(databaseSizeBeforeUpdate);
         InstanceFacility testInstanceFacility = instanceFacilities.get(instanceFacilities.size() - 1);
         assertThat(testInstanceFacility.getInstanceFacilityName()).isEqualTo(UPDATED_INSTANCE_FACILITY_NAME);
+        assertThat(testInstanceFacility.getArea()).isEqualTo(UPDATED_AREA);
         assertThat(testInstanceFacility.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testInstanceFacility.getQuantity()).isEqualTo(UPDATED_QUANTITY);
-        assertThat(testInstanceFacility.getArea()).isEqualTo(UPDATED_AREA);
         assertThat(testInstanceFacility.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testInstanceFacility.isBookingInclude()).isEqualTo(UPDATED_BOOKING_INCLUDE);
 
@@ -266,9 +266,9 @@ public class InstanceFacilityResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(instanceFacility.getId().intValue())))
             .andExpect(jsonPath("$.[*].instanceFacilityName").value(hasItem(DEFAULT_INSTANCE_FACILITY_NAME.toString())))
+            .andExpect(jsonPath("$.[*].area").value(hasItem(DEFAULT_AREA.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
-            .andExpect(jsonPath("$.[*].area").value(hasItem(DEFAULT_AREA.toString())))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
             .andExpect(jsonPath("$.[*].bookingInclude").value(hasItem(DEFAULT_BOOKING_INCLUDE.booleanValue())));
     }

@@ -46,11 +46,11 @@ public class InstanceActivityResourceIntTest {
 
     private static final String DEFAULT_INSTANCE_ACTIVITY_NAME = "AAAAA";
     private static final String UPDATED_INSTANCE_ACTIVITY_NAME = "BBBBB";
-    private static final String DEFAULT_DESCRIPTION = "AAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBB";
 
     private static final ActivityArea DEFAULT_AREA = ActivityArea.INSIDE;
     private static final ActivityArea UPDATED_AREA = ActivityArea.OUTSIDE;
+    private static final String DEFAULT_DESCRIPTION = "AAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBB";
 
     private static final byte[] DEFAULT_PHOTO_PRINCIPAL = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PHOTO_PRINCIPAL = TestUtil.createByteArray(2, "1");
@@ -89,8 +89,8 @@ public class InstanceActivityResourceIntTest {
         instanceActivitySearchRepository.deleteAll();
         instanceActivity = new InstanceActivity();
         instanceActivity.setInstanceActivityName(DEFAULT_INSTANCE_ACTIVITY_NAME);
-        instanceActivity.setDescription(DEFAULT_DESCRIPTION);
         instanceActivity.setArea(DEFAULT_AREA);
+        instanceActivity.setDescription(DEFAULT_DESCRIPTION);
         instanceActivity.setPhotoPrincipal(DEFAULT_PHOTO_PRINCIPAL);
         instanceActivity.setPhotoPrincipalContentType(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
     }
@@ -112,8 +112,8 @@ public class InstanceActivityResourceIntTest {
         assertThat(instanceActivities).hasSize(databaseSizeBeforeCreate + 1);
         InstanceActivity testInstanceActivity = instanceActivities.get(instanceActivities.size() - 1);
         assertThat(testInstanceActivity.getInstanceActivityName()).isEqualTo(DEFAULT_INSTANCE_ACTIVITY_NAME);
-        assertThat(testInstanceActivity.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testInstanceActivity.getArea()).isEqualTo(DEFAULT_AREA);
+        assertThat(testInstanceActivity.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testInstanceActivity.getPhotoPrincipal()).isEqualTo(DEFAULT_PHOTO_PRINCIPAL);
         assertThat(testInstanceActivity.getPhotoPrincipalContentType()).isEqualTo(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
 
@@ -152,8 +152,8 @@ public class InstanceActivityResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(instanceActivity.getId().intValue())))
                 .andExpect(jsonPath("$.[*].instanceActivityName").value(hasItem(DEFAULT_INSTANCE_ACTIVITY_NAME.toString())))
-                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].area").value(hasItem(DEFAULT_AREA.toString())))
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
                 .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))));
     }
@@ -170,8 +170,8 @@ public class InstanceActivityResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(instanceActivity.getId().intValue()))
             .andExpect(jsonPath("$.instanceActivityName").value(DEFAULT_INSTANCE_ACTIVITY_NAME.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.area").value(DEFAULT_AREA.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.photoPrincipalContentType").value(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE))
             .andExpect(jsonPath("$.photoPrincipal").value(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL)));
     }
@@ -196,8 +196,8 @@ public class InstanceActivityResourceIntTest {
         InstanceActivity updatedInstanceActivity = new InstanceActivity();
         updatedInstanceActivity.setId(instanceActivity.getId());
         updatedInstanceActivity.setInstanceActivityName(UPDATED_INSTANCE_ACTIVITY_NAME);
-        updatedInstanceActivity.setDescription(UPDATED_DESCRIPTION);
         updatedInstanceActivity.setArea(UPDATED_AREA);
+        updatedInstanceActivity.setDescription(UPDATED_DESCRIPTION);
         updatedInstanceActivity.setPhotoPrincipal(UPDATED_PHOTO_PRINCIPAL);
         updatedInstanceActivity.setPhotoPrincipalContentType(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
 
@@ -211,8 +211,8 @@ public class InstanceActivityResourceIntTest {
         assertThat(instanceActivities).hasSize(databaseSizeBeforeUpdate);
         InstanceActivity testInstanceActivity = instanceActivities.get(instanceActivities.size() - 1);
         assertThat(testInstanceActivity.getInstanceActivityName()).isEqualTo(UPDATED_INSTANCE_ACTIVITY_NAME);
-        assertThat(testInstanceActivity.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testInstanceActivity.getArea()).isEqualTo(UPDATED_AREA);
+        assertThat(testInstanceActivity.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testInstanceActivity.getPhotoPrincipal()).isEqualTo(UPDATED_PHOTO_PRINCIPAL);
         assertThat(testInstanceActivity.getPhotoPrincipalContentType()).isEqualTo(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
 
@@ -256,8 +256,8 @@ public class InstanceActivityResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(instanceActivity.getId().intValue())))
             .andExpect(jsonPath("$.[*].instanceActivityName").value(hasItem(DEFAULT_INSTANCE_ACTIVITY_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].area").value(hasItem(DEFAULT_AREA.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))));
     }

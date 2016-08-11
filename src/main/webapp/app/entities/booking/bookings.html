@@ -40,41 +40,38 @@
                     <th><span translate="mozhotelsbookingApp.booking.checkOut">Check Out</span></th>
                     <th><span translate="mozhotelsbookingApp.booking.peopleAdult">People Adult</span></th>
                     <th><span translate="mozhotelsbookingApp.booking.peopleChild">People Child</span></th>
-                    <th><span translate="mozhotelsbookingApp.booking.createDate">Create Date</span></th>
-                    <th><span translate="mozhotelsbookingApp.booking.editDate">Edit Date</span></th>
-                    <th><span translate="mozhotelsbookingApp.booking.state">State</span></th>
                     <th><span translate="mozhotelsbookingApp.booking.rooms">Rooms</span></th>
                     <th><span translate="mozhotelsbookingApp.booking.tax">Tax</span></th>
                     <th><span translate="mozhotelsbookingApp.booking.totalPrice">Total Price</span></th>
-                    <th><span translate="mozhotelsbookingApp.booking.instanceRoomType">Instance Room Type</span></th>
-                    <th><span translate="mozhotelsbookingApp.booking.instanceRoomFacility">Instance Room Facility</span></th>
+                    <th><span translate="mozhotelsbookingApp.booking.state">State</span></th>
+                    <th><span translate="mozhotelsbookingApp.booking.notes">Notes</span></th>
+                    <th><span translate="mozhotelsbookingApp.booking.createDate">Create Date</span></th>
+                    <th><span translate="mozhotelsbookingApp.booking.editDate">Edit Date</span></th>
+                    <th><span translate="mozhotelsbookingApp.booking.instanceFacility">Instance Facility</span></th>
                     <th><span translate="mozhotelsbookingApp.booking.tourist">Tourist</span></th>
                     <th><span translate="mozhotelsbookingApp.booking.guestTourist">Guest Tourist</span></th>
                     <th><span translate="mozhotelsbookingApp.booking.instanceTur">Instance Tur</span></th>
+                    <th><span translate="mozhotelsbookingApp.booking.instanceRoomType">Instance Room Type</span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="booking in vm.bookings track by booking.id">
                     <td><a ui-sref="booking-detail({id:booking.id})">{{booking.id}}</a></td>
-                    <td>{{booking.checkIn | date:'medium'}}</td>
-                    <td>{{booking.checkOut | date:'medium'}}</td>
+                        <td>{{booking.checkIn | date:'mediumDate'}}</td>
+                        <td>{{booking.checkOut | date:'mediumDate'}}</td>
                     <td>{{booking.peopleAdult}}</td>
                     <td>{{booking.peopleChild}}</td>
-                    <td>{{booking.createDate | date:'medium'}}</td>
-                    <td>{{booking.editDate | date:'medium'}}</td>
-                    <td translate="{{'mozhotelsbookingApp.BookingState.' + booking.state}}">{{booking.state}}</td>
                     <td>{{booking.rooms}}</td>
                     <td>{{booking.tax}}</td>
                     <td>{{booking.totalPrice}}</td>
+                    <td translate="{{'mozhotelsbookingApp.BookingState.' + booking.state}}">{{booking.state}}</td>
+                    <td>{{booking.notes}}</td>
+                    <td>{{booking.createDate | date:'medium'}}</td>
+                    <td>{{booking.editDate | date:'medium'}}</td>
                     <td>
-                        <span ng-repeat="instanceRoomType in booking.instanceRoomTypes">
-                            <a class="form-control-static" ui-sref="instance-room-type-detail({id: {{instanceRoomType.id}}})">{{instanceRoomType.instanceRoomTypeName}}</a>{{$last ? '' : ', '}}
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-repeat="instanceRoomFacility in booking.instanceRoomFacilities">
-                            <a class="form-control-static" ui-sref="instance-facility-detail({id: {{instanceRoomFacility.id}}})">{{instanceRoomFacility.instanceRoomFacilityName}}</a>{{$last ? '' : ', '}}
+                        <span ng-repeat="instanceFacility in booking.instanceFacilities">
+                            <a class="form-control-static" ui-sref="instance-facility-detail({id: {{instanceFacility.id}}})">{{instanceFacility.instanceFacilityName}}</a>{{$last ? '' : ', '}}
                         </span>
                     </td>
                     <td>
@@ -85,6 +82,9 @@
                     </td>
                     <td>
                         <a ui-sref="instance-tur-detail({id:booking.instanceTur.id})">{{booking.instanceTur.instanceTurName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="instance-room-type-detail({id:booking.instanceRoomType.id})">{{booking.instanceRoomType.instanceRoomTypeName}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

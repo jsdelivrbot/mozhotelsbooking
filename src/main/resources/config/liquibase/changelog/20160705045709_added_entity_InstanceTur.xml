@@ -25,20 +25,12 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="rating" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="description" type="varchar(255)">
                 <constraints nullable="false" />
-            </column>
-            
-            <column name="address" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-            
-            <column name="website" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            
-            <column name="email" type="varchar(255)">
-                <constraints nullable="true" />
             </column>
             
             <column name="latitude" type="double">
@@ -61,26 +53,34 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="rating" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="currency" type="varchar(255)">
                 <constraints nullable="false" />
-            </column>
-            
-            <column name="contact_number_principal" type="integer">
-                <constraints nullable="true" />
-            </column>
-            
-            <column name="zip_code" type="varchar(255)">
-                <constraints nullable="true" />
             </column>
             
             <column name="photo_principal" type="blob">
                 <constraints nullable="true" />
             </column>
             <column name="photo_principal_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="agreement_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="create_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="edit_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="active" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="approval" type="bit">
                 <constraints nullable="true" />
             </column>
             
@@ -94,6 +94,30 @@
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="instance_tur" columnName="create_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="instance_tur" columnName="edit_date" columnDataType="datetime"/>
+        
+        <createTable tableName="instance_tur_instance_facility_type">
+            <column name="instance_facility_types_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="instance_turs_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="instance_turs_id, instance_facility_types_id" tableName="instance_tur_instance_facility_type"/>
+        
+        <createTable tableName="instance_tur_instance_activity_type">
+            <column name="instance_activity_types_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="instance_turs_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="instance_turs_id, instance_activity_types_id" tableName="instance_tur_instance_activity_type"/>
         
     </changeSet>
 </databaseChangeLog>

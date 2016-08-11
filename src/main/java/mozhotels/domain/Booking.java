@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,11 +34,11 @@ public class Booking implements Serializable {
 
     @NotNull
     @Column(name = "check_in", nullable = false)
-    private ZonedDateTime checkIn;
+    private LocalDate checkIn;
 
     @NotNull
     @Column(name = "check_out", nullable = false)
-    private ZonedDateTime checkOut;
+    private LocalDate checkOut;
 
     @NotNull
     @Column(name = "people_adult", nullable = false)
@@ -46,18 +47,6 @@ public class Booking implements Serializable {
     @NotNull
     @Column(name = "people_child", nullable = false)
     private Integer peopleChild;
-
-    @NotNull
-    @Column(name = "create_date", nullable = false)
-    private ZonedDateTime createDate;
-
-    @Column(name = "edit_date")
-    private ZonedDateTime editDate;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "state", nullable = false)
-    private BookingState state;
 
     @NotNull
     @Column(name = "rooms", nullable = false)
@@ -71,19 +60,28 @@ public class Booking implements Serializable {
     @Column(name = "total_price", precision=10, scale=2, nullable = false)
     private BigDecimal totalPrice;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "booking_instance_room_type",
-               joinColumns = @JoinColumn(name="bookings_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="instance_room_types_id", referencedColumnName="ID"))
-    private Set<InstanceRoomType> instanceRoomTypes = new HashSet<>();
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state", nullable = false)
+    private BookingState state;
+
+    @Size(max = 1024)
+    @Column(name = "notes", length = 1024)
+    private String notes;
+
+    @NotNull
+    @Column(name = "create_date", nullable = false)
+    private ZonedDateTime createDate;
+
+    @Column(name = "edit_date")
+    private ZonedDateTime editDate;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "booking_instance_room_facility",
+    @JoinTable(name = "booking_instance_facility",
                joinColumns = @JoinColumn(name="bookings_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="instance_room_facilities_id", referencedColumnName="ID"))
-    private Set<InstanceFacility> instanceRoomFacilities = new HashSet<>();
+               inverseJoinColumns = @JoinColumn(name="instance_facilities_id", referencedColumnName="ID"))
+    private Set<InstanceFacility> instanceFacilities = new HashSet<>();
 
     @ManyToOne
     private Tourist tourist;
@@ -93,6 +91,9 @@ public class Booking implements Serializable {
 
     @ManyToOne
     private InstanceTur instanceTur;
+
+    @ManyToOne
+    private InstanceRoomType instanceRoomType;
 
     @OneToOne(mappedBy = "booking")
     @JsonIgnore
@@ -106,19 +107,19 @@ public class Booking implements Serializable {
         this.id = id;
     }
 
-    public ZonedDateTime getCheckIn() {
+    public LocalDate getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(ZonedDateTime checkIn) {
+    public void setCheckIn(LocalDate checkIn) {
         this.checkIn = checkIn;
     }
 
-    public ZonedDateTime getCheckOut() {
+    public LocalDate getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(ZonedDateTime checkOut) {
+    public void setCheckOut(LocalDate checkOut) {
         this.checkOut = checkOut;
     }
 
@@ -136,30 +137,6 @@ public class Booking implements Serializable {
 
     public void setPeopleChild(Integer peopleChild) {
         this.peopleChild = peopleChild;
-    }
-
-    public ZonedDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(ZonedDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public ZonedDateTime getEditDate() {
-        return editDate;
-    }
-
-    public void setEditDate(ZonedDateTime editDate) {
-        this.editDate = editDate;
-    }
-
-    public BookingState getState() {
-        return state;
-    }
-
-    public void setState(BookingState state) {
-        this.state = state;
     }
 
     public Integer getRooms() {
@@ -186,20 +163,44 @@ public class Booking implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public Set<InstanceRoomType> getInstanceRoomTypes() {
-        return instanceRoomTypes;
+    public BookingState getState() {
+        return state;
     }
 
-    public void setInstanceRoomTypes(Set<InstanceRoomType> instanceRoomTypes) {
-        this.instanceRoomTypes = instanceRoomTypes;
+    public void setState(BookingState state) {
+        this.state = state;
     }
 
-    public Set<InstanceFacility> getInstanceRoomFacilities() {
-        return instanceRoomFacilities;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setInstanceRoomFacilities(Set<InstanceFacility> instanceFacilities) {
-        this.instanceRoomFacilities = instanceFacilities;
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public ZonedDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(ZonedDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public ZonedDateTime getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(ZonedDateTime editDate) {
+        this.editDate = editDate;
+    }
+
+    public Set<InstanceFacility> getInstanceFacilities() {
+        return instanceFacilities;
+    }
+
+    public void setInstanceFacilities(Set<InstanceFacility> instanceFacilities) {
+        this.instanceFacilities = instanceFacilities;
     }
 
     public Tourist getTourist() {
@@ -224,6 +225,14 @@ public class Booking implements Serializable {
 
     public void setInstanceTur(InstanceTur instanceTur) {
         this.instanceTur = instanceTur;
+    }
+
+    public InstanceRoomType getInstanceRoomType() {
+        return instanceRoomType;
+    }
+
+    public void setInstanceRoomType(InstanceRoomType instanceRoomType) {
+        this.instanceRoomType = instanceRoomType;
     }
 
     public BookingPayment getBookingPayment() {
@@ -262,12 +271,13 @@ public class Booking implements Serializable {
             ", checkOut='" + checkOut + "'" +
             ", peopleAdult='" + peopleAdult + "'" +
             ", peopleChild='" + peopleChild + "'" +
-            ", createDate='" + createDate + "'" +
-            ", editDate='" + editDate + "'" +
-            ", state='" + state + "'" +
             ", rooms='" + rooms + "'" +
             ", tax='" + tax + "'" +
             ", totalPrice='" + totalPrice + "'" +
+            ", state='" + state + "'" +
+            ", notes='" + notes + "'" +
+            ", createDate='" + createDate + "'" +
+            ", editDate='" + editDate + "'" +
             '}';
     }
 }

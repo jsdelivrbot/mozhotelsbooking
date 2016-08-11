@@ -27,10 +27,13 @@
             "photoPrincipal": "Photo Principal",
             "createDate": "Create Date",
             "editDate": "Edit Date",
+            "active": "Active",
+            "approval": "Approval",
             "booking": "Booking",
             "instanceReview": "Instance Review",
             "guestTourist": "Guest Tourist",
-            "user": "User"
+            "user": "User",
+            "favorite": "Favorite"
         }
     }
 }

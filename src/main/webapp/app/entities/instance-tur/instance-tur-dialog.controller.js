@@ -5,26 +5,31 @@
         .module('mozhotelsbookingApp')
         .controller('InstanceTurDialogController', InstanceTurDialogController);
 
-    InstanceTurDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'InstanceTur', 'Picture', 'InstanceContact', 'InstanceFacility', 'InstanceActivity', 'InstanceRoomType', 'InstanceInfo', 'InstanceReview', 'Booking', 'LocalTur', 'InstanceTurType'];
+    InstanceTurDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'InstanceTur', 'Picture', 'InstanceFacilityType', 'InstanceActivityType', 'InstanceFacility', 'InstanceActivity', 'InstanceRoomType', 'InstanceInfo', 'InstanceReview', 'Booking', 'Favorite', 'LocalTur', 'InstanceTurType', 'InstanceContact'];
 
-    function InstanceTurDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, InstanceTur, Picture, InstanceContact, InstanceFacility, InstanceActivity, InstanceRoomType, InstanceInfo, InstanceReview, Booking, LocalTur, InstanceTurType) {
+    function InstanceTurDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, InstanceTur, Picture, InstanceFacilityType, InstanceActivityType, InstanceFacility, InstanceActivity, InstanceRoomType, InstanceInfo, InstanceReview, Booking, Favorite, LocalTur, InstanceTurType, InstanceContact) {
         var vm = this;
 
         vm.instanceTur = entity;
         vm.clear = clear;
+        vm.datePickerOpenStatus = {};
+        vm.openCalendar = openCalendar;
         vm.byteSize = DataUtils.byteSize;
         vm.openFile = DataUtils.openFile;
         vm.save = save;
         vm.pictures = Picture.query();
-        vm.instancecontacts = InstanceContact.query();
+        vm.instancefacilitytypes = InstanceFacilityType.query();
+        vm.instanceactivitytypes = InstanceActivityType.query();
         vm.instancefacilities = InstanceFacility.query();
         vm.instanceactivities = InstanceActivity.query();
         vm.instanceroomtypes = InstanceRoomType.query();
         vm.instanceinfos = InstanceInfo.query();
         vm.instancereviews = InstanceReview.query();
         vm.bookings = Booking.query();
+        vm.favorites = Favorite.query();
         vm.localturs = LocalTur.query();
         vm.instanceturtypes = InstanceTurType.query();
+        vm.instancecontacts = InstanceContact.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -67,6 +72,11 @@
                 });
             }
         };
+        vm.datePickerOpenStatus.createDate = false;
+        vm.datePickerOpenStatus.editDate = false;
 
+        function openCalendar (date) {
+            vm.datePickerOpenStatus[date] = true;
+        }
     }
 })();

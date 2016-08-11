@@ -2,20 +2,39 @@
   "relationships": [
     {
       "relationshipId": 1,
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-one",
       "relationshipName": "instanceTur",
       "otherEntityName": "instanceTur",
-      "otherEntityField": "instanceTurName"
+      "otherEntityField": "instanceTurName",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "instanceContact"
     }
   ],
   "fields": [
     {
       "fieldId": 1,
-      "fieldName": "contactNumber",
-      "fieldType": "Integer",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldName": "contactNumberPrincipal",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "zipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "address",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "website",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "email",
+      "fieldType": "String"
     }
   ],
   "changelogDate": "20160705045710",

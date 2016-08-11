@@ -10,8 +10,7 @@ entity Region {
 
 entity Province {
     provinceName String required,
-    description String,
-    photoPrincipal ImageBlob
+    description String
 }
 
 entity LocalTur {
@@ -30,11 +29,12 @@ SERVICE, RESOURCE
 }
 
 entity InstanceFacilityType{
+	instanceFacilityTypeName String required,
 	facilityType FacilityType required,
-    instanceFacilityTypeName String required,
     description String,
 	instanceFacility Boolean,
-    instanceRoomFacility Boolean
+    instanceRoomFacility Boolean,
+    instanceBookingFacility Boolean
 }
 
 entity InstanceActivityType{
@@ -43,7 +43,7 @@ entity InstanceActivityType{
 }
 
 enum InfoType {
-POLICY, USEFUL, STAFF
+POLICY, USEFUL, MANAGEMENT
 }
 
 entity InstanceInfoType{
@@ -55,26 +55,33 @@ entity InstanceInfoType{
 enum InstanceRating {
 NA, ONE, TWO, THREE, FOUR, FIVE}
 
+enum Currency {
+MZN, USD, EUR, ZAR}
+
 entity InstanceTur{
     instanceTurName String required,
+    rating InstanceRating,
     description String required,
-    address String required,
-    website String,
-    email String,
     latitude Double,
     longitude Double,
     rooms Integer,
     beds Integer,
     floors Integer,
-    rating InstanceRating,
-    currency String required,
-    contactNumberPrincipal Integer,
-    zipCode String,
-    photoPrincipal ImageBlob
+    currency Currency required,
+    photoPrincipal ImageBlob,
+    agreementNumber String,
+    createDate ZonedDateTime,
+    editDate ZonedDateTime,
+    active Boolean,
+    approval Boolean
 }
 
 entity InstanceContact{
-    contactNumber Integer required
+	contactNumberPrincipal Integer,
+    zipCode String,
+    address String,
+    website String,
+    email String
 }
 
 enum InstanceArea{
@@ -83,9 +90,9 @@ INDOOR, OUTDOOR
 
 entity InstanceFacility{
     instanceFacilityName String required,
+    area InstanceArea,
     description String,
     quantity Integer,
-    area InstanceArea,
     price BigDecimal,
     bookingInclude Boolean
 }
@@ -96,27 +103,32 @@ INSIDE, OUTSIDE
 
 entity InstanceActivity{
     instanceActivityName String required,
-    description String,
     area ActivityArea,
+    description String,
     photoPrincipal ImageBlob
 }
 
 entity InstanceRoomType{
     instanceRoomTypeName String required,
     description String,
-    quantity Integer,
+    roomQuantity Integer,
     capacityAdults Integer,
     capacityChildren Integer,
     onlinePrice BigDecimal required,
-    branchPrice BigDecimal required,
+    branchPrice BigDecimal,
     taxInclude Boolean,
     tax BigDecimal,
-    photoPrincipal ImageBlob
+    photoPrincipal ImageBlob,
+    createDate ZonedDateTime,
+    editDate ZonedDateTime,
+    active Boolean,
+    approval Boolean
 }
 
 entity InstanceInfo{
 	instanceInfo InfoType required,
 	instanceInfoName String required,
+    info String required,
     description String
 }
 
@@ -125,32 +137,35 @@ WONDERFULL, NICE, NEUTRAL, DONT_RECOMEND
 }
 
 entity InstanceReview{
-	cleanliness Float,
-    roomConfort Float,
-    location Float,
-    serviceStaff Float,
-    sleepQuality Float,
-    valuePrice Float,
-    evaluation Evaluation,
-    title String,
-    comment String,
-    active Boolean,
-    approval Boolean,
+	cleanliness Float required,
+    roomConfort Float required,
+    location Float required,
+    serviceStaff Float required,
+    sleepQuality Float required,
+    valuePrice Float required,
+    evaluation Evaluation required,
+    title String required,
+    comment String required,
     createDate ZonedDateTime,
-    editDate ZonedDateTime
+    editDate ZonedDateTime,
+    active Boolean,
+    approval Boolean
 }
 
 enum PictureType{
-PROVINCE, LOCALTUR, INSTANCETUR, INSTANCEACTIVITY, ROOMTYPE, TOURIST
+LOCALTUR, INSTANCETUR, INSTANCEACTIVITY, ROOMTYPE, TOURIST
 }
 
 entity Picture{
 	pictureName String required,
-    description String,
+    type PictureType,
     picture ImageBlob,
-    type PictureType
+    description String
 }
 
+enum Language{
+PT, EN, FR, SP
+}
 
 entity Tourist
 {
@@ -160,11 +175,13 @@ entity Tourist
     phoneNumber String required,
     countryResidence String required,
     countryBooking String required,
-    language String,
-    currency String,
+    language Language,
+    currency Currency,
     photoPrincipal ImageBlob,
-    createDate ZonedDateTime required,
-    editDate ZonedDateTime required,
+    createDate ZonedDateTime,
+    editDate ZonedDateTime,
+    active Boolean,
+    approval Boolean
 }
 
 entity GuestTourist{
@@ -178,18 +195,18 @@ enum BookingState{
 SUBMITED, IN_PROGRESS, BOOKING, CHECK_IN, CHECK_OUT, OVERBOOKING, CANCELED, FAILED
 }
 
-entity Booking{
-    checkIn ZonedDateTime required,
-    checkOut ZonedDateTime required,
+entity Booking {
+    checkIn LocalDate  required,
+    checkOut LocalDate  required,
     peopleAdult Integer required,
     peopleChild Integer required,
-    createDate ZonedDateTime required,
-    editDate ZonedDateTime,
-    state BookingState required,
     rooms Integer required,
     tax Float required,
-    totalPrice BigDecimal required
-
+    totalPrice BigDecimal required,
+    state BookingState required,
+    notes String maxlength (1024),
+    createDate ZonedDateTime required,
+    editDate ZonedDateTime,
 }
 
 enum PaymentType{
@@ -208,20 +225,29 @@ entity BookingPayment{
     type PaymentType required,
     currency String required,
     amount BigDecimal required,
-    createDate ZonedDateTime required,
-    editDate ZonedDateTime required,
     state PaymentState required,
     cardHolder String required,
     cardType CardType required,
     cardNumber Integer required,
-    cardExpiry Integer required,
-    cardCCV Integer required
+    cardExpiry LocalDate required,
+    cardCCV Integer required,
+    createDate ZonedDateTime required,
+    editDate ZonedDateTime required,
+    approval Boolean
 }
 
 entity Info{
 	infoName String required,
     description String,
     value String required
+}
+
+enum FavoriteType {
+INSTANCETUR, TOURIST
+}
+
+entity Favorite{
+	favoriteType FavoriteType
 }
 
 relationship OneToMany {
@@ -266,7 +292,7 @@ Picture{province(provinceName)}
 
 relationship OneToMany{
 LocalTur{picture} to
-Picture{localTur(locaTurName)}
+Picture{localTur(localTurName)}
 }
 
 relationship OneToMany{
@@ -285,17 +311,29 @@ Picture{instanceActivity(instanceActivityName)}
 }
 
 relationship ManyToMany{
-InstanceRoomType{instanceRoomFacility(instanceRoomFacilityName)} to
+InstanceRoomType{instanceRoomFacility(instanceFacilityName)} to
 InstanceFacility{instanceRoomType}
 }
 
-relationship OneToMany{
-InstanceTur{instanceContact} to
-InstanceContact{instanceTur(instanceTurName)}
+relationship ManyToMany{
+InstanceTur{instanceFacilityType(instanceFacilityTypeName)} to
+InstanceFacilityType{instanceTur}
+
+}
+
+relationship ManyToMany{
+InstanceTur{instanceActivityType(instanceActivityTypeName)} to
+InstanceActivityType{instanceTur}
+
+}
+
+relationship OneToOne{
+InstanceContact{instanceTur(instanceTurName)} to
+InstanceTur{instanceContact}
 }
 
 relationship OneToMany{
-InstanceTur{instanceResource} to
+InstanceTur{instanceFacility} to
 InstanceFacility{instanceTur(instanceTurName)}
 }
 
@@ -344,13 +382,13 @@ InstanceTur{booking} to
 Booking{instanceTur(instanceTurName)}
 }
 
-relationship ManyToMany{
-Booking{instanceRoomType(instanceRoomTypeName)} to
-InstanceRoomType{booking}
+relationship OneToMany{
+InstanceRoomType{booking} to
+Booking{instanceRoomType(instanceRoomTypeName)}
 }
 
 relationship ManyToMany{
-Booking{instanceRoomFacility(instanceRoomFacilityName)} to
+Booking{instanceFacility(instanceFacilityName)} to
 InstanceFacility{booking}
 }
 
@@ -362,4 +400,14 @@ Booking{bookingPayment}
 relationship OneToOne{
 Tourist{user} to
 User{tourist}
+}
+
+relationship OneToMany{
+InstanceTur{favorite} to
+Favorite{instanceTur(instanceTurName)}
+}
+
+relationship OneToMany{
+Tourist{favorite} to
+Favorite {tourist(touristName)}
 }

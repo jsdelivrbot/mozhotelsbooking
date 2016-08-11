@@ -28,6 +28,7 @@
                 "booking": "Booking",
                 "bookingPayment": "Booking Payment",
                 "instanceReview": "Instance Review",
+                "favorite": "Favorite",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

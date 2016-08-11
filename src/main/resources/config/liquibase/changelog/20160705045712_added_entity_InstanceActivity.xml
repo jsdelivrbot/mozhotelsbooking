@@ -25,11 +25,11 @@
                 <constraints nullable="false" />
             </column>
             
-            <column name="description" type="varchar(255)">
+            <column name="area" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             
-            <column name="area" type="varchar(255)">
+            <column name="description" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             

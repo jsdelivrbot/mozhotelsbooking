@@ -18,7 +18,7 @@
             },
             "instanceRoomTypeName": "Instance Room Type Name",
             "description": "Description",
-            "quantity": "Quantity",
+            "roomQuantity": "Room Quantity",
             "capacityAdults": "Capacity Adults",
             "capacityChildren": "Capacity Children",
             "onlinePrice": "Online Price",
@@ -26,10 +26,14 @@
             "taxInclude": "Tax Include",
             "tax": "Tax",
             "photoPrincipal": "Photo Principal",
+            "createDate": "Create Date",
+            "editDate": "Edit Date",
+            "active": "Active",
+            "approval": "Approval",
             "picture": "Picture",
             "instanceRoomFacility": "Instance Room Facility",
-            "instanceTur": "Instance Tur",
-            "booking": "Booking"
+            "booking": "Booking",
+            "instanceTur": "Instance Tur"
         }
     }
 }

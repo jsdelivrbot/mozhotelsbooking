@@ -5,9 +5,9 @@
         .module('mozhotelsbookingApp')
         .controller('TouristDialogController', TouristDialogController);
 
-    TouristDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'DataUtils', 'entity', 'Tourist', 'Booking', 'InstanceReview', 'GuestTourist', 'User'];
+    TouristDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'DataUtils', 'entity', 'Tourist', 'Booking', 'InstanceReview', 'GuestTourist', 'User', 'Favorite'];
 
-    function TouristDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, DataUtils, entity, Tourist, Booking, InstanceReview, GuestTourist, User) {
+    function TouristDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, DataUtils, entity, Tourist, Booking, InstanceReview, GuestTourist, User, Favorite) {
         var vm = this;
 
         vm.tourist = entity;
@@ -21,6 +21,7 @@
         vm.instancereviews = InstanceReview.query();
         vm.guesttourists = GuestTourist.query();
         vm.users = User.query();
+        vm.favorites = Favorite.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

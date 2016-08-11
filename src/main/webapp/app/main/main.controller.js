@@ -5,9 +5,9 @@
         .module('mozhotelsbookingApp')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$scope', '$rootScope', '$anchorScroll', 'Principal', 'LoginService', '$state', 'LocalTur', '$timeout', 'orderByFilter'];
+    MainController.$inject = ['$scope', '$rootScope', '$anchorScroll', 'Principal', 'LoginService', '$state', 'LocalTur', '$timeout', 'orderByFilter', 'InstanceTur'];
 
-    function MainController ($scope, $rootScope, $anchorScroll, Principal, LoginService, $state, LocalTur, $timeout, orderByFilter) {
+    function MainController ($scope, $rootScope, $anchorScroll, Principal, LoginService, $state, LocalTur, $timeout, orderByFilter, InstanceTur) {
         var vm = this;
 
         vm.account = null;
@@ -18,19 +18,33 @@
         vm.loadAll = loadAll;
         vm.localTursData = [];
 
-        vm.dates = {
-       startDate: moment().subtract(1, "days"),
-       endDate: moment()
-      };
+        //vm.place = "Mocambique";
+        vm.rooms = 1;
+        vm.adults = 1;
+        vm.childs = 0;
 
-      vm.minDate =  moment().subtract(1, "days");
+        vm.dates = {
+          startDate: moment(),
+          endDate: moment().add(1, "days")
+        };
+
+
+
+      vm.minDate =  moment();
 
       $rootScope.$on("$locationChangeSuccess", function() {
         console.log("CHANGE VIEW");
                 $anchorScroll();
     });
 
-      
+    $scope.scrollTo = function (id) {
+      $anchorScroll(id);
+    }
+
+
+
+
+
 
     //   vm.opts = {
     //     locale: {
@@ -156,12 +170,48 @@
     $scope.$watch('vm.dates', function(newDate) {
         console.log('End Date: ', newDate.startDate._d);
         console.log('End Date: ', newDate.endDate._d);
+        vm.checkIn = vm.dates.startDate.format('YYYY-MM-DD');
+        vm.checkOut = vm.dates.endDate.format('YYYY-MM-DD');
 
     }, false);
 
 
     //$state.reload();
     //window.location.href = '/';
+
+    InstanceTur.query().$promise.then(function(result) {
+      vm.instanceturs = alasql('SELECT * FROM ? ORDER BY RANDOM()'
+      ,[result]);
+      vm.counted = vm.instanceturs.length;
+
+      loadAutoComplete(vm.instanceturs);
+
+      });
+
+    function loadAutoComplete(instanceturs){
+      // var instanceturscountry = instanceturs.map(function(item) {
+      //         return item.localTur.province.region.country.countryName;
+      // });
+
+      // var instancetursregion = instanceturs.map(function(item) {
+      //         return item.localTur.province.region.regionName+","+item.localTur.province.region.country.countryName;
+      // });
+
+      var instancetursprovince = instanceturs.map(function(item) {
+              return item.localTur.province.provinceName+","+item.localTur.province.region.regionName+","+item.localTur.province.region.country.countryName;
+      });
+
+      var instanceturslocaltur = instanceturs.map(function(item) {
+            return item.localTur.localTurName+","+item.localTur.province.provinceName+","+item.localTur.province.region.regionName+","+item.localTur.province.region.country.countryName;
+      });
+
+      var instancetursname = instanceturs.map(function(item) {
+          return item.instanceTurName+","+item.localTur.localTurName+","+item.localTur.province.provinceName+","+item.localTur.province.region.regionName+","+item.localTur.province.region.country.countryName;
+      });
+
+       vm.instanceturautocomplete = instancetursname.concat(instanceturslocaltur.concat(instancetursprovince));
+       //console.log( vm.instanceturautocomplete);
+    }
 
     }
 })();

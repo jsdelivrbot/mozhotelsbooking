@@ -67,7 +67,7 @@ class InstanceContactGatlingTest extends Simulation {
             .exec(http("Create new instanceContact")
             .post("/api/instance-contacts")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "contactNumber":"0"}""")).asJSON
+            .body(StringBody("""{"id":null, "contactNumberPrincipal":"0", "zipCode":"SAMPLE_TEXT", "address":"SAMPLE_TEXT", "website":"SAMPLE_TEXT", "email":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_instanceContact_url"))).exitHereIfFailed
             .pause(10)

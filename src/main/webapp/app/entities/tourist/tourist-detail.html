@@ -30,11 +30,11 @@
         </dd>
         <dt><span translate="mozhotelsbookingApp.tourist.language">Language</span></dt>
         <dd>
-            <span>{{vm.tourist.language}}</span>
+            <span translate="{{'mozhotelsbookingApp.Language.' + vm.tourist.language}}">{{vm.tourist.language}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.tourist.currency">Currency</span></dt>
         <dd>
-            <span>{{vm.tourist.currency}}</span>
+            <span translate="{{'mozhotelsbookingApp.Currency.' + vm.tourist.currency}}">{{vm.tourist.currency}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.tourist.photoPrincipal">Photo Principal</span></dt>
         <dd>
@@ -52,6 +52,14 @@
         <dt><span translate="mozhotelsbookingApp.tourist.editDate">Edit Date</span></dt>
         <dd>
             <span>{{vm.tourist.editDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.tourist.active">Active</span></dt>
+        <dd>
+            <span>{{vm.tourist.active}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.tourist.approval">Approval</span></dt>
+        <dd>
+            <span>{{vm.tourist.approval}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.tourist.user">User</span></dt>
         <dd>

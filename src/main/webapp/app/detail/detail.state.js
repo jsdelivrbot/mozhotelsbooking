@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider.state('detail', {
             parent: 'app-frontOffice',
-            url: '/detail',
+            url: '/detail/:instanceID/:rooms/:adults/:childs/:checkIn/:checkOut',
             data: {
                 authorities: []
             },

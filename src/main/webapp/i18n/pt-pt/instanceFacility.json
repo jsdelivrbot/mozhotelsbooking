@@ -17,9 +17,9 @@
                 "title": "Instance Facility"
             },
             "instanceFacilityName": "Instance Facility Name",
+            "area": "Area",
             "description": "Description",
             "quantity": "Quantity",
-            "area": "Area",
             "price": "Price",
             "bookingInclude": "Booking Include",
             "instanceFacilityType": "Instance Facility Type",

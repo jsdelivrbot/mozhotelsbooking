@@ -35,6 +35,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import mozhotels.domain.enumeration.Language;
+import mozhotels.domain.enumeration.Currency;
 
 /**
  * Test class for the TouristResource REST controller.
@@ -61,10 +63,12 @@ public class TouristResourceIntTest {
     private static final String UPDATED_COUNTRY_RESIDENCE = "BBBBB";
     private static final String DEFAULT_COUNTRY_BOOKING = "AAAAA";
     private static final String UPDATED_COUNTRY_BOOKING = "BBBBB";
-    private static final String DEFAULT_LANGUAGE = "AAAAA";
-    private static final String UPDATED_LANGUAGE = "BBBBB";
-    private static final String DEFAULT_CURRENCY = "AAAAA";
-    private static final String UPDATED_CURRENCY = "BBBBB";
+
+    private static final Language DEFAULT_LANGUAGE = Language.PT;
+    private static final Language UPDATED_LANGUAGE = Language.EN;
+
+    private static final Currency DEFAULT_CURRENCY = Currency.MZN;
+    private static final Currency UPDATED_CURRENCY = Currency.USD;
 
     private static final byte[] DEFAULT_PHOTO_PRINCIPAL = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PHOTO_PRINCIPAL = TestUtil.createByteArray(2, "1");
@@ -78,6 +82,12 @@ public class TouristResourceIntTest {
     private static final ZonedDateTime DEFAULT_EDIT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_EDIT_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_EDIT_DATE_STR = dateTimeFormatter.format(DEFAULT_EDIT_DATE);
+
+    private static final Boolean DEFAULT_ACTIVE = false;
+    private static final Boolean UPDATED_ACTIVE = true;
+
+    private static final Boolean DEFAULT_APPROVAL = false;
+    private static final Boolean UPDATED_APPROVAL = true;
 
     @Inject
     private TouristRepository touristRepository;
@@ -122,6 +132,8 @@ public class TouristResourceIntTest {
         tourist.setPhotoPrincipalContentType(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
         tourist.setCreateDate(DEFAULT_CREATE_DATE);
         tourist.setEditDate(DEFAULT_EDIT_DATE);
+        tourist.setActive(DEFAULT_ACTIVE);
+        tourist.setApproval(DEFAULT_APPROVAL);
     }
 
     @Test
@@ -152,6 +164,8 @@ public class TouristResourceIntTest {
         assertThat(testTourist.getPhotoPrincipalContentType()).isEqualTo(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE);
         assertThat(testTourist.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
         assertThat(testTourist.getEditDate()).isEqualTo(DEFAULT_EDIT_DATE);
+        assertThat(testTourist.isActive()).isEqualTo(DEFAULT_ACTIVE);
+        assertThat(testTourist.isApproval()).isEqualTo(DEFAULT_APPROVAL);
 
         // Validate the Tourist in ElasticSearch
         Tourist touristEs = touristSearchRepository.findOne(testTourist.getId());
@@ -268,42 +282,6 @@ public class TouristResourceIntTest {
 
     @Test
     @Transactional
-    public void checkCreateDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = touristRepository.findAll().size();
-        // set the field null
-        tourist.setCreateDate(null);
-
-        // Create the Tourist, which fails.
-
-        restTouristMockMvc.perform(post("/api/tourists")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tourist)))
-                .andExpect(status().isBadRequest());
-
-        List<Tourist> tourists = touristRepository.findAll();
-        assertThat(tourists).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkEditDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = touristRepository.findAll().size();
-        // set the field null
-        tourist.setEditDate(null);
-
-        // Create the Tourist, which fails.
-
-        restTouristMockMvc.perform(post("/api/tourists")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tourist)))
-                .andExpect(status().isBadRequest());
-
-        List<Tourist> tourists = touristRepository.findAll();
-        assertThat(tourists).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllTourists() throws Exception {
         // Initialize the database
         touristRepository.saveAndFlush(tourist);
@@ -324,7 +302,9 @@ public class TouristResourceIntTest {
                 .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
                 .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))))
                 .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
-                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)));
+                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+                .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 
     @Test
@@ -349,7 +329,9 @@ public class TouristResourceIntTest {
             .andExpect(jsonPath("$.photoPrincipalContentType").value(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE))
             .andExpect(jsonPath("$.photoPrincipal").value(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL)))
             .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE_STR))
-            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR));
+            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR))
+            .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()))
+            .andExpect(jsonPath("$.approval").value(DEFAULT_APPROVAL.booleanValue()));
     }
 
     @Test
@@ -383,6 +365,8 @@ public class TouristResourceIntTest {
         updatedTourist.setPhotoPrincipalContentType(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
         updatedTourist.setCreateDate(UPDATED_CREATE_DATE);
         updatedTourist.setEditDate(UPDATED_EDIT_DATE);
+        updatedTourist.setActive(UPDATED_ACTIVE);
+        updatedTourist.setApproval(UPDATED_APPROVAL);
 
         restTouristMockMvc.perform(put("/api/tourists")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -405,6 +389,8 @@ public class TouristResourceIntTest {
         assertThat(testTourist.getPhotoPrincipalContentType()).isEqualTo(UPDATED_PHOTO_PRINCIPAL_CONTENT_TYPE);
         assertThat(testTourist.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
         assertThat(testTourist.getEditDate()).isEqualTo(UPDATED_EDIT_DATE);
+        assertThat(testTourist.isActive()).isEqualTo(UPDATED_ACTIVE);
+        assertThat(testTourist.isApproval()).isEqualTo(UPDATED_APPROVAL);
 
         // Validate the Tourist in ElasticSearch
         Tourist touristEs = touristSearchRepository.findOne(testTourist.getId());
@@ -456,6 +442,8 @@ public class TouristResourceIntTest {
             .andExpect(jsonPath("$.[*].photoPrincipalContentType").value(hasItem(DEFAULT_PHOTO_PRINCIPAL_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO_PRINCIPAL))))
             .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
-            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)));
+            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+            .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 }

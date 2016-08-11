@@ -29,13 +29,6 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="photo_principal" type="blob">
-                <constraints nullable="true" />
-            </column>
-            <column name="photo_principal_content_type" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="region_id" type="bigint">
                 <constraints nullable="true" />
             </column>

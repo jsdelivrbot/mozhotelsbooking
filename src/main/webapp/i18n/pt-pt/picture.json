@@ -17,9 +17,9 @@
                 "title": "Picture"
             },
             "pictureName": "Picture Name",
-            "description": "Description",
-            "picture": "Picture",
             "type": "Type",
+            "picture": "Picture",
+            "description": "Description",
             "province": "Province",
             "localTur": "Local Tur",
             "instanceTur": "Instance Tur",

@@ -16,7 +16,11 @@
             "detail": {
                 "title": "Instance Contact"
             },
-            "contactNumber": "Contact Number",
+            "contactNumberPrincipal": "Contact Number Principal",
+            "zipCode": "Zip Code",
+            "address": "Address",
+            "website": "Website",
+            "email": "Email",
             "instanceTur": "Instance Tur"
         }
     }

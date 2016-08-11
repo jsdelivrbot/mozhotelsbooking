@@ -21,11 +21,11 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="facility_type" type="varchar(255)">
+            <column name="instance_facility_type_name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             
-            <column name="instance_facility_type_name" type="varchar(255)">
+            <column name="facility_type" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             
@@ -38,6 +38,10 @@
             </column>
             
             <column name="instance_room_facility" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="instance_booking_facility" type="bit">
                 <constraints nullable="true" />
             </column>
             

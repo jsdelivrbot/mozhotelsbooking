@@ -9,66 +9,90 @@
     },
     {
       "relationshipId": 2,
-      "relationshipType": "one-to-many",
-      "relationshipName": "instanceContact",
-      "otherEntityName": "instanceContact",
-      "otherEntityRelationshipName": "instanceTur"
+      "relationshipType": "many-to-many",
+      "relationshipName": "instanceFacilityType",
+      "otherEntityName": "instanceFacilityType",
+      "otherEntityField": "instanceFacilityTypeName",
+      "ownerSide": true
     },
     {
       "relationshipId": 3,
+      "relationshipType": "many-to-many",
+      "relationshipName": "instanceActivityType",
+      "otherEntityName": "instanceActivityType",
+      "otherEntityField": "instanceActivityTypeName",
+      "ownerSide": true
+    },
+    {
+      "relationshipId": 4,
       "relationshipType": "one-to-many",
-      "relationshipName": "instanceResource",
+      "relationshipName": "instanceFacility",
       "otherEntityName": "instanceFacility",
       "otherEntityRelationshipName": "instanceTur"
     },
     {
-      "relationshipId": 4,
+      "relationshipId": 5,
       "relationshipType": "one-to-many",
       "relationshipName": "instanceActivity",
       "otherEntityName": "instanceActivity",
       "otherEntityRelationshipName": "instanceTur"
     },
     {
-      "relationshipId": 5,
+      "relationshipId": 6,
       "relationshipType": "one-to-many",
       "relationshipName": "instanceRoomType",
       "otherEntityName": "instanceRoomType",
       "otherEntityRelationshipName": "instanceTur"
     },
     {
-      "relationshipId": 6,
+      "relationshipId": 7,
       "relationshipType": "one-to-many",
       "relationshipName": "instanceInfo",
       "otherEntityName": "instanceInfo",
       "otherEntityRelationshipName": "instanceTur"
     },
     {
-      "relationshipId": 7,
+      "relationshipId": 8,
       "relationshipType": "one-to-many",
       "relationshipName": "instanceReview",
       "otherEntityName": "instanceReview",
       "otherEntityRelationshipName": "instanceTur"
     },
     {
-      "relationshipId": 8,
+      "relationshipId": 9,
       "relationshipType": "one-to-many",
       "relationshipName": "booking",
       "otherEntityName": "booking",
       "otherEntityRelationshipName": "instanceTur"
     },
     {
-      "relationshipId": 9,
+      "relationshipId": 10,
+      "relationshipType": "one-to-many",
+      "relationshipName": "favorite",
+      "otherEntityName": "favorite",
+      "otherEntityRelationshipName": "instanceTur"
+    },
+    {
+      "relationshipId": 11,
       "relationshipType": "many-to-one",
       "relationshipName": "localTur",
       "otherEntityName": "localTur",
       "otherEntityField": "localTurName"
     },
     {
-      "relationshipId": 10,
+      "relationshipId": 12,
       "relationshipType": "many-to-one",
       "relationshipName": "instanceTurType",
       "otherEntityName": "instanceTurType",
       "otherEntityField": "instanceTurTypeName"
+    },
+    {
+      "relationshipId": 13,
+      "relationshipType": "one-to-one",
+      "relationshipName": "instanceContact",
+      "otherEntityName": "instanceContact",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "instanceTur"
     }
   ],
   "fields": [
@@ -82,6 +106,12 @@
     },
     {
       "fieldId": 2,
+      "fieldName": "rating",
+      "fieldType": "InstanceRating",
+      "fieldValues": "NA,ONE,TWO,THREE,FOUR,FIVE"
+    },
+    {
+      "fieldId": 3,
       "fieldName": "description",
       "fieldType": "String",
       "fieldValidateRules": [
@@ -89,77 +119,69 @@
       ]
     },
     {
-      "fieldId": 3,
-      "fieldName": "address",
-      "fieldType": "String",
-      "fieldValidateRules": [
-        "required"
-      ]
-    },
-    {
       "fieldId": 4,
-      "fieldName": "website",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 5,
-      "fieldName": "email",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 6,
       "fieldName": "latitude",
       "fieldType": "Double"
     },
     {
-      "fieldId": 7,
+      "fieldId": 5,
       "fieldName": "longitude",
       "fieldType": "Double"
     },
     {
-      "fieldId": 8,
+      "fieldId": 6,
       "fieldName": "rooms",
       "fieldType": "Integer"
     },
     {
-      "fieldId": 9,
+      "fieldId": 7,
       "fieldName": "beds",
       "fieldType": "Integer"
     },
     {
-      "fieldId": 10,
+      "fieldId": 8,
       "fieldName": "floors",
       "fieldType": "Integer"
     },
     {
-      "fieldId": 11,
-      "fieldName": "rating",
-      "fieldType": "InstanceRating",
-      "fieldValues": "NA,ONE,TWO,THREE,FOUR,FIVE"
-    },
-    {
-      "fieldId": 12,
+      "fieldId": 9,
       "fieldName": "currency",
-      "fieldType": "String",
+      "fieldType": "Currency",
+      "fieldValues": "MZN,USD,EUR,ZAR",
       "fieldValidateRules": [
         "required"
       ]
     },
     {
-      "fieldId": 13,
-      "fieldName": "contactNumberPrincipal",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldId": 14,
-      "fieldName": "zipCode",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 15,
+      "fieldId": 10,
       "fieldName": "photoPrincipal",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldId": 11,
+      "fieldName": "agreementNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 12,
+      "fieldName": "createDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 13,
+      "fieldName": "editDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 14,
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 15,
+      "fieldName": "approval",
+      "fieldType": "Boolean"
     }
   ],
   "changelogDate": "20160705045709",

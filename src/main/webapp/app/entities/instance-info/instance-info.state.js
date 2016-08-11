@@ -75,6 +75,7 @@
                             return {
                                 instanceInfo: null,
                                 instanceInfoName: null,
+                                info: null,
                                 description: null,
                                 id: null
                             };

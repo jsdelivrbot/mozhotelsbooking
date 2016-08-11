@@ -5,9 +5,9 @@
         .module('mozhotelsbookingApp')
         .controller('InstanceTurDetailController', InstanceTurDetailController);
 
-    InstanceTurDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'DataUtils', 'entity', 'InstanceTur', 'Picture', 'InstanceContact', 'InstanceFacility', 'InstanceActivity', 'InstanceRoomType', 'InstanceInfo', 'InstanceReview', 'Booking', 'LocalTur', 'InstanceTurType'];
+    InstanceTurDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'DataUtils', 'entity', 'InstanceTur', 'Picture', 'InstanceFacilityType', 'InstanceActivityType', 'InstanceFacility', 'InstanceActivity', 'InstanceRoomType', 'InstanceInfo', 'InstanceReview', 'Booking', 'Favorite', 'LocalTur', 'InstanceTurType', 'InstanceContact'];
 
-    function InstanceTurDetailController($scope, $rootScope, $stateParams, DataUtils, entity, InstanceTur, Picture, InstanceContact, InstanceFacility, InstanceActivity, InstanceRoomType, InstanceInfo, InstanceReview, Booking, LocalTur, InstanceTurType) {
+    function InstanceTurDetailController($scope, $rootScope, $stateParams, DataUtils, entity, InstanceTur, Picture, InstanceFacilityType, InstanceActivityType, InstanceFacility, InstanceActivity, InstanceRoomType, InstanceInfo, InstanceReview, Booking, Favorite, LocalTur, InstanceTurType, InstanceContact) {
         var vm = this;
 
         vm.instanceTur = entity;

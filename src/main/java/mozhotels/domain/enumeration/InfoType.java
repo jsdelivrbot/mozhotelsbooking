@@ -4,5 +4,5 @@ package mozhotels.domain.enumeration;
  * The InfoType enumeration.
  */
 public enum InfoType {
-    POLICY,USEFUL,STAFF
+    POLICY,USEFUL,MANAGEMENT
 }

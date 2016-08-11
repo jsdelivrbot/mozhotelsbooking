@@ -67,7 +67,7 @@ class InstanceTurGatlingTest extends Simulation {
             .exec(http("Create new instanceTur")
             .post("/api/instance-turs")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "instanceTurName":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "address":"SAMPLE_TEXT", "website":"SAMPLE_TEXT", "email":"SAMPLE_TEXT", "latitude":null, "longitude":null, "rooms":"0", "beds":"0", "floors":"0", "rating":null, "currency":"SAMPLE_TEXT", "contactNumberPrincipal":"0", "zipCode":"SAMPLE_TEXT", "photoPrincipal":null}""")).asJSON
+            .body(StringBody("""{"id":null, "instanceTurName":"SAMPLE_TEXT", "rating":null, "description":"SAMPLE_TEXT", "latitude":null, "longitude":null, "rooms":"0", "beds":"0", "floors":"0", "currency":null, "photoPrincipal":null, "agreementNumber":"SAMPLE_TEXT", "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z", "active":null, "approval":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_instanceTur_url"))).exitHereIfFailed
             .pause(10)

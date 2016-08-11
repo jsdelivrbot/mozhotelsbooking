@@ -18,7 +18,9 @@
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar',
             'daterangepicker',
-            
+            'checklist-model',
+            'autocomplete',
+            'rzModule'
             // 'ngMessages'
             // ,'slickCarousel'
             // ,'ngMaterial'

@@ -73,11 +73,12 @@
                     resolve: {
                         entity: function () {
                             return {
-                                facilityType: null,
                                 instanceFacilityTypeName: null,
+                                facilityType: null,
                                 description: null,
                                 instanceFacility: null,
                                 instanceRoomFacility: null,
+                                instanceBookingFacility: null,
                                 id: null
                             };
                         }

@@ -67,7 +67,7 @@ class ProvinceGatlingTest extends Simulation {
             .exec(http("Create new province")
             .post("/api/provinces")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "provinceName":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "photoPrincipal":null}""")).asJSON
+            .body(StringBody("""{"id":null, "provinceName":"SAMPLE_TEXT", "description":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_province_url"))).exitHereIfFailed
             .pause(10)

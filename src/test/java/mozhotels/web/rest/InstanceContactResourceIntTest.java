@@ -43,8 +43,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class InstanceContactResourceIntTest {
 
 
-    private static final Integer DEFAULT_CONTACT_NUMBER = 1;
-    private static final Integer UPDATED_CONTACT_NUMBER = 2;
+    private static final Integer DEFAULT_CONTACT_NUMBER_PRINCIPAL = 1;
+    private static final Integer UPDATED_CONTACT_NUMBER_PRINCIPAL = 2;
+    private static final String DEFAULT_ZIP_CODE = "AAAAA";
+    private static final String UPDATED_ZIP_CODE = "BBBBB";
+    private static final String DEFAULT_ADDRESS = "AAAAA";
+    private static final String UPDATED_ADDRESS = "BBBBB";
+    private static final String DEFAULT_WEBSITE = "AAAAA";
+    private static final String UPDATED_WEBSITE = "BBBBB";
+    private static final String DEFAULT_EMAIL = "AAAAA";
+    private static final String UPDATED_EMAIL = "BBBBB";
 
     @Inject
     private InstanceContactRepository instanceContactRepository;
@@ -77,7 +85,11 @@ public class InstanceContactResourceIntTest {
     public void initTest() {
         instanceContactSearchRepository.deleteAll();
         instanceContact = new InstanceContact();
-        instanceContact.setContactNumber(DEFAULT_CONTACT_NUMBER);
+        instanceContact.setContactNumberPrincipal(DEFAULT_CONTACT_NUMBER_PRINCIPAL);
+        instanceContact.setZipCode(DEFAULT_ZIP_CODE);
+        instanceContact.setAddress(DEFAULT_ADDRESS);
+        instanceContact.setWebsite(DEFAULT_WEBSITE);
+        instanceContact.setEmail(DEFAULT_EMAIL);
     }
 
     @Test
@@ -96,29 +108,15 @@ public class InstanceContactResourceIntTest {
         List<InstanceContact> instanceContacts = instanceContactRepository.findAll();
         assertThat(instanceContacts).hasSize(databaseSizeBeforeCreate + 1);
         InstanceContact testInstanceContact = instanceContacts.get(instanceContacts.size() - 1);
-        assertThat(testInstanceContact.getContactNumber()).isEqualTo(DEFAULT_CONTACT_NUMBER);
+        assertThat(testInstanceContact.getContactNumberPrincipal()).isEqualTo(DEFAULT_CONTACT_NUMBER_PRINCIPAL);
+        assertThat(testInstanceContact.getZipCode()).isEqualTo(DEFAULT_ZIP_CODE);
+        assertThat(testInstanceContact.getAddress()).isEqualTo(DEFAULT_ADDRESS);
+        assertThat(testInstanceContact.getWebsite()).isEqualTo(DEFAULT_WEBSITE);
+        assertThat(testInstanceContact.getEmail()).isEqualTo(DEFAULT_EMAIL);
 
         // Validate the InstanceContact in ElasticSearch
         InstanceContact instanceContactEs = instanceContactSearchRepository.findOne(testInstanceContact.getId());
         assertThat(instanceContactEs).isEqualToComparingFieldByField(testInstanceContact);
-    }
-
-    @Test
-    @Transactional
-    public void checkContactNumberIsRequired() throws Exception {
-        int databaseSizeBeforeTest = instanceContactRepository.findAll().size();
-        // set the field null
-        instanceContact.setContactNumber(null);
-
-        // Create the InstanceContact, which fails.
-
-        restInstanceContactMockMvc.perform(post("/api/instance-contacts")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(instanceContact)))
-                .andExpect(status().isBadRequest());
-
-        List<InstanceContact> instanceContacts = instanceContactRepository.findAll();
-        assertThat(instanceContacts).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -132,7 +130,11 @@ public class InstanceContactResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(instanceContact.getId().intValue())))
-                .andExpect(jsonPath("$.[*].contactNumber").value(hasItem(DEFAULT_CONTACT_NUMBER)));
+                .andExpect(jsonPath("$.[*].contactNumberPrincipal").value(hasItem(DEFAULT_CONTACT_NUMBER_PRINCIPAL)))
+                .andExpect(jsonPath("$.[*].zipCode").value(hasItem(DEFAULT_ZIP_CODE.toString())))
+                .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
+                .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE.toString())))
+                .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
     }
 
     @Test
@@ -146,7 +148,11 @@ public class InstanceContactResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(instanceContact.getId().intValue()))
-            .andExpect(jsonPath("$.contactNumber").value(DEFAULT_CONTACT_NUMBER));
+            .andExpect(jsonPath("$.contactNumberPrincipal").value(DEFAULT_CONTACT_NUMBER_PRINCIPAL))
+            .andExpect(jsonPath("$.zipCode").value(DEFAULT_ZIP_CODE.toString()))
+            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
+            .andExpect(jsonPath("$.website").value(DEFAULT_WEBSITE.toString()))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()));
     }
 
     @Test
@@ -168,7 +174,11 @@ public class InstanceContactResourceIntTest {
         // Update the instanceContact
         InstanceContact updatedInstanceContact = new InstanceContact();
         updatedInstanceContact.setId(instanceContact.getId());
-        updatedInstanceContact.setContactNumber(UPDATED_CONTACT_NUMBER);
+        updatedInstanceContact.setContactNumberPrincipal(UPDATED_CONTACT_NUMBER_PRINCIPAL);
+        updatedInstanceContact.setZipCode(UPDATED_ZIP_CODE);
+        updatedInstanceContact.setAddress(UPDATED_ADDRESS);
+        updatedInstanceContact.setWebsite(UPDATED_WEBSITE);
+        updatedInstanceContact.setEmail(UPDATED_EMAIL);
 
         restInstanceContactMockMvc.perform(put("/api/instance-contacts")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -179,7 +189,11 @@ public class InstanceContactResourceIntTest {
         List<InstanceContact> instanceContacts = instanceContactRepository.findAll();
         assertThat(instanceContacts).hasSize(databaseSizeBeforeUpdate);
         InstanceContact testInstanceContact = instanceContacts.get(instanceContacts.size() - 1);
-        assertThat(testInstanceContact.getContactNumber()).isEqualTo(UPDATED_CONTACT_NUMBER);
+        assertThat(testInstanceContact.getContactNumberPrincipal()).isEqualTo(UPDATED_CONTACT_NUMBER_PRINCIPAL);
+        assertThat(testInstanceContact.getZipCode()).isEqualTo(UPDATED_ZIP_CODE);
+        assertThat(testInstanceContact.getAddress()).isEqualTo(UPDATED_ADDRESS);
+        assertThat(testInstanceContact.getWebsite()).isEqualTo(UPDATED_WEBSITE);
+        assertThat(testInstanceContact.getEmail()).isEqualTo(UPDATED_EMAIL);
 
         // Validate the InstanceContact in ElasticSearch
         InstanceContact instanceContactEs = instanceContactSearchRepository.findOne(testInstanceContact.getId());
@@ -220,6 +234,10 @@ public class InstanceContactResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(instanceContact.getId().intValue())))
-            .andExpect(jsonPath("$.[*].contactNumber").value(hasItem(DEFAULT_CONTACT_NUMBER)));
+            .andExpect(jsonPath("$.[*].contactNumberPrincipal").value(hasItem(DEFAULT_CONTACT_NUMBER_PRINCIPAL)))
+            .andExpect(jsonPath("$.[*].zipCode").value(hasItem(DEFAULT_ZIP_CODE.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
+            .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE.toString())))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
     }
 }

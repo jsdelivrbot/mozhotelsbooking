@@ -33,14 +33,14 @@
     },
     {
       "fieldId": 2,
-      "fieldName": "description",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 3,
       "fieldName": "area",
       "fieldType": "ActivityArea",
       "fieldValues": "INSIDE,OUTSIDE"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "description",
+      "fieldType": "String"
     },
     {
       "fieldId": 4,

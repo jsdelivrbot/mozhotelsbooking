@@ -52,6 +52,7 @@
             vm.isSaving = false;
         }
 
+        vm.datePickerOpenStatus.cardExpiry = false;
         vm.datePickerOpenStatus.createDate = false;
         vm.datePickerOpenStatus.editDate = false;
 

@@ -12,9 +12,9 @@
         <dd>
             <span>{{vm.instanceRoomType.description}}</span>
         </dd>
-        <dt><span translate="mozhotelsbookingApp.instanceRoomType.quantity">Quantity</span></dt>
+        <dt><span translate="mozhotelsbookingApp.instanceRoomType.roomQuantity">Room Quantity</span></dt>
         <dd>
-            <span>{{vm.instanceRoomType.quantity}}</span>
+            <span>{{vm.instanceRoomType.roomQuantity}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.instanceRoomType.capacityAdults">Capacity Adults</span></dt>
         <dd>
@@ -49,10 +49,26 @@
                 {{vm.instanceRoomType.photoPrincipalContentType}}, {{vm.byteSize(vm.instanceRoomType.photoPrincipal)}}
             </div>
         </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceRoomType.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{vm.instanceRoomType.createDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceRoomType.editDate">Edit Date</span></dt>
+        <dd>
+            <span>{{vm.instanceRoomType.editDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceRoomType.active">Active</span></dt>
+        <dd>
+            <span>{{vm.instanceRoomType.active}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceRoomType.approval">Approval</span></dt>
+        <dd>
+            <span>{{vm.instanceRoomType.approval}}</span>
+        </dd>
         <dt><span translate="mozhotelsbookingApp.instanceRoomType.instanceRoomFacility">Instance Room Facility</span></dt>
         <dd>
             <span ng-repeat="instanceRoomFacility in vm.instanceRoomType.instanceRoomFacilities">
-                <a ui-sref="instance-facility-detail({id: {{instanceRoomFacility.id}}})">{{instanceRoomFacility.instanceRoomFacilityName}}</a>{{$last ? '' : ', '}}
+                <a ui-sref="instance-facility-detail({id: {{instanceRoomFacility.id}}})">{{instanceRoomFacility.instanceFacilityName}}</a>{{$last ? '' : ', '}}
             </span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.instanceRoomType.instanceTur">Instance Tur</span></dt>

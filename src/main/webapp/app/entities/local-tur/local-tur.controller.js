@@ -9,13 +9,12 @@
 
     function LocalTurController ($scope, $state, DataUtils, LocalTur, LocalTurSearch) {
         var vm = this;
-
-
+        
+        vm.localTurs = [];
         vm.openFile = DataUtils.openFile;
         vm.byteSize = DataUtils.byteSize;
         vm.search = search;
         vm.loadAll = loadAll;
-        vm.localTurs = [];
 
         loadAll();
 

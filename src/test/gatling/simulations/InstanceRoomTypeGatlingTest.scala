@@ -67,7 +67,7 @@ class InstanceRoomTypeGatlingTest extends Simulation {
             .exec(http("Create new instanceRoomType")
             .post("/api/instance-room-types")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "instanceRoomTypeName":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "quantity":"0", "capacityAdults":"0", "capacityChildren":"0", "onlinePrice":null, "branchPrice":null, "taxInclude":null, "tax":null, "photoPrincipal":null}""")).asJSON
+            .body(StringBody("""{"id":null, "instanceRoomTypeName":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "roomQuantity":"0", "capacityAdults":"0", "capacityChildren":"0", "onlinePrice":null, "branchPrice":null, "taxInclude":null, "tax":null, "photoPrincipal":null, "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z", "active":null, "approval":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_instanceRoomType_url"))).exitHereIfFailed
             .pause(10)

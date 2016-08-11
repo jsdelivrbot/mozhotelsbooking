@@ -5,14 +5,12 @@
         .module('mozhotelsbookingApp')
         .controller('ProvinceController', ProvinceController);
 
-    ProvinceController.$inject = ['$scope', '$state', 'DataUtils', 'Province', 'ProvinceSearch'];
+    ProvinceController.$inject = ['$scope', '$state', 'Province', 'ProvinceSearch'];
 
-    function ProvinceController ($scope, $state, DataUtils, Province, ProvinceSearch) {
+    function ProvinceController ($scope, $state, Province, ProvinceSearch) {
         var vm = this;
         
         vm.provinces = [];
-        vm.openFile = DataUtils.openFile;
-        vm.byteSize = DataUtils.byteSize;
         vm.search = search;
         vm.loadAll = loadAll;
 

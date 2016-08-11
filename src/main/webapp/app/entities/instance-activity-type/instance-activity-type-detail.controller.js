@@ -5,9 +5,9 @@
         .module('mozhotelsbookingApp')
         .controller('InstanceActivityTypeDetailController', InstanceActivityTypeDetailController);
 
-    InstanceActivityTypeDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'InstanceActivityType', 'InstanceActivity'];
+    InstanceActivityTypeDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'InstanceActivityType', 'InstanceActivity', 'InstanceTur'];
 
-    function InstanceActivityTypeDetailController($scope, $rootScope, $stateParams, entity, InstanceActivityType, InstanceActivity) {
+    function InstanceActivityTypeDetailController($scope, $rootScope, $stateParams, entity, InstanceActivityType, InstanceActivity, InstanceTur) {
         var vm = this;
 
         vm.instanceActivityType = entity;

@@ -34,15 +34,15 @@ public class InstanceFacility implements Serializable {
     @Column(name = "instance_facility_name", nullable = false)
     private String instanceFacilityName;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "area")
+    private InstanceArea area;
+
     @Column(name = "description")
     private String description;
 
     @Column(name = "quantity")
     private Integer quantity;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "area")
-    private InstanceArea area;
 
     @Column(name = "price", precision=10, scale=2)
     private BigDecimal price;
@@ -61,7 +61,7 @@ public class InstanceFacility implements Serializable {
     @ManyToOne
     private InstanceTur instanceTur;
 
-    @ManyToMany(mappedBy = "instanceRoomFacilities")
+    @ManyToMany(mappedBy = "instanceFacilities")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Booking> bookings = new HashSet<>();
@@ -82,6 +82,14 @@ public class InstanceFacility implements Serializable {
         this.instanceFacilityName = instanceFacilityName;
     }
 
+    public InstanceArea getArea() {
+        return area;
+    }
+
+    public void setArea(InstanceArea area) {
+        this.area = area;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -96,14 +104,6 @@ public class InstanceFacility implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public InstanceArea getArea() {
-        return area;
-    }
-
-    public void setArea(InstanceArea area) {
-        this.area = area;
     }
 
     public BigDecimal getPrice() {
@@ -179,9 +179,9 @@ public class InstanceFacility implements Serializable {
         return "InstanceFacility{" +
             "id=" + id +
             ", instanceFacilityName='" + instanceFacilityName + "'" +
+            ", area='" + area + "'" +
             ", description='" + description + "'" +
             ", quantity='" + quantity + "'" +
-            ", area='" + area + "'" +
             ", price='" + price + "'" +
             ", bookingInclude='" + bookingInclude + "'" +
             '}';

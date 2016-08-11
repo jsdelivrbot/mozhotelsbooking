@@ -16,8 +16,20 @@
         vm.openFile = DataUtils.openFile;
         vm.save = save;
         vm.pictures = Picture.query();
-        vm.instanceactivitytypes = InstanceActivityType.query();
+        vm.instanceactivitytypes = [];
         vm.instanceturs = InstanceTur.query();
+
+        vm.activities = function(){
+
+        vm.instanceActivity.instanceactivitytypes="";
+
+        InstanceActivityType.query().$promise.then(function(result) {
+            vm.instanceactivitytypes = alasql('SELECT id,instanceActivityTypeName FROM ? INTERSECT SELECT id,instanceActivityTypeName FROM ? '
+            ,[result,vm.instanceActivity.instanceTur.instanceActivityTypes]);
+            console.log(vm.instanceactivitytypes);
+            });
+
+        }
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

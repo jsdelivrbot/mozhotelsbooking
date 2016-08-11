@@ -8,9 +8,9 @@
         <dd>
             <span>{{vm.picture.pictureName}}</span>
         </dd>
-        <dt><span translate="mozhotelsbookingApp.picture.description">Description</span></dt>
+        <dt><span translate="mozhotelsbookingApp.picture.type">Type</span></dt>
         <dd>
-            <span>{{vm.picture.description}}</span>
+            <span translate="{{'mozhotelsbookingApp.PictureType.' + vm.picture.type}}">{{vm.picture.type}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.picture.picture">Picture</span></dt>
         <dd>
@@ -21,9 +21,9 @@
                 {{vm.picture.pictureContentType}}, {{vm.byteSize(vm.picture.picture)}}
             </div>
         </dd>
-        <dt><span translate="mozhotelsbookingApp.picture.type">Type</span></dt>
+        <dt><span translate="mozhotelsbookingApp.picture.description">Description</span></dt>
         <dd>
-            <span translate="{{'mozhotelsbookingApp.PictureType.' + vm.picture.type}}">{{vm.picture.type}}</span>
+            <span>{{vm.picture.description}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.picture.province">Province</span></dt>
         <dd>
@@ -31,7 +31,7 @@
         </dd>
         <dt><span translate="mozhotelsbookingApp.picture.localTur">Local Tur</span></dt>
         <dd>
-            <a ui-sref="local-tur-detail({id:vm.picture.localTur.id})">{{vm.picture.localTur.locaTurName}}</a>
+            <a ui-sref="local-tur-detail({id:vm.picture.localTur.id})">{{vm.picture.localTur.localTurName}}</a>
         </dd>
         <dt><span translate="mozhotelsbookingApp.picture.instanceTur">Instance Tur</span></dt>
         <dd>

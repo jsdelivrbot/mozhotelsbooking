@@ -13,7 +13,7 @@
       "fieldId": 1,
       "fieldName": "instanceInfoType",
       "fieldType": "InfoType",
-      "fieldValues": "POLICY,USEFUL,STAFF",
+      "fieldValues": "POLICY,USEFUL,MANAGEMENT",
       "fieldValidateRules": [
         "required"
       ]

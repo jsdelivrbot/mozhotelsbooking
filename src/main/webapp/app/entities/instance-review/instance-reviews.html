@@ -45,10 +45,10 @@
                     <th><span translate="mozhotelsbookingApp.instanceReview.evaluation">Evaluation</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceReview.title">Title</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceReview.comment">Comment</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceReview.active">Active</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceReview.approval">Approval</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceReview.createDate">Create Date</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceReview.editDate">Edit Date</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceReview.active">Active</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceReview.approval">Approval</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceReview.instanceTur">Instance Tur</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceReview.tourist">Tourist</span></th>
                     <th></th>
@@ -66,10 +66,10 @@
                     <td translate="{{'mozhotelsbookingApp.Evaluation.' + instanceReview.evaluation}}">{{instanceReview.evaluation}}</td>
                     <td>{{instanceReview.title}}</td>
                     <td>{{instanceReview.comment}}</td>
-                    <td>{{instanceReview.active}}</td>
-                    <td>{{instanceReview.approval}}</td>
                     <td>{{instanceReview.createDate | date:'medium'}}</td>
                     <td>{{instanceReview.editDate | date:'medium'}}</td>
+                    <td>{{instanceReview.active}}</td>
+                    <td>{{instanceReview.approval}}</td>
                     <td>
                         <a ui-sref="instance-tur-detail({id:instanceReview.instanceTur.id})">{{instanceReview.instanceTur.instanceTurName}}</a>
                     </td>

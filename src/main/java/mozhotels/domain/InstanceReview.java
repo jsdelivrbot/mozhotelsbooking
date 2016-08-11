@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -26,45 +27,54 @@ public class InstanceReview implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "cleanliness")
+    @NotNull
+    @Column(name = "cleanliness", nullable = false)
     private Float cleanliness;
 
-    @Column(name = "room_confort")
+    @NotNull
+    @Column(name = "room_confort", nullable = false)
     private Float roomConfort;
 
-    @Column(name = "location")
+    @NotNull
+    @Column(name = "location", nullable = false)
     private Float location;
 
-    @Column(name = "service_staff")
+    @NotNull
+    @Column(name = "service_staff", nullable = false)
     private Float serviceStaff;
 
-    @Column(name = "sleep_quality")
+    @NotNull
+    @Column(name = "sleep_quality", nullable = false)
     private Float sleepQuality;
 
-    @Column(name = "value_price")
+    @NotNull
+    @Column(name = "value_price", nullable = false)
     private Float valuePrice;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "evaluation")
+    @Column(name = "evaluation", nullable = false)
     private Evaluation evaluation;
 
-    @Column(name = "title")
+    @NotNull
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "comment")
+    @NotNull
+    @Column(name = "comment", nullable = false)
     private String comment;
-
-    @Column(name = "active")
-    private Boolean active;
-
-    @Column(name = "approval")
-    private Boolean approval;
 
     @Column(name = "create_date")
     private ZonedDateTime createDate;
 
     @Column(name = "edit_date")
     private ZonedDateTime editDate;
+
+    @Column(name = "active")
+    private Boolean active;
+
+    @Column(name = "approval")
+    private Boolean approval;
 
     @ManyToOne
     private InstanceTur instanceTur;
@@ -152,22 +162,6 @@ public class InstanceReview implements Serializable {
         this.comment = comment;
     }
 
-    public Boolean isActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Boolean isApproval() {
-        return approval;
-    }
-
-    public void setApproval(Boolean approval) {
-        this.approval = approval;
-    }
-
     public ZonedDateTime getCreateDate() {
         return createDate;
     }
@@ -182,6 +176,22 @@ public class InstanceReview implements Serializable {
 
     public void setEditDate(ZonedDateTime editDate) {
         this.editDate = editDate;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Boolean isApproval() {
+        return approval;
+    }
+
+    public void setApproval(Boolean approval) {
+        this.approval = approval;
     }
 
     public InstanceTur getInstanceTur() {
@@ -233,10 +243,10 @@ public class InstanceReview implements Serializable {
             ", evaluation='" + evaluation + "'" +
             ", title='" + title + "'" +
             ", comment='" + comment + "'" +
-            ", active='" + active + "'" +
-            ", approval='" + approval + "'" +
             ", createDate='" + createDate + "'" +
             ", editDate='" + editDate + "'" +
+            ", active='" + active + "'" +
+            ", approval='" + approval + "'" +
             '}';
     }
 }

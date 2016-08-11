@@ -30,13 +30,13 @@ public class InstanceFacilityType implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "instance_facility_type_name", nullable = false)
+    private String instanceFacilityTypeName;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "facility_type", nullable = false)
     private FacilityType facilityType;
-
-    @NotNull
-    @Column(name = "instance_facility_type_name", nullable = false)
-    private String instanceFacilityTypeName;
 
     @Column(name = "description")
     private String description;
@@ -47,10 +47,18 @@ public class InstanceFacilityType implements Serializable {
     @Column(name = "instance_room_facility")
     private Boolean instanceRoomFacility;
 
+    @Column(name = "instance_booking_facility")
+    private Boolean instanceBookingFacility;
+
     @OneToMany(mappedBy = "instanceFacilityType")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<InstanceFacility> instanceFacilities = new HashSet<>();
+
+    @ManyToMany(mappedBy = "instanceFacilityTypes")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<InstanceTur> instanceTurs = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -60,20 +68,20 @@ public class InstanceFacilityType implements Serializable {
         this.id = id;
     }
 
-    public FacilityType getFacilityType() {
-        return facilityType;
-    }
-
-    public void setFacilityType(FacilityType facilityType) {
-        this.facilityType = facilityType;
-    }
-
     public String getInstanceFacilityTypeName() {
         return instanceFacilityTypeName;
     }
 
     public void setInstanceFacilityTypeName(String instanceFacilityTypeName) {
         this.instanceFacilityTypeName = instanceFacilityTypeName;
+    }
+
+    public FacilityType getFacilityType() {
+        return facilityType;
+    }
+
+    public void setFacilityType(FacilityType facilityType) {
+        this.facilityType = facilityType;
     }
 
     public String getDescription() {
@@ -100,12 +108,28 @@ public class InstanceFacilityType implements Serializable {
         this.instanceRoomFacility = instanceRoomFacility;
     }
 
+    public Boolean isInstanceBookingFacility() {
+        return instanceBookingFacility;
+    }
+
+    public void setInstanceBookingFacility(Boolean instanceBookingFacility) {
+        this.instanceBookingFacility = instanceBookingFacility;
+    }
+
     public Set<InstanceFacility> getInstanceFacilities() {
         return instanceFacilities;
     }
 
     public void setInstanceFacilities(Set<InstanceFacility> instanceFacilities) {
         this.instanceFacilities = instanceFacilities;
+    }
+
+    public Set<InstanceTur> getInstanceTurs() {
+        return instanceTurs;
+    }
+
+    public void setInstanceTurs(Set<InstanceTur> instanceTurs) {
+        this.instanceTurs = instanceTurs;
     }
 
     @Override
@@ -132,11 +156,12 @@ public class InstanceFacilityType implements Serializable {
     public String toString() {
         return "InstanceFacilityType{" +
             "id=" + id +
-            ", facilityType='" + facilityType + "'" +
             ", instanceFacilityTypeName='" + instanceFacilityTypeName + "'" +
+            ", facilityType='" + facilityType + "'" +
             ", description='" + description + "'" +
             ", instanceFacility='" + instanceFacility + "'" +
             ", instanceRoomFacility='" + instanceRoomFacility + "'" +
+            ", instanceBookingFacility='" + instanceBookingFacility + "'" +
             '}';
     }
 }

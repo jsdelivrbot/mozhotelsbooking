@@ -9,24 +9,13 @@
     <changeSet id="20160705045719-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="bookings_id"
-                                 baseTableName="booking_instance_room_type"
-                                 constraintName="fk_booking_instance_room_type_instanceroomtype_id"
+                                 baseTableName="booking_instance_facility"
+                                 constraintName="fk_booking_instance_facility_instancefacility_id"
                                  referencedColumnNames="id"
                                  referencedTableName="booking"/>
-        <addForeignKeyConstraint baseColumnNames="instance_room_types_id"
-                                 baseTableName="booking_instance_room_type"
-                                 constraintName="fk_booking_instance_room_type_booking_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="instance_room_type"/>
-        
-        <addForeignKeyConstraint baseColumnNames="bookings_id"
-                                 baseTableName="booking_instance_room_facility"
-                                 constraintName="fk_booking_instance_room_facility_instancefacility_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="booking"/>
-        <addForeignKeyConstraint baseColumnNames="instance_room_facilities_id"
-                                 baseTableName="booking_instance_room_facility"
-                                 constraintName="fk_booking_instance_room_facility_booking_id"
+        <addForeignKeyConstraint baseColumnNames="instance_facilities_id"
+                                 baseTableName="booking_instance_facility"
+                                 constraintName="fk_booking_instance_facility_booking_id"
                                  referencedColumnNames="id"
                                  referencedTableName="instance_facility"/>
         
@@ -47,6 +36,12 @@
                                  constraintName="fk_booking_instancetur_id"
                                  referencedColumnNames="id"
                                  referencedTableName="instance_tur"/>
+
+        <addForeignKeyConstraint baseColumnNames="instance_room_type_id"
+                                 baseTableName="booking"
+                                 constraintName="fk_booking_instanceroomtype_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="instance_room_type"/>
 
     </changeSet>
 </databaseChangeLog>

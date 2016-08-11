@@ -1,0 +1,31 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-one",
+      "relationshipName": "instanceTur",
+      "otherEntityName": "instanceTur",
+      "otherEntityField": "instanceTurName"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-one",
+      "relationshipName": "tourist",
+      "otherEntityName": "tourist",
+      "otherEntityField": "touristName"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "favoriteType",
+      "fieldType": "FavoriteType",
+      "fieldValues": "INSTANCETUR,TOURIST"
+    }
+  ],
+  "changelogDate": "20160806133018",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "favorite"
+}

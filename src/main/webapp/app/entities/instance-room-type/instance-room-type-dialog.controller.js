@@ -5,20 +5,22 @@
         .module('mozhotelsbookingApp')
         .controller('InstanceRoomTypeDialogController', InstanceRoomTypeDialogController);
 
-    InstanceRoomTypeDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'InstanceRoomType', 'Picture', 'InstanceFacility', 'InstanceTur', 'Booking'];
+    InstanceRoomTypeDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'InstanceRoomType', 'Picture', 'InstanceFacility', 'Booking', 'InstanceTur'];
 
-    function InstanceRoomTypeDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, InstanceRoomType, Picture, InstanceFacility, InstanceTur, Booking) {
+    function InstanceRoomTypeDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, InstanceRoomType, Picture, InstanceFacility, Booking, InstanceTur) {
         var vm = this;
 
         vm.instanceRoomType = entity;
         vm.clear = clear;
+        vm.datePickerOpenStatus = {};
+        vm.openCalendar = openCalendar;
         vm.byteSize = DataUtils.byteSize;
         vm.openFile = DataUtils.openFile;
         vm.save = save;
         vm.pictures = Picture.query();
         vm.instancefacilities = InstanceFacility.query();
-        vm.instanceturs = InstanceTur.query();
         vm.bookings = Booking.query();
+        vm.instanceturs = InstanceTur.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -61,6 +63,11 @@
                 });
             }
         };
+        vm.datePickerOpenStatus.createDate = false;
+        vm.datePickerOpenStatus.editDate = false;
 
+        function openCalendar (date) {
+            vm.datePickerOpenStatus[date] = true;
+        }
     }
 })();

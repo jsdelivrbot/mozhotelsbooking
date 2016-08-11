@@ -37,9 +37,9 @@
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceFacility.instanceFacilityName">Instance Facility Name</span></th>
+                    <th><span translate="mozhotelsbookingApp.instanceFacility.area">Area</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceFacility.description">Description</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceFacility.quantity">Quantity</span></th>
-                    <th><span translate="mozhotelsbookingApp.instanceFacility.area">Area</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceFacility.price">Price</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceFacility.bookingInclude">Booking Include</span></th>
                     <th><span translate="mozhotelsbookingApp.instanceFacility.instanceFacilityType">Instance Facility Type</span></th>
@@ -51,9 +51,9 @@
                 <tr ng-repeat="instanceFacility in vm.instanceFacilities track by instanceFacility.id">
                     <td><a ui-sref="instance-facility-detail({id:instanceFacility.id})">{{instanceFacility.id}}</a></td>
                     <td>{{instanceFacility.instanceFacilityName}}</td>
+                    <td translate="{{'mozhotelsbookingApp.InstanceArea.' + instanceFacility.area}}">{{instanceFacility.area}}</td>
                     <td>{{instanceFacility.description}}</td>
                     <td>{{instanceFacility.quantity}}</td>
-                    <td translate="{{'mozhotelsbookingApp.InstanceArea.' + instanceFacility.area}}">{{instanceFacility.area}}</td>
                     <td>{{instanceFacility.price}}</td>
                     <td>{{instanceFacility.bookingInclude}}</td>
                     <td>

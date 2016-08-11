@@ -8,21 +8,13 @@
         <dd>
             <span>{{vm.instanceTur.instanceTurName}}</span>
         </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.rating">Rating</span></dt>
+        <dd>
+            <span translate="{{'mozhotelsbookingApp.InstanceRating.' + vm.instanceTur.rating}}">{{vm.instanceTur.rating}}</span>
+        </dd>
         <dt><span translate="mozhotelsbookingApp.instanceTur.description">Description</span></dt>
         <dd>
             <span>{{vm.instanceTur.description}}</span>
-        </dd>
-        <dt><span translate="mozhotelsbookingApp.instanceTur.address">Address</span></dt>
-        <dd>
-            <span>{{vm.instanceTur.address}}</span>
-        </dd>
-        <dt><span translate="mozhotelsbookingApp.instanceTur.website">Website</span></dt>
-        <dd>
-            <span>{{vm.instanceTur.website}}</span>
-        </dd>
-        <dt><span translate="mozhotelsbookingApp.instanceTur.email">Email</span></dt>
-        <dd>
-            <span>{{vm.instanceTur.email}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.instanceTur.latitude">Latitude</span></dt>
         <dd>
@@ -44,21 +36,9 @@
         <dd>
             <span>{{vm.instanceTur.floors}}</span>
         </dd>
-        <dt><span translate="mozhotelsbookingApp.instanceTur.rating">Rating</span></dt>
-        <dd>
-            <span translate="{{'mozhotelsbookingApp.InstanceRating.' + vm.instanceTur.rating}}">{{vm.instanceTur.rating}}</span>
-        </dd>
         <dt><span translate="mozhotelsbookingApp.instanceTur.currency">Currency</span></dt>
         <dd>
-            <span>{{vm.instanceTur.currency}}</span>
-        </dd>
-        <dt><span translate="mozhotelsbookingApp.instanceTur.contactNumberPrincipal">Contact Number Principal</span></dt>
-        <dd>
-            <span>{{vm.instanceTur.contactNumberPrincipal}}</span>
-        </dd>
-        <dt><span translate="mozhotelsbookingApp.instanceTur.zipCode">Zip Code</span></dt>
-        <dd>
-            <span>{{vm.instanceTur.zipCode}}</span>
+            <span translate="{{'mozhotelsbookingApp.Currency.' + vm.instanceTur.currency}}">{{vm.instanceTur.currency}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.instanceTur.photoPrincipal">Photo Principal</span></dt>
         <dd>
@@ -68,6 +48,38 @@
                 </a>
                 {{vm.instanceTur.photoPrincipalContentType}}, {{vm.byteSize(vm.instanceTur.photoPrincipal)}}
             </div>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.agreementNumber">Agreement Number</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.agreementNumber}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.createDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.editDate">Edit Date</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.editDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.active">Active</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.active}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.approval">Approval</span></dt>
+        <dd>
+            <span>{{vm.instanceTur.approval}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.instanceFacilityType">Instance Facility Type</span></dt>
+        <dd>
+            <span ng-repeat="instanceFacilityType in vm.instanceTur.instanceFacilityTypes">
+                <a ui-sref="instance-facility-type-detail({id: {{instanceFacilityType.id}}})">{{instanceFacilityType.instanceFacilityTypeName}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.instanceTur.instanceActivityType">Instance Activity Type</span></dt>
+        <dd>
+            <span ng-repeat="instanceActivityType in vm.instanceTur.instanceActivityTypes">
+                <a ui-sref="instance-activity-type-detail({id: {{instanceActivityType.id}}})">{{instanceActivityType.instanceActivityTypeName}}</a>{{$last ? '' : ', '}}
+            </span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.instanceTur.localTur">Local Tur</span></dt>
         <dd>

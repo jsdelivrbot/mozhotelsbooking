@@ -32,9 +32,9 @@
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="mozhotelsbookingApp.instanceRoomType.quantity" for="field_quantity">Quantity</label>
-            <input type="number" class="form-control" name="quantity" id="field_quantity"
-                    ng-model="vm.instanceRoomType.quantity"
+            <label class="control-label" translate="mozhotelsbookingApp.instanceRoomType.roomQuantity" for="field_roomQuantity">Room Quantity</label>
+            <input type="number" class="form-control" name="roomQuantity" id="field_roomQuantity"
+                    ng-model="vm.instanceRoomType.roomQuantity"
                      />
         </div>
         <div class="form-group">
@@ -69,17 +69,7 @@
             <label class="control-label" translate="mozhotelsbookingApp.instanceRoomType.branchPrice" for="field_branchPrice">Branch Price</label>
             <input type="number" class="form-control" name="branchPrice" id="field_branchPrice"
                     ng-model="vm.instanceRoomType.branchPrice"
-                    required />
-            <div ng-show="editForm.branchPrice.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.branchPrice.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.branchPrice.$error.number" translate="entity.validation.number">
-                    This field should be a number.
-                </p>
-            </div>
+                     />
         </div>
         <div class="form-group">
             <label class="control-label" translate="mozhotelsbookingApp.instanceRoomType.taxInclude" for="field_taxInclude">Tax Include</label>
@@ -115,10 +105,42 @@
             <input type="hidden" class="form-control" name="photoPrincipalContentType" id="field_photoPrincipalContentType"
                     ng-model="vm.instanceRoomType.photoPrincipalContentType" />
         </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.instanceRoomType.createDate" for="field_createDate">Create Date</label>
+                <div class="input-group">
+                    <input id="field_createDate" type="text" class="form-control" name="createDate" datetime-picker="{{dateformat}}" ng-model="vm.instanceRoomType.createDate" is-open="vm.datePickerOpenStatus.createDate"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.instanceRoomType.editDate" for="field_editDate">Edit Date</label>
+                <div class="input-group">
+                    <input id="field_editDate" type="text" class="form-control" name="editDate" datetime-picker="{{dateformat}}" ng-model="vm.instanceRoomType.editDate" is-open="vm.datePickerOpenStatus.editDate"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('editDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.instanceRoomType.active" for="field_active">Active</label>
+            <input type="checkbox" class="form-control" name="active" id="field_active"
+                    ng-model="vm.instanceRoomType.active"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.instanceRoomType.approval" for="field_approval">Approval</label>
+            <input type="checkbox" class="form-control" name="approval" id="field_approval"
+                    ng-model="vm.instanceRoomType.approval"
+                     />
+        </div>
 
         <div class="form-group">
             <label translate="mozhotelsbookingApp.instanceRoomType.instanceRoomFacility" for="field_instanceRoomFacility">Instance Room Facility</label>
-            <select class="form-control" id="field_instanceRoomFacility" multiple name="instanceRoomFacility" ng-model="vm.instanceRoomType.instanceRoomFacilities" ng-options="instanceFacility as instanceFacility.instanceRoomFacilityName for instanceFacility in vm.instancefacilities track by instanceFacility.id"></select>
+            <select class="form-control" id="field_instanceRoomFacility" multiple name="instanceRoomFacility" ng-model="vm.instanceRoomType.instanceRoomFacilities" ng-options="instanceFacility as instanceFacility.instanceFacilityName for instanceFacility in vm.instancefacilities track by instanceFacility.id"></select>
         </div>
         <div class="form-group">
             <label translate="mozhotelsbookingApp.instanceRoomType.instanceTur" for="field_instanceTur">Instance Tur</label>

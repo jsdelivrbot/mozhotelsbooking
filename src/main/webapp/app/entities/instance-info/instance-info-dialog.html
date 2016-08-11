@@ -18,7 +18,7 @@
             <select class="form-control" name="instanceInfo" ng-model="vm.instanceInfo.instanceInfo" id="field_instanceInfo" required>
                 <option value="POLICY" translate="mozhotelsbookingApp.InfoType.POLICY">POLICY</option>
                 <option value="USEFUL" translate="mozhotelsbookingApp.InfoType.USEFUL">USEFUL</option>
-                <option value="STAFF" translate="mozhotelsbookingApp.InfoType.STAFF">STAFF</option>
+                <option value="MANAGEMENT" translate="mozhotelsbookingApp.InfoType.MANAGEMENT">MANAGEMENT</option>
             </select>
             <div ng-show="editForm.instanceInfo.$invalid">
                 <p class="help-block"
@@ -35,6 +35,18 @@
             <div ng-show="editForm.instanceInfoName.$invalid">
                 <p class="help-block"
                     ng-show="editForm.instanceInfoName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.instanceInfo.info" for="field_info">Info</label>
+            <input type="text" class="form-control" name="info" id="field_info"
+                    ng-model="vm.instanceInfo.info"
+                    required />
+            <div ng-show="editForm.info.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.info.$error.required" translate="entity.validation.required">
                     This field is required.
                 </p>
             </div>

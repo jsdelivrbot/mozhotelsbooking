@@ -6,11 +6,11 @@
     <dl class="dl-horizontal jh-entity-details">
         <dt><span translate="mozhotelsbookingApp.booking.checkIn">Check In</span></dt>
         <dd>
-            <span>{{vm.booking.checkIn | date:'medium'}}</span>
+            <span>{{vm.booking.checkIn | date:'mediumDate'}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.booking.checkOut">Check Out</span></dt>
         <dd>
-            <span>{{vm.booking.checkOut | date:'medium'}}</span>
+            <span>{{vm.booking.checkOut | date:'mediumDate'}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.booking.peopleAdult">People Adult</span></dt>
         <dd>
@@ -19,18 +19,6 @@
         <dt><span translate="mozhotelsbookingApp.booking.peopleChild">People Child</span></dt>
         <dd>
             <span>{{vm.booking.peopleChild}}</span>
-        </dd>
-        <dt><span translate="mozhotelsbookingApp.booking.createDate">Create Date</span></dt>
-        <dd>
-            <span>{{vm.booking.createDate | date:'medium'}}</span>
-        </dd>
-        <dt><span translate="mozhotelsbookingApp.booking.editDate">Edit Date</span></dt>
-        <dd>
-            <span>{{vm.booking.editDate | date:'medium'}}</span>
-        </dd>
-        <dt><span translate="mozhotelsbookingApp.booking.state">State</span></dt>
-        <dd>
-            <span translate="{{'mozhotelsbookingApp.BookingState.' + vm.booking.state}}">{{vm.booking.state}}</span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.booking.rooms">Rooms</span></dt>
         <dd>
@@ -44,16 +32,26 @@
         <dd>
             <span>{{vm.booking.totalPrice}}</span>
         </dd>
-        <dt><span translate="mozhotelsbookingApp.booking.instanceRoomType">Instance Room Type</span></dt>
+        <dt><span translate="mozhotelsbookingApp.booking.state">State</span></dt>
         <dd>
-            <span ng-repeat="instanceRoomType in vm.booking.instanceRoomTypes">
-                <a ui-sref="instance-room-type-detail({id: {{instanceRoomType.id}}})">{{instanceRoomType.instanceRoomTypeName}}</a>{{$last ? '' : ', '}}
-            </span>
+            <span translate="{{'mozhotelsbookingApp.BookingState.' + vm.booking.state}}">{{vm.booking.state}}</span>
         </dd>
-        <dt><span translate="mozhotelsbookingApp.booking.instanceRoomFacility">Instance Room Facility</span></dt>
+        <dt><span translate="mozhotelsbookingApp.booking.notes">Notes</span></dt>
         <dd>
-            <span ng-repeat="instanceRoomFacility in vm.booking.instanceRoomFacilities">
-                <a ui-sref="instance-facility-detail({id: {{instanceRoomFacility.id}}})">{{instanceRoomFacility.instanceRoomFacilityName}}</a>{{$last ? '' : ', '}}
+            <span>{{vm.booking.notes}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.booking.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{vm.booking.createDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.booking.editDate">Edit Date</span></dt>
+        <dd>
+            <span>{{vm.booking.editDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.booking.instanceFacility">Instance Facility</span></dt>
+        <dd>
+            <span ng-repeat="instanceFacility in vm.booking.instanceFacilities">
+                <a ui-sref="instance-facility-detail({id: {{instanceFacility.id}}})">{{instanceFacility.instanceFacilityName}}</a>{{$last ? '' : ', '}}
             </span>
         </dd>
         <dt><span translate="mozhotelsbookingApp.booking.tourist">Tourist</span></dt>
@@ -67,6 +65,10 @@
         <dt><span translate="mozhotelsbookingApp.booking.instanceTur">Instance Tur</span></dt>
         <dd>
             <a ui-sref="instance-tur-detail({id:vm.booking.instanceTur.id})">{{vm.booking.instanceTur.instanceTurName}}</a>
+        </dd>
+        <dt><span translate="mozhotelsbookingApp.booking.instanceRoomType">Instance Room Type</span></dt>
+        <dd>
+            <a ui-sref="instance-room-type-detail({id:vm.booking.instanceRoomType.id})">{{vm.booking.instanceRoomType.instanceRoomTypeName}}</a>
         </dd>
     </dl>
 

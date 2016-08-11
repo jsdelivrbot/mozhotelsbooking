@@ -74,9 +74,9 @@
                         entity: function () {
                             return {
                                 instanceFacilityName: null,
+                                area: null,
                                 description: null,
                                 quantity: null,
-                                area: null,
                                 price: null,
                                 bookingInclude: null,
                                 id: null

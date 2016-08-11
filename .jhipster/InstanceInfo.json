@@ -20,7 +20,7 @@
       "fieldId": 1,
       "fieldName": "instanceInfo",
       "fieldType": "InfoType",
-      "fieldValues": "POLICY,USEFUL,STAFF",
+      "fieldValues": "POLICY,USEFUL,MANAGEMENT",
       "fieldValidateRules": [
         "required"
       ]
@@ -35,6 +35,14 @@
     },
     {
       "fieldId": 3,
+      "fieldName": "info",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 4,
       "fieldName": "description",
       "fieldType": "String"
     }

@@ -67,7 +67,7 @@ class TouristGatlingTest extends Simulation {
             .exec(http("Create new tourist")
             .post("/api/tourists")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "firstName":"SAMPLE_TEXT", "lastName":"SAMPLE_TEXT", "email":"SAMPLE_TEXT", "phoneNumber":"SAMPLE_TEXT", "countryResidence":"SAMPLE_TEXT", "countryBooking":"SAMPLE_TEXT", "language":"SAMPLE_TEXT", "currency":"SAMPLE_TEXT", "photoPrincipal":null, "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "firstName":"SAMPLE_TEXT", "lastName":"SAMPLE_TEXT", "email":"SAMPLE_TEXT", "phoneNumber":"SAMPLE_TEXT", "countryResidence":"SAMPLE_TEXT", "countryBooking":"SAMPLE_TEXT", "language":null, "currency":null, "photoPrincipal":null, "createDate":"2020-01-01T00:00:00.000Z", "editDate":"2020-01-01T00:00:00.000Z", "active":null, "approval":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_tourist_url"))).exitHereIfFailed
             .pause(10)

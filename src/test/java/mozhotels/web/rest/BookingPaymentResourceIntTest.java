@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.LocalDate;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -61,14 +62,6 @@ public class BookingPaymentResourceIntTest {
     private static final BigDecimal DEFAULT_AMOUNT = new BigDecimal(1);
     private static final BigDecimal UPDATED_AMOUNT = new BigDecimal(2);
 
-    private static final ZonedDateTime DEFAULT_CREATE_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
-    private static final ZonedDateTime UPDATED_CREATE_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_CREATE_DATE_STR = dateTimeFormatter.format(DEFAULT_CREATE_DATE);
-
-    private static final ZonedDateTime DEFAULT_EDIT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
-    private static final ZonedDateTime UPDATED_EDIT_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_EDIT_DATE_STR = dateTimeFormatter.format(DEFAULT_EDIT_DATE);
-
     private static final PaymentState DEFAULT_STATE = PaymentState.SUBMITED;
     private static final PaymentState UPDATED_STATE = PaymentState.IN_PROGRESS;
     private static final String DEFAULT_CARD_HOLDER = "AAAAA";
@@ -80,11 +73,22 @@ public class BookingPaymentResourceIntTest {
     private static final Integer DEFAULT_CARD_NUMBER = 1;
     private static final Integer UPDATED_CARD_NUMBER = 2;
 
-    private static final Integer DEFAULT_CARD_EXPIRY = 1;
-    private static final Integer UPDATED_CARD_EXPIRY = 2;
+    private static final LocalDate DEFAULT_CARD_EXPIRY = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CARD_EXPIRY = LocalDate.now(ZoneId.systemDefault());
 
     private static final Integer DEFAULT_CARD_CCV = 1;
     private static final Integer UPDATED_CARD_CCV = 2;
+
+    private static final ZonedDateTime DEFAULT_CREATE_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_CREATE_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_CREATE_DATE_STR = dateTimeFormatter.format(DEFAULT_CREATE_DATE);
+
+    private static final ZonedDateTime DEFAULT_EDIT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_EDIT_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_EDIT_DATE_STR = dateTimeFormatter.format(DEFAULT_EDIT_DATE);
+
+    private static final Boolean DEFAULT_APPROVAL = false;
+    private static final Boolean UPDATED_APPROVAL = true;
 
     @Inject
     private BookingPaymentRepository bookingPaymentRepository;
@@ -120,14 +124,15 @@ public class BookingPaymentResourceIntTest {
         bookingPayment.setType(DEFAULT_TYPE);
         bookingPayment.setCurrency(DEFAULT_CURRENCY);
         bookingPayment.setAmount(DEFAULT_AMOUNT);
-        bookingPayment.setCreateDate(DEFAULT_CREATE_DATE);
-        bookingPayment.setEditDate(DEFAULT_EDIT_DATE);
         bookingPayment.setState(DEFAULT_STATE);
         bookingPayment.setCardHolder(DEFAULT_CARD_HOLDER);
         bookingPayment.setCardType(DEFAULT_CARD_TYPE);
         bookingPayment.setCardNumber(DEFAULT_CARD_NUMBER);
         bookingPayment.setCardExpiry(DEFAULT_CARD_EXPIRY);
         bookingPayment.setCardCcv(DEFAULT_CARD_CCV);
+        bookingPayment.setCreateDate(DEFAULT_CREATE_DATE);
+        bookingPayment.setEditDate(DEFAULT_EDIT_DATE);
+        bookingPayment.setApproval(DEFAULT_APPROVAL);
     }
 
     @Test
@@ -149,14 +154,15 @@ public class BookingPaymentResourceIntTest {
         assertThat(testBookingPayment.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testBookingPayment.getCurrency()).isEqualTo(DEFAULT_CURRENCY);
         assertThat(testBookingPayment.getAmount()).isEqualTo(DEFAULT_AMOUNT);
-        assertThat(testBookingPayment.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
-        assertThat(testBookingPayment.getEditDate()).isEqualTo(DEFAULT_EDIT_DATE);
         assertThat(testBookingPayment.getState()).isEqualTo(DEFAULT_STATE);
         assertThat(testBookingPayment.getCardHolder()).isEqualTo(DEFAULT_CARD_HOLDER);
         assertThat(testBookingPayment.getCardType()).isEqualTo(DEFAULT_CARD_TYPE);
         assertThat(testBookingPayment.getCardNumber()).isEqualTo(DEFAULT_CARD_NUMBER);
         assertThat(testBookingPayment.getCardExpiry()).isEqualTo(DEFAULT_CARD_EXPIRY);
         assertThat(testBookingPayment.getCardCcv()).isEqualTo(DEFAULT_CARD_CCV);
+        assertThat(testBookingPayment.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
+        assertThat(testBookingPayment.getEditDate()).isEqualTo(DEFAULT_EDIT_DATE);
+        assertThat(testBookingPayment.isApproval()).isEqualTo(DEFAULT_APPROVAL);
 
         // Validate the BookingPayment in ElasticSearch
         BookingPayment bookingPaymentEs = bookingPaymentSearchRepository.findOne(testBookingPayment.getId());
@@ -205,42 +211,6 @@ public class BookingPaymentResourceIntTest {
         int databaseSizeBeforeTest = bookingPaymentRepository.findAll().size();
         // set the field null
         bookingPayment.setAmount(null);
-
-        // Create the BookingPayment, which fails.
-
-        restBookingPaymentMockMvc.perform(post("/api/booking-payments")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(bookingPayment)))
-                .andExpect(status().isBadRequest());
-
-        List<BookingPayment> bookingPayments = bookingPaymentRepository.findAll();
-        assertThat(bookingPayments).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCreateDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = bookingPaymentRepository.findAll().size();
-        // set the field null
-        bookingPayment.setCreateDate(null);
-
-        // Create the BookingPayment, which fails.
-
-        restBookingPaymentMockMvc.perform(post("/api/booking-payments")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(bookingPayment)))
-                .andExpect(status().isBadRequest());
-
-        List<BookingPayment> bookingPayments = bookingPaymentRepository.findAll();
-        assertThat(bookingPayments).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkEditDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = bookingPaymentRepository.findAll().size();
-        // set the field null
-        bookingPayment.setEditDate(null);
 
         // Create the BookingPayment, which fails.
 
@@ -363,6 +333,42 @@ public class BookingPaymentResourceIntTest {
 
     @Test
     @Transactional
+    public void checkCreateDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = bookingPaymentRepository.findAll().size();
+        // set the field null
+        bookingPayment.setCreateDate(null);
+
+        // Create the BookingPayment, which fails.
+
+        restBookingPaymentMockMvc.perform(post("/api/booking-payments")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(bookingPayment)))
+                .andExpect(status().isBadRequest());
+
+        List<BookingPayment> bookingPayments = bookingPaymentRepository.findAll();
+        assertThat(bookingPayments).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkEditDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = bookingPaymentRepository.findAll().size();
+        // set the field null
+        bookingPayment.setEditDate(null);
+
+        // Create the BookingPayment, which fails.
+
+        restBookingPaymentMockMvc.perform(post("/api/booking-payments")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(bookingPayment)))
+                .andExpect(status().isBadRequest());
+
+        List<BookingPayment> bookingPayments = bookingPaymentRepository.findAll();
+        assertThat(bookingPayments).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllBookingPayments() throws Exception {
         // Initialize the database
         bookingPaymentRepository.saveAndFlush(bookingPayment);
@@ -375,14 +381,15 @@ public class BookingPaymentResourceIntTest {
                 .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
                 .andExpect(jsonPath("$.[*].currency").value(hasItem(DEFAULT_CURRENCY.toString())))
                 .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
-                .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
-                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
                 .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
                 .andExpect(jsonPath("$.[*].cardHolder").value(hasItem(DEFAULT_CARD_HOLDER.toString())))
                 .andExpect(jsonPath("$.[*].cardType").value(hasItem(DEFAULT_CARD_TYPE.toString())))
                 .andExpect(jsonPath("$.[*].cardNumber").value(hasItem(DEFAULT_CARD_NUMBER)))
-                .andExpect(jsonPath("$.[*].cardExpiry").value(hasItem(DEFAULT_CARD_EXPIRY)))
-                .andExpect(jsonPath("$.[*].cardCcv").value(hasItem(DEFAULT_CARD_CCV)));
+                .andExpect(jsonPath("$.[*].cardExpiry").value(hasItem(DEFAULT_CARD_EXPIRY.toString())))
+                .andExpect(jsonPath("$.[*].cardCcv").value(hasItem(DEFAULT_CARD_CCV)))
+                .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
+                .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 
     @Test
@@ -399,14 +406,15 @@ public class BookingPaymentResourceIntTest {
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.currency").value(DEFAULT_CURRENCY.toString()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
-            .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE_STR))
-            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR))
             .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()))
             .andExpect(jsonPath("$.cardHolder").value(DEFAULT_CARD_HOLDER.toString()))
             .andExpect(jsonPath("$.cardType").value(DEFAULT_CARD_TYPE.toString()))
             .andExpect(jsonPath("$.cardNumber").value(DEFAULT_CARD_NUMBER))
-            .andExpect(jsonPath("$.cardExpiry").value(DEFAULT_CARD_EXPIRY))
-            .andExpect(jsonPath("$.cardCcv").value(DEFAULT_CARD_CCV));
+            .andExpect(jsonPath("$.cardExpiry").value(DEFAULT_CARD_EXPIRY.toString()))
+            .andExpect(jsonPath("$.cardCcv").value(DEFAULT_CARD_CCV))
+            .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE_STR))
+            .andExpect(jsonPath("$.editDate").value(DEFAULT_EDIT_DATE_STR))
+            .andExpect(jsonPath("$.approval").value(DEFAULT_APPROVAL.booleanValue()));
     }
 
     @Test
@@ -431,14 +439,15 @@ public class BookingPaymentResourceIntTest {
         updatedBookingPayment.setType(UPDATED_TYPE);
         updatedBookingPayment.setCurrency(UPDATED_CURRENCY);
         updatedBookingPayment.setAmount(UPDATED_AMOUNT);
-        updatedBookingPayment.setCreateDate(UPDATED_CREATE_DATE);
-        updatedBookingPayment.setEditDate(UPDATED_EDIT_DATE);
         updatedBookingPayment.setState(UPDATED_STATE);
         updatedBookingPayment.setCardHolder(UPDATED_CARD_HOLDER);
         updatedBookingPayment.setCardType(UPDATED_CARD_TYPE);
         updatedBookingPayment.setCardNumber(UPDATED_CARD_NUMBER);
         updatedBookingPayment.setCardExpiry(UPDATED_CARD_EXPIRY);
         updatedBookingPayment.setCardCcv(UPDATED_CARD_CCV);
+        updatedBookingPayment.setCreateDate(UPDATED_CREATE_DATE);
+        updatedBookingPayment.setEditDate(UPDATED_EDIT_DATE);
+        updatedBookingPayment.setApproval(UPDATED_APPROVAL);
 
         restBookingPaymentMockMvc.perform(put("/api/booking-payments")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -452,14 +461,15 @@ public class BookingPaymentResourceIntTest {
         assertThat(testBookingPayment.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testBookingPayment.getCurrency()).isEqualTo(UPDATED_CURRENCY);
         assertThat(testBookingPayment.getAmount()).isEqualTo(UPDATED_AMOUNT);
-        assertThat(testBookingPayment.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
-        assertThat(testBookingPayment.getEditDate()).isEqualTo(UPDATED_EDIT_DATE);
         assertThat(testBookingPayment.getState()).isEqualTo(UPDATED_STATE);
         assertThat(testBookingPayment.getCardHolder()).isEqualTo(UPDATED_CARD_HOLDER);
         assertThat(testBookingPayment.getCardType()).isEqualTo(UPDATED_CARD_TYPE);
         assertThat(testBookingPayment.getCardNumber()).isEqualTo(UPDATED_CARD_NUMBER);
         assertThat(testBookingPayment.getCardExpiry()).isEqualTo(UPDATED_CARD_EXPIRY);
         assertThat(testBookingPayment.getCardCcv()).isEqualTo(UPDATED_CARD_CCV);
+        assertThat(testBookingPayment.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
+        assertThat(testBookingPayment.getEditDate()).isEqualTo(UPDATED_EDIT_DATE);
+        assertThat(testBookingPayment.isApproval()).isEqualTo(UPDATED_APPROVAL);
 
         // Validate the BookingPayment in ElasticSearch
         BookingPayment bookingPaymentEs = bookingPaymentSearchRepository.findOne(testBookingPayment.getId());
@@ -503,13 +513,14 @@ public class BookingPaymentResourceIntTest {
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].currency").value(hasItem(DEFAULT_CURRENCY.toString())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
-            .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
-            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
             .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
             .andExpect(jsonPath("$.[*].cardHolder").value(hasItem(DEFAULT_CARD_HOLDER.toString())))
             .andExpect(jsonPath("$.[*].cardType").value(hasItem(DEFAULT_CARD_TYPE.toString())))
             .andExpect(jsonPath("$.[*].cardNumber").value(hasItem(DEFAULT_CARD_NUMBER)))
-            .andExpect(jsonPath("$.[*].cardExpiry").value(hasItem(DEFAULT_CARD_EXPIRY)))
-            .andExpect(jsonPath("$.[*].cardCcv").value(hasItem(DEFAULT_CARD_CCV)));
+            .andExpect(jsonPath("$.[*].cardExpiry").value(hasItem(DEFAULT_CARD_EXPIRY.toString())))
+            .andExpect(jsonPath("$.[*].cardCcv").value(hasItem(DEFAULT_CARD_CCV)))
+            .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE_STR)))
+            .andExpect(jsonPath("$.[*].editDate").value(hasItem(DEFAULT_EDIT_DATE_STR)))
+            .andExpect(jsonPath("$.[*].approval").value(hasItem(DEFAULT_APPROVAL.booleanValue())));
     }
 }

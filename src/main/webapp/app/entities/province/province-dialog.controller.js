@@ -5,15 +5,13 @@
         .module('mozhotelsbookingApp')
         .controller('ProvinceDialogController', ProvinceDialogController);
 
-    ProvinceDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'Province', 'LocalTur', 'Picture', 'Region'];
+    ProvinceDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Province', 'LocalTur', 'Picture', 'Region'];
 
-    function ProvinceDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, Province, LocalTur, Picture, Region) {
+    function ProvinceDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Province, LocalTur, Picture, Region) {
         var vm = this;
 
         vm.province = entity;
         vm.clear = clear;
-        vm.byteSize = DataUtils.byteSize;
-        vm.openFile = DataUtils.openFile;
         vm.save = save;
         vm.localturs = LocalTur.query();
         vm.pictures = Picture.query();
@@ -46,20 +44,6 @@
             vm.isSaving = false;
         }
 
-
-        vm.setPhotoPrincipal = function ($file, province) {
-            if ($file && $file.$error === 'pattern') {
-                return;
-            }
-            if ($file) {
-                DataUtils.toBase64($file, function(base64Data) {
-                    $scope.$apply(function() {
-                        province.photoPrincipal = base64Data;
-                        province.photoPrincipalContentType = $file.type;
-                    });
-                });
-            }
-        };
 
     }
 })();

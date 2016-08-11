@@ -11,11 +11,11 @@
         var vm = this;
 
         vm.dates = {
-       startDate: moment().subtract(1, "days"),
-       endDate: moment()
+       startDate: moment(),
+       endDate: moment().add(1, "days")
       };
 
-      vm.minDate =  moment().subtract(1, "days");
+      vm.minDate =  moment();
 
       vm.tabData   = [
         {

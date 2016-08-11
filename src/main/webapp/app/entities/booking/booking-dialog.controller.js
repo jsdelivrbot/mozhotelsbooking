@@ -5,9 +5,9 @@
         .module('mozhotelsbookingApp')
         .controller('BookingDialogController', BookingDialogController);
 
-    BookingDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Booking', 'InstanceRoomType', 'InstanceFacility', 'Tourist', 'GuestTourist', 'InstanceTur', 'BookingPayment'];
+    BookingDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Booking', 'InstanceFacility', 'Tourist', 'GuestTourist', 'InstanceTur', 'InstanceRoomType', 'BookingPayment'];
 
-    function BookingDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Booking, InstanceRoomType, InstanceFacility, Tourist, GuestTourist, InstanceTur, BookingPayment) {
+    function BookingDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Booking, InstanceFacility, Tourist, GuestTourist, InstanceTur, InstanceRoomType, BookingPayment) {
         var vm = this;
 
         vm.booking = entity;
@@ -15,11 +15,11 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.instanceroomtypes = InstanceRoomType.query();
         vm.instancefacilities = InstanceFacility.query();
         vm.tourists = Tourist.query();
         vm.guesttourists = GuestTourist.query();
         vm.instanceturs = InstanceTur.query();
+        vm.instanceroomtypes = InstanceRoomType.query();
         vm.bookingpayments = BookingPayment.query();
 
         $timeout(function (){

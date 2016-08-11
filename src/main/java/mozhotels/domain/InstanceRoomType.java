@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -35,8 +36,8 @@ public class InstanceRoomType implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "quantity")
-    private Integer quantity;
+    @Column(name = "room_quantity")
+    private Integer roomQuantity;
 
     @Column(name = "capacity_adults")
     private Integer capacityAdults;
@@ -48,8 +49,7 @@ public class InstanceRoomType implements Serializable {
     @Column(name = "online_price", precision=10, scale=2, nullable = false)
     private BigDecimal onlinePrice;
 
-    @NotNull
-    @Column(name = "branch_price", precision=10, scale=2, nullable = false)
+    @Column(name = "branch_price", precision=10, scale=2)
     private BigDecimal branchPrice;
 
     @Column(name = "tax_include")
@@ -65,6 +65,18 @@ public class InstanceRoomType implements Serializable {
     @Column(name = "photo_principal_content_type")
     private String photoPrincipalContentType;
 
+    @Column(name = "create_date")
+    private ZonedDateTime createDate;
+
+    @Column(name = "edit_date")
+    private ZonedDateTime editDate;
+
+    @Column(name = "active")
+    private Boolean active;
+
+    @Column(name = "approval")
+    private Boolean approval;
+
     @OneToMany(mappedBy = "instanceRoomType")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -77,13 +89,13 @@ public class InstanceRoomType implements Serializable {
                inverseJoinColumns = @JoinColumn(name="instance_room_facilities_id", referencedColumnName="ID"))
     private Set<InstanceFacility> instanceRoomFacilities = new HashSet<>();
 
-    @ManyToOne
-    private InstanceTur instanceTur;
-
-    @ManyToMany(mappedBy = "instanceRoomTypes")
+    @OneToMany(mappedBy = "instanceRoomType")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Booking> bookings = new HashSet<>();
+
+    @ManyToOne
+    private InstanceTur instanceTur;
 
     public Long getId() {
         return id;
@@ -109,12 +121,12 @@ public class InstanceRoomType implements Serializable {
         this.description = description;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getRoomQuantity() {
+        return roomQuantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setRoomQuantity(Integer roomQuantity) {
+        this.roomQuantity = roomQuantity;
     }
 
     public Integer getCapacityAdults() {
@@ -181,6 +193,38 @@ public class InstanceRoomType implements Serializable {
         this.photoPrincipalContentType = photoPrincipalContentType;
     }
 
+    public ZonedDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(ZonedDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public ZonedDateTime getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(ZonedDateTime editDate) {
+        this.editDate = editDate;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Boolean isApproval() {
+        return approval;
+    }
+
+    public void setApproval(Boolean approval) {
+        this.approval = approval;
+    }
+
     public Set<Picture> getPictures() {
         return pictures;
     }
@@ -197,20 +241,20 @@ public class InstanceRoomType implements Serializable {
         this.instanceRoomFacilities = instanceFacilities;
     }
 
-    public InstanceTur getInstanceTur() {
-        return instanceTur;
-    }
-
-    public void setInstanceTur(InstanceTur instanceTur) {
-        this.instanceTur = instanceTur;
-    }
-
     public Set<Booking> getBookings() {
         return bookings;
     }
 
     public void setBookings(Set<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public InstanceTur getInstanceTur() {
+        return instanceTur;
+    }
+
+    public void setInstanceTur(InstanceTur instanceTur) {
+        this.instanceTur = instanceTur;
     }
 
     @Override
@@ -239,7 +283,7 @@ public class InstanceRoomType implements Serializable {
             "id=" + id +
             ", instanceRoomTypeName='" + instanceRoomTypeName + "'" +
             ", description='" + description + "'" +
-            ", quantity='" + quantity + "'" +
+            ", roomQuantity='" + roomQuantity + "'" +
             ", capacityAdults='" + capacityAdults + "'" +
             ", capacityChildren='" + capacityChildren + "'" +
             ", onlinePrice='" + onlinePrice + "'" +
@@ -248,6 +292,10 @@ public class InstanceRoomType implements Serializable {
             ", tax='" + tax + "'" +
             ", photoPrincipal='" + photoPrincipal + "'" +
             ", photoPrincipalContentType='" + photoPrincipalContentType + "'" +
+            ", createDate='" + createDate + "'" +
+            ", editDate='" + editDate + "'" +
+            ", active='" + active + "'" +
+            ", approval='" + approval + "'" +
             '}';
     }
 }

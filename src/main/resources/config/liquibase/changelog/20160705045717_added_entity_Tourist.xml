@@ -61,11 +61,19 @@
             </column>
             
             <column name="create_date" type="timestamp">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             
             <column name="edit_date" type="timestamp">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="active" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="approval" type="bit">
+                <constraints nullable="true" />
             </column>
                         <column name="user_id" type="bigint">
                 <constraints unique="true" nullable="true" />

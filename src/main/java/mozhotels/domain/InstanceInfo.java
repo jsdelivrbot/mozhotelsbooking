@@ -35,6 +35,10 @@ public class InstanceInfo implements Serializable {
     @Column(name = "instance_info_name", nullable = false)
     private String instanceInfoName;
 
+    @NotNull
+    @Column(name = "info", nullable = false)
+    private String info;
+
     @Column(name = "description")
     private String description;
 
@@ -66,6 +70,14 @@ public class InstanceInfo implements Serializable {
 
     public void setInstanceInfoName(String instanceInfoName) {
         this.instanceInfoName = instanceInfoName;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public String getDescription() {
@@ -118,6 +130,7 @@ public class InstanceInfo implements Serializable {
             "id=" + id +
             ", instanceInfo='" + instanceInfo + "'" +
             ", instanceInfoName='" + instanceInfoName + "'" +
+            ", info='" + info + "'" +
             ", description='" + description + "'" +
             '}';
     }

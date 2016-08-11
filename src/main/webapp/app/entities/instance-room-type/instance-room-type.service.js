@@ -4,9 +4,9 @@
         .module('mozhotelsbookingApp')
         .factory('InstanceRoomType', InstanceRoomType);
 
-    InstanceRoomType.$inject = ['$resource'];
+    InstanceRoomType.$inject = ['$resource', 'DateUtils'];
 
-    function InstanceRoomType ($resource) {
+    function InstanceRoomType ($resource, DateUtils) {
         var resourceUrl =  'api/instance-room-types/:id';
 
         return $resource(resourceUrl, {}, {
@@ -16,6 +16,8 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
+                        data.createDate = DateUtils.convertDateTimeFromServer(data.createDate);
+                        data.editDate = DateUtils.convertDateTimeFromServer(data.editDate);
                     }
                     return data;
                 }

@@ -26,17 +26,17 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="mozhotelsbookingApp.instanceActivity.description" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
-                    ng-model="vm.instanceActivity.description"
-                     />
-        </div>
-        <div class="form-group">
             <label class="control-label" translate="mozhotelsbookingApp.instanceActivity.area" for="field_area">Area</label>
             <select class="form-control" name="area" ng-model="vm.instanceActivity.area" id="field_area">
                 <option value="INSIDE" translate="mozhotelsbookingApp.ActivityArea.INSIDE">INSIDE</option>
                 <option value="OUTSIDE" translate="mozhotelsbookingApp.ActivityArea.OUTSIDE">OUTSIDE</option>
             </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="mozhotelsbookingApp.instanceActivity.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.instanceActivity.description"
+                     />
         </div>
         <div class="form-group" ngf-drop ngf-change="vm.setPhotoPrincipal($file, vm.instanceActivity)" ngf-pattern="'image/*'">
             <label class="control-label" translate="mozhotelsbookingApp.instanceActivity.photoPrincipal" for="field_photoPrincipal">Photo Principal</label>
@@ -62,17 +62,19 @@
         </div>
 
         <div class="form-group">
-            <label translate="mozhotelsbookingApp.instanceActivity.instanceActivityType" for="field_instanceActivityType">Instance Activity Type</label>
-            <select class="form-control" id="field_instanceActivityType" name="instanceActivityType" ng-model="vm.instanceActivity.instanceActivityType" ng-options="instanceActivityType as instanceActivityType.instanceActivityTypeName for instanceActivityType in vm.instanceactivitytypes track by instanceActivityType.id">
-                <option value=""></option>
-            </select>
-        </div>
-        <div class="form-group">
             <label translate="mozhotelsbookingApp.instanceActivity.instanceTur" for="field_instanceTur">Instance Tur</label>
-            <select class="form-control" id="field_instanceTur" name="instanceTur" ng-model="vm.instanceActivity.instanceTur" ng-options="instanceTur as instanceTur.instanceTurName for instanceTur in vm.instanceturs track by instanceTur.id">
+            <select class="form-control" id="field_instanceTur" name="instanceTur" ng-change="vm.activities();" ng-model="vm.instanceActivity.instanceTur" ng-options="instanceTur as instanceTur.instanceTurName for instanceTur in vm.instanceturs track by instanceTur.id">
                 <option value=""></option>
             </select>
         </div>
+
+        <div class="form-group">
+            <label translate="mozhotelsbookingApp.instanceActivity.instanceActivityType" for="field_instanceActivityType">Instance Activity Type</label>
+            <select class="form-control" id="field_instanceActivityType" name="instanceActivityType" ng-disable="!vm.instancefacilitytypes" ng-model="vm.instanceActivity.instanceActivityType" ng-options="instanceActivityType as instanceActivityType.instanceActivityTypeName for instanceActivityType in vm.instanceactivitytypes track by instanceActivityType.id">
+                <option value=""></option>
+            </select>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

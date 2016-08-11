@@ -43,6 +43,12 @@ public class ElasticsearchIndexService {
     private CountrySearchRepository countrySearchRepository;
 
     @Inject
+    private FavoriteRepository favoriteRepository;
+
+    @Inject
+    private FavoriteSearchRepository favoriteSearchRepository;
+
+    @Inject
     private GuestTouristRepository guestTouristRepository;
 
     @Inject
@@ -165,6 +171,7 @@ public class ElasticsearchIndexService {
         reindexForClass(Booking.class, bookingRepository, bookingSearchRepository);
         reindexForClass(BookingPayment.class, bookingPaymentRepository, bookingPaymentSearchRepository);
         reindexForClass(Country.class, countryRepository, countrySearchRepository);
+        reindexForClass(Favorite.class, favoriteRepository, favoriteSearchRepository);
         reindexForClass(GuestTourist.class, guestTouristRepository, guestTouristSearchRepository);
         reindexForClass(Info.class, infoRepository, infoSearchRepository);
         reindexForClass(InstanceActivity.class, instanceActivityRepository, instanceActivitySearchRepository);
