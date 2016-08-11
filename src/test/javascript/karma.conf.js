@@ -32,6 +32,7 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/moment/moment.js',
             'src/main/webapp/bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
             'src/main/webapp/bower_components/bootstrap-daterangepicker/daterangepicker.js',
+            'src/main/webapp/bower_components/angularjs-slider/dist/rzslider.js',
             'src/main/webapp/bower_components/angular/angular.js',
             'src/main/webapp/bower_components/angular-aria/angular-aria.js',
             'src/main/webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',

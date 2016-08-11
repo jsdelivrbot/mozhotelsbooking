@@ -31,7 +31,8 @@
     "swagger-ui": "2.1.4",
     "alasql": "^0.2.7",
     "angular-datepicker": "^2.0.3",
-    "angular-daterangepicker": "^0.2.2"
+    "angular-daterangepicker": "^0.2.2",
+    "angularjs-slider": "^5.4.3"
   },
   "devDependencies": {
     "angular-mocks": "1.5.5"
